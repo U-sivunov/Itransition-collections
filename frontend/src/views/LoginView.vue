@@ -24,16 +24,15 @@ export default {
   },
   methods: {
     login() {
-      // Здесь вы можете реализовать логику отправки данных на сервер для аутентификации
-      // Например, использовать axios или другую библиотеку для выполнения HTTP-запроса
-      // Пример использования axios:
-      // axios.post('/auth/login', { username: this.username, password: this.password })
-      //   .then(response => {
-      //     // Обработка успешного входа
-      //   })
-      //   .catch(error => {
-      //     // Обработка ошибки входа
-      //   });
+      fetch("loging", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify([this.username, this.password, this.email]),
+      }).then((res) => {
+        res.json().then((j) => {
+          console.log(j);
+        });
+      });
     },
   },
 };
