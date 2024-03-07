@@ -1,7 +1,12 @@
+
+
+
 const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
 
 function initialize(passport, getUserByUsername, getUserById) {
     const authenticateUser = async (username, password, done) => {
+        console.log('ggggg')
         const user = getUserByUsername(username);
 
         if (user == null) {
@@ -9,7 +14,8 @@ function initialize(passport, getUserByUsername, getUserById) {
         }
 
         try {
-            if (password === user.password) {
+            // Сравнение введенного пароля с хэшированным паролем из базы данных
+            if (await bcrypt.compare(password, user.password)) {
                 return done(null, user);
             } else {
                 return done(null, false, { message: 'Password incorrect' });

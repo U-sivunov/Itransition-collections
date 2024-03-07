@@ -28,7 +28,16 @@ export default {
   },
   methods: {
     register() {
-      axios.post("/api/register", { username: this.username, password: this.password, email: this.email });
+      // axios.post("/api/register",{username: this.username, password: this.password, email: this.email});
+      fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify([this.username, this.password, this.email]),
+      }).then((res) => {
+        res.json().then((j) => {
+          console.log(j);
+        });
+      });
     },
   },
 };
