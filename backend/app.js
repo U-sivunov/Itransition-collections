@@ -7,7 +7,9 @@ const initializePassport = require('./passport-config');
 const { Sequelize } = require('sequelize');
 const app = express();
 const env = process.env.NODE_ENV || 'development';
+const router = express.Router();
 const config = require(__dirname + '/config/config.json')[env];
+const bcrypt = require('bcrypt');
 // Ваша конфигурация и middleware для Express.js
 
 
@@ -48,7 +50,7 @@ initializePassport(
 );
 
 
-app.get('/test', (req, res) => {
+app.get('/api/test', (req, res) => {
     if (req.isAuthenticated()) {
         res.send(`<h1>Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
     } else {
@@ -56,27 +58,50 @@ app.get('/test', (req, res) => {
     }
 });
 
-app.post('/loging', (req, res) => {
+app.post('/api/loging', (req, res) => {
     passport.authenticate('local', {
-        successRedirect: '/44444',
-        failureRedirect: '/login55',
         failureFlash: true,
     });
 });
 
-app.post('api/login', (req, res) => {
-    passport.authenticate('local', {
-        successRedirect: '/44444',
-        failureRedirect: '/login55',
-        failureFlash: true,
-    });
+router.post('/api/registering', async (req, res) => {
+    console.log('8888');
+    try {
+        const username = req.body[0];
+        const password = req.body[1];
+        const email = req.body[2];
+        console.log(req.body);
+        console.log(password);
+        debugger
+        // Генерация соли
+        const salt = await bcrypt.genSalt(10,);
+
+        // Хэширование пароля с использованием соли
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // Создание пользователя с хэшированным паролем
+        const user = await User.create({ username, password: hashedPassword, email });
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error777' });
+    }
+    res.send();
 });
+
+// app.post('api/login', (req, res) => {
+//     passport.authenticate('local', {
+//         successRedirect: '/44444',
+//         failureRedirect: '/login55',
+//         failureFlash: true,
+//     });
+// });
 
 function lgut() {
     console.log("HHHHHh")
 }
 
-app.get('/logout', (req, res) => {
+app.get('/api/logout', (req, res) => {
     req.logout(lgut);
     res.redirect('/');
 });
@@ -92,25 +117,7 @@ app.get('/logout', (req, res) => {
 //     }
 // });
 
-app.post('api/register', async (req, res) => {
-    console.error('44444');
-    try {
-        const { username, password, email } = req.body;
 
-        // Генерация соли
-        const salt = await bcrypt.genSalt(10);
-
-        // Хэширование пароля с использованием соли
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        // Создание пользователя с хэшированным паролем
-        const user = await User.create({ username, password: hashedPassword, email });
-        res.json(user);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error777' });
-    }
-});
-
+app.use(router)
 module.exports = app;
 

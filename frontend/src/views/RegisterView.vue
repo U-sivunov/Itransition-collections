@@ -28,14 +28,15 @@ export default {
   },
   methods: {
     register() {
+      console.log("j");
       // axios.post("/api/register",{username: this.username, password: this.password, email: this.email});
-      fetch("/api/register", {
+      fetch("api/registering", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify([this.username, this.password, this.email]),
       }).then((res) => {
         res.json().then((j) => {
-          console.log(j);
+          console.log("555555555555");
         });
       });
     },

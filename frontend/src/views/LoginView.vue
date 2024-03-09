@@ -1,4 +1,3 @@
-<!-- frontend/src/views/Login.vue -->
 <template>
   <div>
     <h2>Login</h2>
@@ -24,7 +23,7 @@ export default {
   },
   methods: {
     login() {
-      fetch("loging", {
+      fetch("api/loging", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify([this.username, this.password, this.email]),
