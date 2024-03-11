@@ -18,6 +18,7 @@
     "password": "7kC4h3CqFuEgyR0YjzA9hFiNlsdGtNwc",
     "database": "database_collections",
     "host": "postgres://database_collections_user:7kC4h3CqFuEgyR0YjzA9hFiNlsdGtNwc@dpg-cnnl5k6d3nmc73a8rspg-a/database_collections",
-    "dialect": "mysql"
+    "port": 5432,
+    "dialect": "postgres"
   }
 }
