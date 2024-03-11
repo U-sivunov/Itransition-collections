@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently \"cd frontend && npm install && npm run serve\" \"cd backend  && npm install && npm start\"",
+    "start": "concurrently \"cd frontend && npm install && npm run serve\" \"cd backend  && npm install && NODE_OPTIONS=\"--max-old-space-size=256\" npm start\"",
     "build": "concurrently \"npm install\" \"cd frontend && npm install && npm run build\" \"cd backend && npm install\"",
     "deploy": "cd backend && npm install && npm start"
   },
