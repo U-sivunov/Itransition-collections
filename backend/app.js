@@ -6,7 +6,7 @@ const initializePassport = require('./passport-config');
 // const authRoutes = require('./routes/auth-routes');
 const { Sequelize } = require('sequelize');
 const app = express();
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV1 || 'development';
 console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 console.log(env);
 const router = express.Router();
