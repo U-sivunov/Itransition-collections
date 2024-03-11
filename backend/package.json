@@ -12,7 +12,9 @@
     "mysql2": "^3.9.2",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "sequelize": "^6.37.1"
+    "sequelize": "^6.37.1",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
