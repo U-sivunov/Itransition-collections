@@ -25,7 +25,7 @@ sequelize.authenticate()
         console.error('Unable to connect to the database:', err);
     });
 
-const User = require('./models/User')(sequelize, Sequelize);
+const User = require('./models/user')(sequelize, Sequelize);
 
 sequelize.sync()
     .then(() => {
