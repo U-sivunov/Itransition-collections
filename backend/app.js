@@ -7,6 +7,8 @@ const initializePassport = require('./passport-config');
 const { Sequelize } = require('sequelize');
 const app = express();
 const env = process.env.NODE_ENV || 'development';
+console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+console.log(env);
 const router = express.Router();
 const config = require(__dirname + '/config/config.json')[env];
 const bcrypt = require('bcrypt');
