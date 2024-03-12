@@ -12,7 +12,7 @@ console.log(env);
 console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 const router = express.Router();
 const config = require(__dirname + '/config/config.json')[env];
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 // Ваша конфигурация и middleware для Express.js
 
 
@@ -78,8 +78,7 @@ router.post('/api/registering', async (req, res) => {
         console.log(password);
         debugger
         // Генерация соли
-        // const salt = await bcrypt.genSalt(10,);
-        const salt = 'fgsddaaadg';
+        const salt = await bcrypt.genSalt(10,);
 
         // Хэширование пароля с использованием соли
         const hashedPassword = await bcrypt.hash(password, salt);
