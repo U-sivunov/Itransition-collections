@@ -28,5 +28,13 @@
     "host": "cdgn4ufq38ipd0.cluster-czz5s0kz4scl.eu-west-1.rds.amazonaws.com",
     "port": 5432,
     "dialect": "postgres"
+  },
+  "productions": {
+    "username": "uitjuug4ap9p1",
+    "password": "p4dc99d109f90b566cbac387052d136b0f4fa0ce9c4a5991bb0657165b62a0564",
+    "database": "dbem74e6kpgaev",
+    "host": "cdgn4ufq38ipd0.cluster-czz5s0kz4scl.eu-west-1.rds.amazonaws.com",
+    "port": 5432,
+    "dialect": "postgres"
   }
 }
