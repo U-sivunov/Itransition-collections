@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "buildCommand": "ncc build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "functions": {
+    "index.js": {
+      "memory": 512,
+      "maxDuration": 10
+    }
+  }
+}
