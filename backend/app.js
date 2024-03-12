@@ -16,7 +16,8 @@ const bcrypt = require('bcrypt');
 
 
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config,);
+// const sequelize = new Sequelize(config.database, config.username, config.password, config,);
+const sequelize = new Sequelize("postgres://neondb_owner:******@ep-frosty-resonance-a2456qcs-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require");
 
 
 sequelize.authenticate()
