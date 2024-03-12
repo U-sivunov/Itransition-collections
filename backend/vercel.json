@@ -3,5 +3,8 @@
   "buildCommand": "ncc build",
   "installCommand": "npm install",
   "outputDirectory": "dist",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "builds": [
+    { "src": "*.js", "use": "@vercel/node" }
+    ]
 }
