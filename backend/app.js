@@ -22,17 +22,6 @@ const config = {
     "dialectModule": pg, // I've added this.
 };
 const bcrypt = require('bcrypt');
-import pg from "pg"
-// Ваша конфигурация и middleware для Express.js
-
-
-
-// const sequelize = new Sequelize(config.database, config.username, config.password, config,);
-// const sequelize = new Sequelize("postgres://default:9zmItEg8UaPb@ep-weathered-sun-a4rcuabw.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require", config);
-
-const sequelize = new Sequelize('postgres://default:9zmItEg8UaPb@ep-weathered-sun-a4rcuabw.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require', {
-    dialectModule: require('pg')
-});
 
 
 sequelize.authenticate()
@@ -66,6 +55,30 @@ initializePassport(
     username => User.findOne({ where: { username } }),
     id => User.findByPk(id)
 );
+
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+async function main() {
+    const user = await prisma.user.create({
+        data: {
+            name: 'Alice',
+            email: 'alice@prisma.io',
+        },
+    })
+    console.log(user)
+}
+
+main()
+    .then(async () => {
+        await prisma.$disconnect()
+    })
+    .catch(async (e) => {
+        console.error(e)
+        await prisma.$disconnect()
+        process.exit(1)
+    })
 
 
 app.get('/api/test', (req, res) => {

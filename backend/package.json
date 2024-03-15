@@ -6,6 +6,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "@prisma/client": "^5.11.0",
     "@vercel/edge-config": "^1.1.0",
     "@vercel/ncc": "^0.38.1",
     "@vercel/postgres": "^0.7.2",
