@@ -55,7 +55,7 @@ sequelize.sync()
 
 // Ваша конфигурация и middleware для Express.js
 app.use(express.json());
-// app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session(undefined));
 // app.use(authRoutes);
