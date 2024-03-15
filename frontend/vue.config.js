@@ -3,7 +3,7 @@ module.exports = {
   devServer: {
     proxy: {
       "/api/": {
-        target: "http://localhost:3000",
+        target: "https://itransition-collections-back2-git-main-u-sivunovs-projects.vercel.app:3000",
         changeOrigin: true,
       },
     },
