@@ -18,7 +18,7 @@ const bcrypt = require('bcrypt');
 
 
 // const sequelize = new Sequelize(config.database, config.username, config.password, config,);
-const sequelize = new Sequelize("psql \"postgres://default:9zmItEg8UaPb@ep-weathered-sun-a4rcuabw.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require");
+const sequelize = new Sequelize("postgres://default:9zmItEg8UaPb@ep-weathered-sun-a4rcuabw.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require", config);
 
 
 sequelize.authenticate()
