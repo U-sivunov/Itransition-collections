@@ -43,15 +43,15 @@ sequelize.authenticate()
         console.error('Unable to connect to the database:', err);
     });
 
-const User = require('./models/user')(sequelize, Sequelize);
-
-sequelize.sync()
-    .then(() => {
-        console.log('Models have been synchronized with the database.');
-    })
-    .catch(err => {
-        console.error('Unable to synchronize models with the database:', err);
-    });
+// const User = require('./models/user')(sequelize, Sequelize);
+//
+// sequelize.sync()
+//     .then(() => {
+//         console.log('Models have been synchronized with the database.');
+//     })
+//     .catch(err => {
+//         console.error('Unable to synchronize models with the database:', err);
+//     });
 
 // Ваша конфигурация и middleware для Express.js
 app.use(express.json());
