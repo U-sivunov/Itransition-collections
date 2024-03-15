@@ -16,7 +16,7 @@ const config = {
     "username": "default",
     "password": "9zmItEg8UaPb",
     "database": "verceldb",
-    "host": "ep-weathered-sun-a4rcuabw-pooler.us-east-1.aws.neon.tech/verceldb?sslmode=require",
+    "host": "ep-weathered-sun-a4rcuabw-pooler.us-east-1.aws.neon.tech/",
     "port": 5432,
     "dialect": "postgres",
     "dialectModule": pg, // I've added this.
@@ -27,8 +27,12 @@ import pg from "pg"
 
 
 
-const sequelize = new Sequelize(config.database, config.username, config.password, config,);
+// const sequelize = new Sequelize(config.database, config.username, config.password, config,);
 // const sequelize = new Sequelize("postgres://default:9zmItEg8UaPb@ep-weathered-sun-a4rcuabw.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require", config);
+
+const sequelize = new Sequelize('postgres://default:9zmItEg8UaPb@ep-weathered-sun-a4rcuabw.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require', {
+    dialectModule: require('pg')
+});
 
 
 sequelize.authenticate()
