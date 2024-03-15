@@ -12,25 +12,16 @@ console.log(env);
 console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 const router = express.Router();
 // const config = require(__dirname + '/config/config.json')[env];
-const config = {
-    "username": "default",
-    "password": "9zmItEg8UaPb",
-    "database": "verceldb",
-    "host": "ep-weathered-sun-a4rcuabw-pooler.us-east-1.aws.neon.tech/",
-    "port": 5432,
-    "dialect": "postgres",
-    "dialectModule": pg, // I've added this.
-};
 const bcrypt = require('bcrypt');
 
 
-sequelize.authenticate()
-    .then(() => {
-        console.log('Connection to the database has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
+// sequelize.authenticate()
+//     .then(() => {
+//         console.log('Connection to the database has been established successfully.');
+//     })
+//     .catch(err => {
+//         console.error('Unable to connect to the database:', err);
+//     });
 
 // const User = require('./models/user')(sequelize, Sequelize);
 //
