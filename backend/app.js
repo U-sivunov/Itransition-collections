@@ -16,7 +16,7 @@ const config = {
     "username": "default",
     "password": "9zmItEg8UaPb",
     "database": "verceldb",
-    "host": "ep-weathered-sun-a4rcuabw-pooler.us-east-1.aws.neon.tech",
+    "host": "ep-weathered-sun-a4rcuabw-pooler.us-east-1.aws.neon.tech/verceldb?sslmode=require",
     "port": 5432,
     "dialect": "postgres",
     "dialectModule": pg, // I've added this.
