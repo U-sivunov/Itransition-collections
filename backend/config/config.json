@@ -30,10 +30,10 @@
     "dialect": "postgres"
   },
   "productionv": {
-    "username": "uitjuug4ap9p1",
-    "password": "p4dc99d109f90b566cbac387052d136b0f4fa0ce9c4a5991bb0657165b62a0564",
-    "database": "dbem74e6kpgaev",
-    "host": "9zmItEg8UaPb@ep-weathered-sun-a4rcuabw.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require",
+    "username": "default",
+    "password": "9zmItEg8UaPb",
+    "database": "verceldb",
+    "host": "ep-weathered-sun-a4rcuabw-pooler.us-east-1.aws.neon.tech",
     "port": 5432,
     "dialect": "postgres"
   }
