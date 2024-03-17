@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const { PrismaClient } = require('@prisma/client');
 
 const session = require('express-session');
 const initializePassport = require('./passport-config');
@@ -28,8 +29,6 @@ initializePassport(
     username => User.findOne({ where: { username } }),
     id => User.findByPk(id)
 );
-
-import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
