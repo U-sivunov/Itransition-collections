@@ -61,12 +61,12 @@ app.get('/', (req, res) => {
     }
 });
 
-app.get('/test', (req, res) => {
+router.get('/test', (req, res) => {
     console.log('test');
     if (req.isAuthenticated()) {
-        res.send(`<h1>Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
+        res.send(`<h1>1111111Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
     } else {
-        res.send('<h1>Welcome to the main page. <a href="/login">Login</a></h1>');
+        res.send('<h1>11111111Welcome to the main page. <a href="/login">Login</a></h1>');
     }
 });
 
