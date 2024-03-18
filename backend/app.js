@@ -96,13 +96,13 @@ router.post('/api/registering', async (req, res) => {
     res.send();
 });
 
-// app.post('api/login', (req, res) => {
-//     passport.authenticate('local', {
-//         successRedirect: '/44444',
-//         failureRedirect: '/login55',
-//         failureFlash: true,
-//     });
-// });
+app.post('api/login', (req, res) => {
+    passport.authenticate('local', {
+        successRedirect: '/44444',
+        failureRedirect: '/login55',
+        failureFlash: true,
+    });
+});
 
 function lgut() {
     console.log("HHHHHh")
@@ -113,16 +113,16 @@ app.get('/api/logout', (req, res) => {
     res.redirect('/');
 });
 
-// router.post('/api/register', async (req, res) => {
-//     try {
-//         const { username, password, email } = req.body;
-//         const user = await User.create({ username, password, email });
-//         res.json(user);
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ message: 'Internal Server Error' });
-//     }
-// });
+router.post('/api/register', async (req, res) => {
+    try {
+        const { username, password, email } = req.body;
+        const user = await User.create({ username, password, email });
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
 
 
 app.use(router)
