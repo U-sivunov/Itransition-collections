@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     login() {
-      fetch("api/loging", {
+      fetch("api/login", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify([this.username, this.password, this.email]),

@@ -14,6 +14,7 @@
       <button type="submit">Register</button>
     </form>
   </div>
+  <div onclick="test()">testttt</div>
 </template>
 
 <script>
@@ -27,15 +28,26 @@ export default {
   },
   methods: {
     register() {
-      console.log("j");
       // axios.post("/api/register",{username: this.username, password: this.password, email: this.email});
-      fetch("api/registering", {
+      fetch("api/register", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify([this.username, this.password, this.email]),
       }).then((res) => {
-        res.json().then((j) => {
+        res.json().then(() => {
           console.log("555555555555");
+        });
+      });
+    },
+    test() {
+      console.log("tessttt");
+      fetch("api/test", {
+        method: "GET",
+        headers: { "Content-type": "application/json" },
+      }).then((res) => {
+        res.json().then(() => {
+          console.log("555555555555");
+          console.log(res);
         });
       });
     },

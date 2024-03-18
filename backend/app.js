@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
 
 const session = require('express-session');
@@ -11,6 +12,7 @@ const bcrypt = require('bcrypt');
 
 
 // Ваша конфигурация и middleware для Express.js
+app.use(cors());
 app.use(express.json());
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
@@ -65,13 +67,17 @@ router.get('/test/', (req, res) => {
     }
 });
 
-router.post('/api/loging/', (req, res) => {
+router.post('/api/login', (req, res) => {
     passport.authenticate('local', {
         failureFlash: true,
     });
 });
 
-router.post('/api/registering', async (req, res) => {
+router.get('/api/test', (req, res) => {
+    res.send(`<h1>222222Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
+});
+
+router.post('/api/register', async (req, res) => {
     console.log('8888');
     try {
         const username = req.body[0];
