@@ -5,14 +5,8 @@ const { PrismaClient } = require('@prisma/client');
 const session = require('express-session');
 const initializePassport = require('./passport-config');
 // const authRoutes = require('./routes/auth-routes');
-const { Sequelize } = require('sequelize');
 const app = express();
-const env = process.env.NODE_ENV1 || 'development';
-console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
-console.log(env);
-console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 const router = express.Router();
-// const config = require(__dirname + '/config/config.json')[env];
 const bcrypt = require('bcrypt');
 
 
