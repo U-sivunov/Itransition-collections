@@ -53,7 +53,7 @@ main()
     })
 
 
-app.get('/api/test', (req, res) => {
+app.get('/test', (req, res) => {
     console.log('test');
     if (req.isAuthenticated()) {
         res.send(`<h1>Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
