@@ -52,16 +52,17 @@ main()
         process.exit(1)
     })
 
-app.get('/', (req, res) => {
-    console.log('test');
+router.get('/', (req, res) => {
+    console.log('test2');
+    console.log(req.body);
     if (req.isAuthenticated()) {
-        res.send(`<h1>Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
+        res.send(`<h1>222222Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
     } else {
-        res.send('<h1>Welcome to the main page. <a href="/login">Login</a></h1>');
+        res.send('<h1>22222222Welcome to the main page. <a href="/login">Login</a></h1>');
     }
 });
 
-router.get('/test', (req, res) => {
+router.get('/test/', (req, res) => {
     console.log('test');
     if (req.isAuthenticated()) {
         res.send(`<h1>1111111Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
@@ -70,7 +71,7 @@ router.get('/test', (req, res) => {
     }
 });
 
-app.post('/api/loging', (req, res) => {
+router.post('/api/loging/', (req, res) => {
     passport.authenticate('local', {
         failureFlash: true,
     });
