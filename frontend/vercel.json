@@ -1,9 +1,10 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "buildCommand": "echo vercel.config && npm run build ",
   "installCommand": "echo vercel.config && npm install",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "${process.env.API_URL}/api/$1" }
+    { "source": "/api/(.*)", "destination": "itransition-collections-back2.vercel.app/api/$1" }
   ]
 }
