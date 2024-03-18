@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -41,10 +42,7 @@ export default {
     },
     test() {
       console.log("tessttt");
-      fetch(process.env.API_URL + "api/test", {
-        method: "GET",
-        headers: { "Content-type": "application/json" },
-      }).then((res) => {
+      axios.get("/api/test").then((res) => {
         console.log("555555555555");
         console.log(res);
       });
