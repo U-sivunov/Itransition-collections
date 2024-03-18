@@ -14,7 +14,7 @@
       <button type="submit">Register</button>
     </form>
   </div>
-  <div onclick="test()">testttt</div>
+  <div v-on:click="test()">testttt</div>
 </template>
 
 <script>
@@ -39,19 +39,18 @@ export default {
         });
       });
     },
+    test() {
+      console.log("tessttt");
+      fetch("api/test", {
+        method: "GET",
+        headers: { "Content-type": "application/json" },
+      }).then((res) => {
+        console.log("555555555555");
+        console.log(res);
+      });
+    },
   },
 };
-
-function test() {
-  console.log("tessttt");
-  fetch("api/test", {
-    method: "GET",
-    headers: { "Content-type": "application/json" },
-  }).then((res) => {
-    console.log("555555555555");
-    console.log(res);
-  });
-}
 </script>
 
 <style scoped>
