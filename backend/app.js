@@ -49,13 +49,7 @@ main()
     })
 
 router.get('/', (req, res) => {
-    console.log('test2');
-    console.log(req.body);
-    if (req.isAuthenticated()) {
-        res.send(`<h1>222222Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
-    } else {
-        res.send('<h1>22222222Welcome to the main page. <a href="/login">Login</a></h1>');
-    }
+    res.send('Hello World!');
 });
 
 router.get('/test/', (req, res) => {
@@ -125,6 +119,11 @@ router.post('/api/register', async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
+});
+
+app.use((req, res, next) => {
+    console.log(`Received a ${req.method} request to ${req.url}`);
+    next();
 });
 
 
