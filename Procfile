@@ -1,1 +1,0 @@
-web: set NODE_OPTIONS="--max-old-space-size=460" && concurrently "cd frontend && npm install && npm run serve" "cd backend  && npm install && npm start"

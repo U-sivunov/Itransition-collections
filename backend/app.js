@@ -55,7 +55,7 @@ router.get('/', (req, res) => {
 router.get('/test/', (req, res) => {
     console.log('test');
     if (req.isAuthenticated()) {
-        res.send(`<h1>1111111Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
+        res.send(`<h1>1111111Hello</h1><a href="/logout">Logout</a>`);
     } else {
         res.send('<h1>11111111Welcome to the main page. <a href="/login">Login</a></h1>');
     }
@@ -69,7 +69,7 @@ router.post('/api/login', (req, res) => {
 
 router.get('/api/test', (req, res) => {
     console.log('api/test');
-    res.send(`<h1>222222Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
+    res.send(`<h1>222222Hello</h1><a href="/logout">Logout</a>`);
 });
 
 router.post('/api/register', async (req, res) => {
