@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "${process.env.API_URL}/api/$1" }
+  ]
+}
