@@ -52,6 +52,14 @@ main()
         process.exit(1)
     })
 
+app.get('/', (req, res) => {
+    console.log('test');
+    if (req.isAuthenticated()) {
+        res.send(`<h1>Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
+    } else {
+        res.send('<h1>Welcome to the main page. <a href="/login">Login</a></h1>');
+    }
+});
 
 app.get('/test', (req, res) => {
     console.log('test');
