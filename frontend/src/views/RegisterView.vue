@@ -39,20 +39,19 @@ export default {
         });
       });
     },
-    test() {
-      console.log("tessttt");
-      fetch("api/test", {
-        method: "GET",
-        headers: { "Content-type": "application/json" },
-      }).then((res) => {
-        res.json().then(() => {
-          console.log("555555555555");
-          console.log(res);
-        });
-      });
-    },
   },
 };
+
+function test() {
+  console.log("tessttt");
+  fetch("api/test", {
+    method: "GET",
+    headers: { "Content-type": "application/json" },
+  }).then((res) => {
+    console.log("555555555555");
+    console.log(res);
+  });
+}
 </script>
 
 <style scoped>
