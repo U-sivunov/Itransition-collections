@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -23,14 +24,8 @@ export default {
   },
   methods: {
     login() {
-      fetch("api/login", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        body: JSON.stringify([this.username, this.password, this.email]),
-      }).then((res) => {
-        res.json().then((j) => {
-          console.log(j);
-        });
+      axios.post("/api/login", { username: this.username, password: this.password, email: this.email }).then((res) => {
+        console.log(res);
       });
     },
   },
