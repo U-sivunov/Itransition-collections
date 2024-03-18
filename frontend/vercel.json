@@ -1,11 +1,8 @@
 {
   "version": 2,
   "buildCommand": "echo vercel.config && npm run build ",
-  "installCommand": "npm install",
+  "installCommand": "echo vercel.config && npm install",
   "outputDirectory": "dist",
-  "builds": [
-    { "src": "*.js", "use": "@vercel/node" }
-  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "${process.env.API_URL}/api/$1" }
   ]
