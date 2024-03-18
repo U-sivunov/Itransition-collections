@@ -74,6 +74,7 @@ router.post('/api/login', (req, res) => {
 });
 
 router.get('/api/test', (req, res) => {
+    console.log('api/test');
     res.send(`<h1>222222Hello ${req.user.username}</h1><a href="/logout">Logout</a>`);
 });
 
