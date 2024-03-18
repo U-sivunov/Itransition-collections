@@ -96,7 +96,7 @@ router.post('/api/registering', async (req, res) => {
     res.send();
 });
 
-app.post('api/login', (req, res) => {
+router.post('api/login', (req, res) => {
     passport.authenticate('local', {
         successRedirect: '/44444',
         failureRedirect: '/login55',
@@ -104,11 +104,7 @@ app.post('api/login', (req, res) => {
     });
 });
 
-function lgut() {
-    console.log("HHHHHh")
-}
-
-app.get('/api/logout', (req, res) => {
+router.get('/api/logout', (req, res) => {
     req.logout(lgut);
     res.redirect('/');
 });
