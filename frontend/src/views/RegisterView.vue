@@ -41,7 +41,7 @@ export default {
     },
     test() {
       console.log("tessttt");
-      fetch(process.env.API_URL+ "api/test", {
+      fetch(process.env.API_URL + "api/test", {
         method: "GET",
         headers: { "Content-type": "application/json" },
       }).then((res) => {
