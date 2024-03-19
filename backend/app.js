@@ -80,6 +80,7 @@ router.post('/api/register', async (req, res) => {
         const email = req.body.email[2];
         console.log(req.body);
         console.log(password);
+        console.log(username);
         debugger
         // Генерация соли
         const salt = await bcrypt.genSalt(10,);
@@ -88,11 +89,11 @@ router.post('/api/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // Создание пользователя с хэшированным паролем
-        const user = await await prisma.user.create({ username, password: hashedPassword, email });
+        const user = await prisma.user.create({ username: username, password: hashedPassword, email: email });
         res.json(user);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal Server Error777' });
+        res.status(500).json({ message: 'Internal Server Error - ' + error });
     }
     res.send();
 });
