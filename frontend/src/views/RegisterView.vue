@@ -13,6 +13,7 @@
       <br />
       <button type="submit">Register</button>
     </form>
+    <div v-if="errorTarget">such {{ errorTarget }} already exist</div>
   </div>
 </template>
 
@@ -24,6 +25,7 @@ export default {
       username: "",
       password: "",
       email: "",
+      errorTarget: "",
     };
   },
   methods: {
@@ -31,9 +33,13 @@ export default {
       axios
         .post("/api/register", { username: this.username, password: this.password, email: this.email })
         .then((res) => {
-          res.json().then(() => {
-            console.log(res);
-          });
+          console.log(res);
+        })
+        .catch((err) => {
+          if (err.code === "P2002") {
+            console.log(err.code);
+            this.errorTarget = err.meta.target;
+          }
         });
     },
   },
