@@ -76,8 +76,8 @@ router.post('/api/register', async (req, res) => {
     console.log('8888');
     try {
         const username = req.body.username;
-        const password = req.body.password[1];
-        const email = req.body.email[2];
+        const password = req.body.password;
+        const email = req.body.email;
         console.log(req.body);
         console.log(password);
         console.log(username);
