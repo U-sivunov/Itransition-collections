@@ -14,7 +14,6 @@
       <button type="submit">Register</button>
     </form>
   </div>
-  <div v-on:click="test()">testttt</div>
 </template>
 
 <script>
@@ -33,16 +32,9 @@ export default {
         .post("/api/register", { username: this.username, password: this.password, email: this.email })
         .then((res) => {
           res.json().then(() => {
-            console.log("555555555555");
+            console.log(res);
           });
         });
-    },
-    test() {
-      console.log("tessttt");
-      axios.get("/api/test").then((res) => {
-        console.log("555555555555");
-        console.log(res);
-      });
     },
   },
 };

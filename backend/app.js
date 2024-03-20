@@ -26,27 +26,7 @@ initializePassport(
     id => User.findByPk(id)
 );
 
-const prisma = new PrismaClient()
-
-async function main() {
-    // const user = await prisma.user.create({
-    //     data: {
-    //         name: 'Alice',
-    //         email: 'alice@prisma.io',
-    //     },
-    // })
-    // console.log(user)
-}
-
-main()
-    .then(async () => {
-        await prisma.$disconnect()
-    })
-    .catch(async (e) => {
-        console.error(e)
-        await prisma.$disconnect()
-        process.exit(1)
-    })
+const prisma = new PrismaClient();
 
 router.get('/', (req, res) => {
     res.send('Hello World!');
@@ -78,10 +58,6 @@ router.post('/api/register', async (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
         const email = req.body.email;
-        console.log(req.body);
-        console.log(password);
-        console.log(username);
-        debugger
         // Генерация соли
         const salt = await bcrypt.genSalt(10,);
 
@@ -93,7 +69,7 @@ router.post('/api/register', async (req, res) => {
         res.json(user);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal Server Error - ' + error });
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
     res.send();
 });
