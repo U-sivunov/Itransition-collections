@@ -89,7 +89,7 @@ router.post('/api/register', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
 
         // Создание пользователя с хэшированным паролем
-        const user = await prisma.user.create({ name: username, password: hashedPassword, email: email });
+        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email }});
         res.json(user);
     } catch (error) {
         console.error(error);
