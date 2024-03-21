@@ -11,6 +11,7 @@
       <button type="submit">Login</button>
     </form>
   </div>
+  <button onclick="test()">test</button>
 </template>
 
 <script>
@@ -25,6 +26,11 @@ export default {
   methods: {
     login() {
       axios.post("/api/login", { username: this.username, password: this.password, email: this.email }).then((res) => {
+        console.log(res);
+      });
+    },
+    test() {
+      axios.get("/api/au").then((res) => {
         console.log(res);
       });
     },

@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-router.get('/test/', (req, res) => {
+router.get('/test', (req, res) => {
     console.log('test');
     if (req.isAuthenticated()) {
         res.send(`<h1>1111111Hello</h1><a href="/logout">Logout</a>`);
@@ -47,9 +47,9 @@ router.post('/api/login', (req, res) => {
     });
 });
 
-router.get('/api/test', (req, res) => {
+router.get('/api/au', (req, res) => {
     console.log('api/test');
-    res.send(`<h1>222222Hello</h1><a href="/logout">Logout</a>`);
+    res.send(req.isAuthenticated().toString());
 });
 
 router.post('/api/register', async (req, res) => {
@@ -83,6 +83,11 @@ router.post('api/login', (req, res) => {
 });
 
 router.get('/api/logout', (req, res) => {
+    req.logout(lgut);
+    res.redirect('/');
+});
+
+router.get('/api/users', (req, res) => {
     req.logout(lgut);
     res.redirect('/');
 });
