@@ -17,8 +17,8 @@ app.use(passport.session(undefined));
 
 initializePassport(
     passport,
-    username => User.findOne({ where: { username } }),
-    id => User.findByPk(id)
+    username => prisma.user.findOne({ where: { username } }),
+    id => prisma.user.findByPk(id)
 );
 
 const prisma = new PrismaClient();
