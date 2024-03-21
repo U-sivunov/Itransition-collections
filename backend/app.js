@@ -94,6 +94,7 @@ router.post('/api/register', async (req, res) => {
         res.json(user);
     } catch (error) {
         console.error(error);
+        console.error("errrorrrr");
         res.status(400).json({ message: 'Internal Server Error' });
     }
 });
