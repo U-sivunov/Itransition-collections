@@ -5,21 +5,16 @@ const { PrismaClient } = require('@prisma/client');
 
 const session = require('express-session');
 const initializePassport = require('./passport-config');
-// const authRoutes = require('./routes/auth-routes');
 const app = express();
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
-
-// Ваша конфигурация и middleware для Express.js
 app.use(cors());
 app.use(express.json());
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session(undefined));
-// app.use(authRoutes);
 
-// Передаем функции для получения пользователя по имени и ID в initializePassport
 initializePassport(
     passport,
     username => User.findOne({ where: { username } }),
@@ -27,10 +22,6 @@ initializePassport(
 );
 
 const prisma = new PrismaClient();
-
-router.get('/', (req, res) => {
-    res.send('Hello World!');
-});
 
 router.get('/test', (req, res) => {
     console.log('test');
@@ -41,19 +32,12 @@ router.get('/test', (req, res) => {
     }
 });
 
-router.post('/api/login', (req, res) => {
-    passport.authenticate('local', {
-        failureFlash: true,
-    });
-});
-
 router.get('/api/au', (req, res) => {
-    console.log('api/test');
     res.send(req.isAuthenticated().toString());
+    // ещё нужно добавить информацию о наличии прав админа
 });
 
 router.post('/api/register', async (req, res) => {
-    console.log('8888');
     try {
         const username = req.body.username;
         const password = req.body.password;
@@ -74,28 +58,24 @@ router.post('/api/register', async (req, res) => {
     res.send();
 });
 
-router.post('api/login', (req, res) => {
-    passport.authenticate('local', {
-        successRedirect: '/44444',
-        failureRedirect: '/login55',
-        failureFlash: true,
-    });
+router.post('/api/login', passport.authenticate('local'), (req, res) => {
+    // Пользователь успешно аутентифицирован, можно отправить ответ
+    res.json({ status: 'success', message: 'Logged in successfully' });
 });
 
 router.get('/api/logout', (req, res) => {
-    req.logout(lgut);
-    res.redirect('/');
+    req.logout();
+    res.json({ status: 'success', message: 'Logged out successfully' });
 });
 
-router.get('/api/users', (req, res) => {
-    req.logout(lgut);
-    res.redirect('/');
-});
-
-
-app.use((req, res, next) => {
-    console.log(`Received a ${req.method} request to ${req.url}`);
-    next();
+router.get('/api/users', async (req, res) => {
+    try {
+        const users = await prisma.user.findMany();
+        res.json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error - ' + error });
+    }
 });
 
 
