@@ -31,19 +31,20 @@ export default {
   methods: {
     register() {
       console.log("000000");
-      axios
-        .post("/api/register", { username: this.username, password: this.password, email: this.email })
-        .then((res) => {
-          console.log("11111111");
-          console.log(res);
-        })
-        .catch((err) => {
-          if (err.code === "P2002") {
-            console.log("222222");
-            console.log(err.code);
-            this.errorTarget = err.meta.target;
-          }
-        });
+      try {
+        axios
+          .post("/api/register", { username: this.username, password: this.password, email: this.email })
+          .then((res) => {
+            console.log("11111111");
+            console.log(res);
+          });
+      } catch (err) {
+        if (err.code === "P2002") {
+          console.log("222222");
+          console.log(err.code);
+          this.errorTarget = err.meta.target;
+        }
+      }
     },
   },
 };

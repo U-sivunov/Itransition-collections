@@ -69,7 +69,7 @@ router.post('/api/register', async (req, res) => {
         res.json(user);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+        res.status(400).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
     res.send();
 });
@@ -87,17 +87,6 @@ router.get('/api/logout', (req, res) => {
     res.redirect('/');
 });
 
-router.post('/api/register', async (req, res) => {
-    try {
-        const { username, password, email } = req.body;
-        const user = await User.create({ username, password, email });
-        res.json(user);
-    } catch (error) {
-        console.error(error);
-        console.error("errrorrrr");
-        res.status(400).json({ message: 'Internal Server Error' });
-    }
-});
 
 app.use((req, res, next) => {
     console.log(`Received a ${req.method} request to ${req.url}`);
