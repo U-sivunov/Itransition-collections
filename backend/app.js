@@ -8,6 +8,45 @@ const initializePassport = require('./passport-config');
 const app = express();
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const LocalStrategy = require('passport-local').Strategy;
+
+
+passport.use(new LocalStrategy(
+    async (username, password, done) => {
+        try {
+            // Поиск пользователя по имени пользователя
+            const user = await prisma.user.findUnique({ where: { username } });
+            if (!user) {
+                return done(null, false, { message: 'Нет пользователя с таким именем.' });
+            }
+
+            // Сравнение хешированных паролей
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return done(null, false, { message: 'Неверный пароль.' });
+            }
+
+            // Пользователь найден и пароль совпадает
+            return done(null, user);
+        } catch (error) {
+            return done(error);
+        }
+    }
+,));
+
+// Сериализация и десериализация пользователя для сессии
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await prisma.user.findUnique({ where: { id } });
+        done(null, user);
+    } catch (error) {
+        done(error);
+    }
+});
 
 app.use(cors());
 app.use(express.json());
@@ -58,9 +97,21 @@ router.post('/api/register', async (req, res) => {
     res.send();
 });
 
-router.post('/api/login', passport.authenticate('local'), (req, res) => {
-    // Пользователь успешно аутентифицирован, можно отправить ответ
-    res.json({ status: 'success', message: 'Logged in successfully' });
+router.post('/api/login', (req, res, next) => {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return res.status(500).json({ message: err.message });
+        }
+        if (!user) {
+            return res.status(400).json({ message: info.message });
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return res.status(500).json({ message: err.message });
+            }
+            return res.json({ status: 'success', message: 'Logged in successfully' });
+        });
+    })(req, res, next);
 });
 
 router.get('/api/logout', (req, res) => {
