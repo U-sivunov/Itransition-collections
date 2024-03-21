@@ -11,7 +11,7 @@
       <button type="submit">Login</button>
     </form>
   </div>
-  <button onclick="test()">test</button>
+  <button v-on:click="test()">test</button>
 </template>
 
 <script>
