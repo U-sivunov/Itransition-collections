@@ -3,31 +3,45 @@
 
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
 function initialize(passport, getUserByUsername, getUserById) {
     const authenticateUser = async (username, password, done) => {
-        console.log('ggggg')
-        const user = getUserByUsername(username);
-
-        if (user == null) {
-            return done(null, false, { message: 'No user with that username' });
-        }
-
         try {
-            // Сравнение введенного пароля с хэшированным паролем из базы данных
-            if (await bcrypt.compare(password, user.password)) {
-                return done(null, user);
-            } else {
-                return done(null, false, { message: 'Password incorrect' });
+            // Поиск пользователя по имени пользователя
+            const user = await prisma.user.findUnique({where: {username}});
+            if (!user) {
+                return done(null, false, {message: 'Нет пользователя с таким именем.'});
             }
-        } catch (e) {
-            return done(e);
-        }
-    };
 
-    passport.use(new LocalStrategy({ usernameField: 'username' }, authenticateUser));
-    passport.serializeUser((user, done) => done(null, user.id));
-    passport.deserializeUser((id, done) => done(null, getUserById(id)));
+            // Сравнение хешированных паролей
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return done(null, false, {message: 'Неверный пароль.'});
+            }
+
+            // Пользователь найден и пароль совпадает
+            return done(null, user);
+        } catch (error) {
+            return done(error);
+        }
+    }
+
+    passport.use(new LocalStrategy({usernameField: 'username'}, authenticateUser));
+
+    passport.serializeUser((user, done) => {
+        done(null, user.id);
+    });
+
+    passport.deserializeUser(async (id, done) => {
+        try {
+            const user = await prisma.user.findUnique({where: {id}});
+            done(null, user);
+        } catch (error) {
+            done(error);
+        }
+    });
 }
 
 module.exports = initialize;

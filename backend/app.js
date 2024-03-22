@@ -7,46 +7,6 @@ const session = require('express-session');
 const initializePassport = require('./passport-config');
 const app = express();
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const LocalStrategy = require('passport-local').Strategy;
-
-
-passport.use(new LocalStrategy(
-    async (username, password, done) => {
-        try {
-            // Поиск пользователя по имени пользователя
-            const user = await prisma.user.findUnique({ where: { username } });
-            if (!user) {
-                return done(null, false, { message: 'Нет пользователя с таким именем.' });
-            }
-
-            // Сравнение хешированных паролей
-            const isMatch = await bcrypt.compare(password, user.password);
-            if (!isMatch) {
-                return done(null, false, { message: 'Неверный пароль.' });
-            }
-
-            // Пользователь найден и пароль совпадает
-            return done(null, user);
-        } catch (error) {
-            return done(error);
-        }
-    }
-,));
-
-// Сериализация и десериализация пользователя для сессии
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-    try {
-        const user = await prisma.user.findUnique({ where: { id } });
-        done(null, user);
-    } catch (error) {
-        done(error);
-    }
-});
 
 app.use(cors());
 app.use(express.json());
@@ -54,11 +14,11 @@ app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session(undefined));
 
-initializePassport(
-    passport,
-    username => prisma.user.findUnique({ where: { username } }),
-    id => prisma.user.findUnique({ where: { id } })
-);
+// initializePassport(
+//     passport,
+//     username => prisma.user.findUnique({ where: { username } }),
+//     id => prisma.user.findUnique({ where: { id } })
+// );
 
 const prisma = new PrismaClient();
 
