@@ -99,6 +99,7 @@ router.post('/api/register', async (req, res) => {
 
 router.post('/api/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
+        console.log(user);
         if (err) {
             return res.status(500).json({ message: err.message });
         }
