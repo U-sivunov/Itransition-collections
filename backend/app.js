@@ -14,11 +14,11 @@ app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session(undefined));
 
-// initializePassport(
-//     passport,
-//     username => prisma.user.findUnique({ where: { username } }),
-//     id => prisma.user.findUnique({ where: { id } })
-// );
+initializePassport(
+    passport,
+    username => prisma.user.findUnique({ where: { username } }),
+    id => prisma.user.findUnique({ where: { id } })
+);
 
 const prisma = new PrismaClient();
 
