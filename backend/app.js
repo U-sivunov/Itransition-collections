@@ -42,7 +42,8 @@ function isAuthenticated(req, res, next) {
         return next();
     }
     // Если пользователь не аутентифицирован, перенаправляем на домашнюю страницу
-    res.redirect('/');
+    // res.redirect('/');
+    res.status(200).send('залогинься');
 }
 
 // Middleware для проверки прав администратора
