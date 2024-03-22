@@ -36,6 +36,24 @@ router.get('/api/au', (req, res) => {
     // ещё нужно добавить информацию о наличии прав админа
 });
 
+// Middleware для проверки аутентификации
+function isAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    // Если пользователь не аутентифицирован, перенаправляем на домашнюю страницу
+    res.redirect('/');
+}
+
+// Middleware для проверки прав администратора
+function isAdmin(req, res, next) {
+    if (req.user.isAdmin) {
+        return next();
+    }
+    // Если пользователь не администратор, отправляем статус 403 (запрещено)
+    res.status(403).send('Access denied');
+}
+
 router.post('/api/register', async (req, res) => {
     try {
         const username = req.body.username;
@@ -80,13 +98,17 @@ router.get('/api/logout', (req, res) => {
     res.json({ status: 'success', message: 'Logged out successfully' });
 });
 
-router.get('/api/users', async (req, res) => {
-    try {
-        const users = await prisma.user.findMany();
-        res.json(users);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error - ' + error });
+router.get('/api/users', isAuthenticated, (req, res) => {
+    if (req.user.isAdmin) {
+        // Если пользователь администратор, возвращаем информацию обо всех пользователях
+        prisma.user.findMany().then(users => {
+            res.json(users);
+        }).catch(error => {
+            res.status(500).send(error.message);
+        });
+    } else {
+        // Если пользователь не администратор, возвращаем информацию только о нем
+        res.json(req.user);
     }
 });
 

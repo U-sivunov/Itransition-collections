@@ -30,7 +30,7 @@ export default {
       });
     },
     test() {
-      axios.get("/api/au").then((res) => {
+      axios.get("/api/users").then((res) => {
         console.log(res);
       });
     },
