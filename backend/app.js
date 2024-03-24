@@ -36,7 +36,7 @@ app.use(session({
     cookie: {
         secure: true, // Должно быть true, если вы используете HTTPS
         maxAge: 24 * 60 * 60 * 1000, // Срок действия cookie-файла - 1 день
-        httpOnly: true,
+        httpOnly: false,
         sameSite: 'none',
     },
     store: new MemoryStore(undefined)
