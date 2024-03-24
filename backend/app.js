@@ -5,7 +5,6 @@ const { PrismaClient } = require('@prisma/client');
 
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session)
-const initializePassport = require('./passport-config');
 const app = express();
 const router = express.Router();
 
@@ -41,12 +40,42 @@ app.use(session({
     store: new MemoryStore(undefined)
 }));
 
-initializePassport(
-    passport,
-    username => prisma.user.findUnique({ where: { username } }),
-    id => prisma.user.findUnique({ where: { id } })
-);
+// passport
+const authenticateUser = async (username, password, done) => {
+    try {
+        // Поиск пользователя по имени пользователя
+        const user = await prisma.user.findUnique({where: {username}});
+        if (!user) {
+            return done(null, false, {message: 'Нет пользователя с таким именем.'});
+        }
 
+        // Сравнение хешированных паролей
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return done(null, false, {message: 'Неверный пароль.'});
+        }
+
+        // Пользователь найден и пароль совпадает
+        return done(null, user);
+    } catch (error) {
+        return done(error);
+    }
+}
+
+passport.use(new LocalStrategy({usernameField: 'username'}, authenticateUser));
+
+passport.serializeUser((user, done) => {
+    done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+    try {
+        const user = await prisma.user.findUnique({where: {id}});
+        done(null, user);
+    } catch (error) {
+        done(error);
+    }
+});
 
 app.use(passport.initialize());
 app.use(passport.session(undefined));
