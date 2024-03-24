@@ -10,26 +10,18 @@ const MemoryStore = require('memorystore')(session)
 const app = express();
 const router = express.Router();
 
-// app.use(cors({
-//     origin: function (origin, callback) {
-//         if (/^https:\/\/itransition-collections-.*-u-sivunovs-projects\.vercel\.app$/.test(origin)) {
-//             callback(null, true)
-//         } else {
-//             callback(new Error('Not allowed by CORS'))
-//         }
-//     },
-//     credentials: true,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-//     allowedHeaders: ['Content-Type', 'Authorization']
-// }));
 app.use(cors({
-    origin: 'https://itransition-collections-bkpm4ac7u-u-sivunovs-projects.vercel.app/',
+    origin: function (origin, callback) {
+        if (/^https:\/\/itransition-collections-.*-u-sivunovs-projects\.vercel\.app$/.test(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
-
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
@@ -42,9 +34,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: true, // Должно быть true, если вы используете HTTPS
+        secure: false, // Должно быть true, если вы используете HTTPS
         maxAge: 24 * 60 * 60 * 1000, // Срок действия cookie-файла - 1 день
-        httpOnly: true,
+        httpOnly: false,
         sameSite: 'none',
     },
     store: new MemoryStore(undefined)
@@ -91,6 +83,7 @@ passport.deserializeUser(async (id, done) => {
 
 app.use(passport.initialize());
 app.use(passport.session(undefined));
+app.set('trust proxy', 1);
 
 const prisma = new PrismaClient();
 
