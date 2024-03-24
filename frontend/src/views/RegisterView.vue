@@ -30,20 +30,14 @@ export default {
   },
   methods: {
     register() {
-      console.log("000000");
-      axios.post("/api/register", { username: this.username, password: this.password, email: this.email }).then(
-        (res) => {
-          console.log("11111111");
+      axios
+        .post("/api/register", { username: this.username, password: this.password, email: this.email })
+        .then((res) => {
           console.log(res);
-        },
-        (err) => {
-          if (err.code === "P2002") {
-            console.log("222222");
-            console.log(err.code);
-            this.errorTarget = err.meta.target;
+          if (res.data.code === "P2002") {
+            this.errorTarget = res.data.meta.target[0];
           }
-        }
-      );
+        });
     },
   },
 };

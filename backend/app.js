@@ -9,7 +9,7 @@ const app = express();
 const router = express.Router();
 
 app.use(cors({
-    origin: 'https://itransition-collections-1htjevrp4-u-sivunovs-projects.vercel.app',
+    origin: 'https://itransition-collections-*-u-sivunovs-projects.vercel.app',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
