@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     login() {
-      axios.post("/api/login", { username: this.username, password: this.password, email: this.email }).then((res) => {
+      axios.post("/api/login", { username: this.username, password: this.password, email: this.email },{withCredentials: true}).then((res) => {
         console.log(res);
       });
     },
