@@ -31,16 +31,18 @@ app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-initializePassport(
-    passport,
-    username => prisma.user.findUnique({ where: { username } }),
-    id => prisma.user.findUnique({ where: { id } })
-);
+// initializePassport(
+//     passport,
+//     username => prisma.user.findUnique({ where: { username } }),
+//     id => prisma.user.findUnique({ where: { id } })
+// );
 
 const prisma = new PrismaClient();
 
 // Middleware для проверки аутентификации
 function isAuthenticated(req, res, next) {
+    console.log(req.session);
+    console.log(req.user);
     if (req.isAuthenticated()) {
         return next();
     }
