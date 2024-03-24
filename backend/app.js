@@ -47,6 +47,10 @@ initializePassport(
     id => prisma.user.findUnique({ where: { id } })
 );
 
+
+app.use(passport.initialize());
+app.use(passport.session(undefined));
+
 const prisma = new PrismaClient();
 
 // Middleware для проверки аутентификации

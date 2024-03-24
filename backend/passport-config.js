@@ -42,9 +42,6 @@ function initialize(passport, getUserByUsername, getUserById) {
             done(error);
         }
     });
-
-    app.use(passport.initialize());
-    app.use(passport.session(undefined));
 }
 
 module.exports = initialize;
