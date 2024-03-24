@@ -38,10 +38,8 @@ app.use(session({
         httpOnly: true,
         sameSite: 'none',
     },
-    store: new MemoryStore()
+    store: new MemoryStore(undefined)
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 
 initializePassport(
     passport,
