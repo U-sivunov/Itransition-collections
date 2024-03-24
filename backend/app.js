@@ -27,7 +27,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.json());
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 // app.use(passport.session(undefined));
 
