@@ -36,7 +36,7 @@ export default {
         });
     },
     test() {
-      axios.get("/api/users").then((res) => {
+      axios.get("/api/users", { withCredentials: true }).then((res) => {
         console.log(res);
       });
     },

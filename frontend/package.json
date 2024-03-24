@@ -29,37 +29,6 @@
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.3"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended",
-      "@vue/typescript/recommended",
-      "plugin:prettier/recommended"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2020
-    },
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "printWidth": 120
-        }
-      ],
-      "max-len": [
-        "error",
-        {
-          "code": 120,
-          "ignoreUrls": true
-        }
-      ],
-      "no-debugger": "off"
-    }
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
