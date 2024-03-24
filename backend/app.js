@@ -2,13 +2,11 @@ const express = require('express');
 const passport = require('passport');
 const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
-const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 
 const session = require('express-session');
 const initializePassport = require('./passport-config');
 const app = express();
 const router = express.Router();
-const prisma = new PrismaClient();
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -29,25 +27,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.json());
-app.use(session({
-    secret: 'secret',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: false, // Должно быть true, если вы используете HTTPS
-        maxAge: 24 * 60 * 60 * 1000, // Срок действия cookie-файла - 1 день
-        httpOnly: true,
-        sameSite: 'none', // Может быть 'lax' или 'strict'. 'none' требует secure: true
-    },
-    store: new PrismaSessionStore(
-        new PrismaClient(),
-        {
-            checkPeriod: 2 * 60 * 1000,  //ms
-            dbRecordIdIsSessionId: true,
-            dbRecordIdFunction: undefined,
-        }
-    ) // Используйте подходящее хранилище сессий для вашего приложения
-}));
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session(undefined));
 
@@ -57,7 +37,7 @@ initializePassport(
     id => prisma.user.findUnique({ where: { id } })
 );
 
-
+const prisma = new PrismaClient();
 
 // Middleware для проверки аутентификации
 function isAuthenticated(req, res, next) {
