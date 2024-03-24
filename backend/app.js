@@ -27,7 +27,18 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.json());
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false, // Должно быть true, если вы используете HTTPS
+        maxAge: 24 * 60 * 60 * 1000, // Срок действия cookie-файла - 1 день
+        httpOnly: true,
+        sameSite: 'none', // Может быть 'lax' или 'strict'. 'none' требует secure: true
+    },
+    store: new MemoryStore() // Используйте подходящее хранилище сессий для вашего приложения
+}));
 app.use(passport.initialize());
 app.use(passport.session(undefined));
 
@@ -38,20 +49,6 @@ initializePassport(
 );
 
 const prisma = new PrismaClient();
-
-router.get('/test', (req, res) => {
-    console.log('test');
-    if (req.isAuthenticated()) {
-        res.send(`<h1>1111111Hello</h1><a href="/logout">Logout</a>`);
-    } else {
-        res.send('<h1>11111111Welcome to the main page. <a href="/login">Login</a></h1>');
-    }
-});
-
-router.get('/api/au', (req, res) => {
-    res.send(req.isAuthenticated().toString());
-    // ещё нужно добавить информацию о наличии прав админа
-});
 
 // Middleware для проверки аутентификации
 function isAuthenticated(req, res, next) {
