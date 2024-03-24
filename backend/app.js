@@ -40,7 +40,7 @@ app.use(session({
         sameSite: 'none', // Может быть 'lax' или 'strict'. 'none' требует secure: true
     },
     store: new PrismaSessionStore(
-        prisma,
+        new PrismaClient(),
         {
             checkPeriod: 2 * 60 * 1000,  //ms
             dbRecordIdIsSessionId: true,
