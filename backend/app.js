@@ -4,6 +4,7 @@ const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
 
 const session = require('express-session');
+const MemoryStore = require('memorystore')(session)
 const initializePassport = require('./passport-config');
 const app = express();
 const router = express.Router();
@@ -27,7 +28,18 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.json());
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false, // Должно быть true, если вы используете HTTPS
+        maxAge: 24 * 60 * 60 * 1000, // Срок действия cookie-файла - 1 день
+        httpOnly: true,
+        sameSite: 'none',
+    },
+    store: new MemoryStore()
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -46,8 +58,6 @@ function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
-    // Если пользователь не аутентифицирован, перенаправляем на домашнюю страницу
-    // res.redirect('/');
     res.status(200).send('залогинься');
 }
 
@@ -56,7 +66,6 @@ function isAdmin(req, res, next) {
     if (req.user.isAdmin) {
         return next();
     }
-    // Если пользователь не администратор, отправляем статус 403 (запрещено)
     res.status(403).send('Access denied');
 }
 
@@ -65,13 +74,8 @@ router.post('/api/register', async (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
         const email = req.body.email;
-        // Генерация соли
         const salt = await bcrypt.genSalt(10,);
-
-        // Хэширование пароля с использованием соли
         const hashedPassword = await bcrypt.hash(password, salt);
-
-        // Создание пользователя с хэшированным паролем
         const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email }});
         res.json(user);
     } catch (error) {
@@ -106,14 +110,12 @@ router.get('/api/logout', (req, res) => {
 
 router.get('/api/users', isAuthenticated, (req, res) => {
     if (req.user.isAdmin) {
-        // Если пользователь администратор, возвращаем информацию обо всех пользователях
         prisma.user.findMany().then(users => {
             res.json(users);
         }).catch(error => {
             res.status(500).send(error.message);
         });
     } else {
-        // Если пользователь не администратор, возвращаем информацию только о нем
         res.json(req.user);
     }
 });
