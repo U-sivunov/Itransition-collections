@@ -2,7 +2,7 @@
   <nav>
     <router-link to="/">Home</router-link> | <router-link to="/about">About</router-link> |
     <router-link v-if="!user.username" to="/login-page">Login</router-link> |
-    <p v-if="username">Hello, {{user.username}} <router-link v-on:click="logout()" to="/">Logout</router-link></p> |
+    <p v-if="user.username">Hello, {{user.username}} <router-link v-on:click="logout()" to="/">Logout</router-link></p> |
     <router-link to="/register-page">Register</router-link>
   </nav>
   <router-view />
