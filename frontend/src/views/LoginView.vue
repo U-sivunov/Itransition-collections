@@ -17,6 +17,7 @@
 <script>
 import axios from "axios";
 export default {
+  inject: ['user'],
   data() {
     return {
       username: "",
