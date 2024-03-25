@@ -37,9 +37,6 @@ export default {
           console.log(res);
           if (res.data.code === "P2002") {
             this.errorTarget = res.data.meta.target[0];
-          } else {
-              this.user.username = res.user.username;
-              this.user.isAdmin = res.user.isAdmin;
           }
         });
     },

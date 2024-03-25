@@ -32,7 +32,11 @@ export default {
           { withCredentials: true }
         )
         .then((res) => {
-          console.log(res);
+        if (res.data.status === 'success') {
+            this.user.username = res.data.user.username;
+            this.user.isAdmin = res.data.user.isAdmin;
+        }
+        console.log(res);
         });
     },
     test() {
