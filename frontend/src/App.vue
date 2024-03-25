@@ -47,18 +47,20 @@ nav {
                 }
             };
         },
-        login() {
-            axios
-                .post(
-                    "/api/logout",
-                )
-                .then((res) => {
+      methods: {
+        logout() {
+          axios
+                  .post(
+                          "/api/logout",
+                  )
+                  .then((res) => {
                     if (res.status === 'success') {
-                        console.log('logouted');
-                        this.user.username = '';
-                        this.user.isAdmin = false;
+                      console.log('logouted');
+                      this.user.username = '';
+                      this.user.isAdmin = false;
                     }
-                });
+                  });
         },
+      }
     };
 </script>
