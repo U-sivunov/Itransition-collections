@@ -18,3 +18,14 @@ model User {
   email String @unique
   isAdmin Boolean @default(false)
 }
+
+model CollectionType  {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+}
+
+model Collection  {
+  id    Int     @id @default(autoincrement())
+  name  String
+  description String
+}

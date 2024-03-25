@@ -35,8 +35,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: true, // Должно быть true, если вы используете HTTPS
-        maxAge: 24 * 60 * 60 * 1000, // Срок действия cookie-файла - 1 день
+        secure: true,
+        maxAge: 24 * 60 * 60 * 1000,
         httpOnly: false,
         sameSite: 'none',
     },
@@ -100,7 +100,7 @@ function isAuthenticated(req, res, next) {
 
 // Middleware для проверки прав администратора
 function isAdmin(req, res, next) {
-    if (req.user.isAdmin) {
+    if (req.user?.isAdmin) {
         return next();
     }
     res.status(403).send('Access denied');
@@ -155,6 +155,19 @@ router.get('/api/users', isAuthenticated, (req, res) => {
     } else {
         res.json(req.user);
     }
+});
+
+router.get('/api/collectionTypes', isAdmin, (req, res) => {
+    prisma.collectionType.findAll().then(types => {
+        res.json(types);
+    }).catch(error => {
+        res.status(500).send(error.message);
+    });
+});
+
+router.post('/api/collectionTypes', isAdmin, async (req, res) => {
+    const user = await prisma.user.create({data: { name: req.body.name}});
+    res.json(user);
 });
 
 
