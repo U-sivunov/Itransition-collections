@@ -12,7 +12,8 @@ const router = express.Router();
 
 app.use(cors({
     origin: function (origin, callback) {
-        if (/^https:\/\/itransition-collections$/.test(origin)) {
+        console.log(origin)
+        if (/^https:\/\/itransition-collections-.*-u-sivunovs-projects\.vercel\.app$/.test(origin) || 'https://itransition-collections-one.vercel.app/' === origin) {
             callback(null, true)
         } else {
             callback(new Error('Not allowed by CORS'))
