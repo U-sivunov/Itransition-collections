@@ -134,7 +134,7 @@ router.post('/api/login', (req, res, next) => {
             if (err) {
                 return res.status(500).json({ message: err.message });
             }
-            return res.json({ status: 'success', message: 'Logged in successfully' });
+            return res.json({ status: 'success', message: 'Logged in successfully', user });
         });
     })(req, res, next);
 });

@@ -1,7 +1,9 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> | <router-link to="/about">About</router-link> |
-    <router-link to="/login-page">Login</router-link> | <router-link to="/register-page">Register</router-link>
+    <router-link v-if="!user.username" to="/login-page">Login</router-link> |
+    <p v-if="username">Hello, {{user.username}} <router-link v-on:click="logout()" to="/">Logout</router-link></p> |
+    <router-link to="/register-page">Register</router-link>
   </nav>
   <router-view />
 </template>
@@ -28,3 +30,35 @@ nav {
   }
 }
 </style>
+
+<script>
+    import axios from "axios";
+    export default {
+        provide() {
+            return {
+                user: this.user
+            };
+        },
+        data() {
+            return {
+                user: {
+                    username: "",
+                    isAdmin: false,
+                }
+            };
+        },
+        login() {
+            axios
+                .post(
+                    "/api/logout",
+                )
+                .then((res) => {
+                    if (res.status === 'success') {
+                        console.log('logouted');
+                        this.user.username = '';
+                        this.user.isAdmin = false;
+                    }
+                });
+        },
+    };
+</script>
