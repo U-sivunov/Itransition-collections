@@ -177,7 +177,7 @@ router.get('/api/collectionTypes', (req, res) => {
 router.post('/api/collectionTypes', isAdmin, async (req, res) => {
     try {
         const newTypeName = await prisma.collectionType.create({data: { username: username, password: hashedPassword, email: email, isAdmin: true }});
-        res.json(user);
+        res.json(newTypeName);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
