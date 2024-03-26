@@ -100,6 +100,8 @@ function isAuthenticated(req, res, next) {
 
 // Middleware для проверки прав администратора
 function isAdmin(req, res, next) {
+    console.log(req.session);
+    console.log(req.user);
     if (req.user?.isAdmin) {
         return next();
     }
