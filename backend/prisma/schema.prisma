@@ -74,10 +74,5 @@ model Collection {
   name  String
   description String
   CollectionType CollectionType
-  StringField1 String
-  StringField2 String
-  StringField3 String
-  StringField1 String
-  StringField2 String
-  StringField3 String
+  StringField String
 }
