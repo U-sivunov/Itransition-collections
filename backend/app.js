@@ -10,6 +10,7 @@ const session = require('express-session');
 const MemoryStore = require('memorystore')(session)
 const app = express();
 const router = express.Router();
+const prisma = new PrismaClient();
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -42,11 +43,10 @@ app.use(session({
         sameSite: 'none',
     },
     store: new PrismaSessionStore(
-        new PrismaClient(),
+        prisma,
         {
             checkPeriod: 2 * 60 * 1000,  //ms
-            dbRecordIdIsSessionId: true,
-            dbRecordIdFunction: undefined,
+            dbRecordIdIsSessionId: true
         }
     )
 }));
@@ -93,8 +93,6 @@ passport.deserializeUser(async (id, done) => {
 app.use(passport.initialize());
 app.use(passport.session(undefined));
 app.set('trust proxy', 1);
-
-const prisma = new PrismaClient();
 
 // Middleware для проверки аутентификации
 function isAuthenticated(req, res, next) {
