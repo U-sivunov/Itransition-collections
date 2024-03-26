@@ -9,6 +9,7 @@
             <b-table hover :items="collectionTypes"></b-table>
             <b-form @submit="addNewType">
               <b-form-input v-model="newType" placeholder="Enter new collection type"></b-form-input>
+              <b-button type="submit" variant="primary">Add</b-button>
             </b-form>
         </div>
     </div>
@@ -50,3 +51,11 @@
     },
   };
 </script>
+
+<style>
+  b-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+</style>
