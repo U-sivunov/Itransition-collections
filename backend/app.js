@@ -46,7 +46,8 @@ app.use(session({
         prisma,
         {
             checkPeriod: 2 * 60 * 1000,  //ms
-            dbRecordIdIsSessionId: true
+            dbRecordIdIsSessionId: true,
+            dbRecordIdFunction: undefined,
         }
     )
 }));
