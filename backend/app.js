@@ -168,7 +168,7 @@ router.get('/api/collectionTypes', (req, res) => {
 });
 
 router.post('/api/collectionTypes', isAdmin, async (req, res) => {
-    const user = await prisma.user.create({data: { name: req.body.name}});
+    const user = await prisma.collectionType.create({data: { name: req.body.name}});
     res.json(user);
 });
 
