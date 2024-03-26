@@ -19,12 +19,12 @@ model User {
   isAdmin Boolean @default(false)
 }
 
-model CollectionType  {
+model CollectionType {
   id    Int    @id @default(autoincrement())
   name  String @unique
 }
 
-model Collection  {
+model Collection {
   id    Int     @id @default(autoincrement())
   name  String
   description String
