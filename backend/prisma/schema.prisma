@@ -61,7 +61,8 @@ enum Role {
 }
 
 enum CollectionType {
-
+  COINS
+  BOOKS
 }
 
 model CollectionTypeExytended {
