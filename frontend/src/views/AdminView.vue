@@ -7,7 +7,7 @@
         <div class="admin-types">
             <h3>CollectionTypes</h3>
             <b-table hover :items="collectionTypes"></b-table>
-            <b-form @submit="addNewType" v-if="show">
+            <b-form @submit="addNewType">
               <b-form-input v-model="newType" placeholder="Enter new collection type"></b-form-input>
             </b-form>
         </div>

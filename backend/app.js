@@ -157,7 +157,7 @@ router.get('/api/users', isAuthenticated, (req, res) => {
     }
 });
 
-router.get('/api/collectionTypes', isAdmin, (req, res) => {
+router.get('/api/collectionTypes', (req, res) => {
     prisma.collectionType.findAll().then(types => {
         res.json(types);
     }).catch(error => {
