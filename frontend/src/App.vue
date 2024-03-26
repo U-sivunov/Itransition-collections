@@ -3,8 +3,8 @@
     <div class="header-wrap">
       <div class="menu-wrap">
         <router-link to="/">Home</router-link>
-        <router-link to="/" v-if="!user.username">My collections</router-link>
-        <router-link  v-if="user.isAdmin" to="/admin">Admin</router-link>
+        <router-link to="/my-collections" v-if="user.username">My collections</router-link>
+        <router-link v-if="user.isAdmin" to="/admin">Admin</router-link>
       </div>
 
       <div class="search-wrap">
