@@ -45,7 +45,6 @@
           .post("/api/collectionTypes",{name: this.newType})
           .then((res) => {
               this.newType = '';
-              this.mounted();
           });
     }
     },

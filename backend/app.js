@@ -4,11 +4,13 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
+const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session)
 const app = express();
 const router = express.Router();
+const prisma = new PrismaClient();
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -40,7 +42,14 @@ app.use(session({
         httpOnly: false,
         sameSite: 'none',
     },
-    store: new MemoryStore(undefined)
+    store: new PrismaSessionStore(
+        prisma,
+        {
+            checkPeriod: 2 * 60 * 1000,  //ms
+            dbRecordIdIsSessionId: true,
+            dbRecordIdFunction: undefined,
+        }
+    )
 }));
 
 // passport
@@ -85,8 +94,6 @@ passport.deserializeUser(async (id, done) => {
 app.use(passport.initialize());
 app.use(passport.session(undefined));
 app.set('trust proxy', 1);
-
-const prisma = new PrismaClient();
 
 // Middleware для проверки аутентификации
 function isAuthenticated(req, res, next) {
@@ -170,10 +177,24 @@ router.get('/api/collectionTypes', (req, res) => {
     });
 });
 
-router.post('/api/collectionTypes', isAdmin, async (req, res) => {
-    const user = await prisma.collectionType.create({data: { name: req.body.name}});
-    res.json(user);
+router.post('/api/collectionType', isAdmin, async (req, res) => {
+    try {
+        const newTypeName = await prisma.collectionType.create({data: { username: username, password: hashedPassword, email: email, isAdmin: true }});
+        res.json(newTypeName);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
 });
+function createNewDatabaseElement(NewDatabaseElementName) {
+    try {
+        const eNewDatabaseElement = await prisma.collectionType.create({data: { username: username, password: hashedPassword, email: email, isAdmin: true }});
+        res.json(newTypeName);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+}
 
 
 app.use(router)
