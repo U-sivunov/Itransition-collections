@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,14 +16,55 @@ model Session {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  username  String @unique
-  password String
-  email String @unique
-  isAdmin Boolean @default(false)
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+  role    Role     @default(USER)
+  posts   Post[]
+  profile Profile?
 }
 
-model CollectionType {
+model Profile {
+  id     Int    @id @default(autoincrement())
+  bio    String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int    @unique
+}
+
+model ItemPost {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  title      String
+  published  Boolean    @default(false)
+  author     User       @relation(fields: [authorId], references: [id])
+  authorId   Int
+  postImgs   String
+  dataJSON String
+}
+
+model ItemComments {
+  // Fields
+}
+
+model Comment {
+  // Fields
+}
+
+model ItemTag {
+  // Fields
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum CollectionType {
+
+}
+
+model CollectionTypeExytended {
   id    Int    @id @default(autoincrement())
   name  String @unique
 }
@@ -35,4 +73,11 @@ model Collection {
   id    Int     @id @default(autoincrement())
   name  String
   description String
+  CollectionType CollectionType
+  StringField1 String
+  StringField2 String
+  StringField3 String
+  StringField1 String
+  StringField2 String
+  StringField3 String
 }
