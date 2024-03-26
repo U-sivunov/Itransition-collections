@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
+const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 
 const session = require('express-session');
 const MemoryStore = require('memorystore')(session)
@@ -40,7 +41,14 @@ app.use(session({
         httpOnly: false,
         sameSite: 'none',
     },
-    store: new MemoryStore(undefined)
+    store: new PrismaSessionStore(
+        new PrismaClient(),
+        {
+            checkPeriod: 2 * 60 * 1000,  //ms
+            dbRecordIdIsSessionId: true,
+            dbRecordIdFunction: undefined,
+        }
+    )
 }));
 
 // passport
