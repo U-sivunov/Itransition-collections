@@ -14,27 +14,28 @@
 <script>
   import axios from "axios";
   export default {
-    inject: ['user'],
     data() {
       return {
         collectionTypes: [],
         users: [],
       };
     },
-    methods: {
-      mount() {
-        axios
+    mounted() {
+        console.log('moooo');
+      axios
           .get("/api/collectionTypes",            )
           .then((res) => {
-            this.collectionTypes = res.data;
-            console.log(res);
+              this.collectionTypes = res.data;
+              console.log(res);
           });
-          axios.get("/api/users")
+      axios.get("/api/users")
           .then((res) => {
               this.users = res.data;
               console.log(res);
           });
-},
+    },
+    methods: {
+
     },
   };
 </script>
