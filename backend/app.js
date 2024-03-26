@@ -94,8 +94,9 @@ function isAuthenticated(req, res, next) {
     console.log(req.user);
     if (req.isAuthenticated()) {
         return next();
+    } else {res.status(200).send('залогинься');
     }
-    res.status(200).send('залогинься');
+
 }
 
 // Middleware для проверки прав администратора
@@ -104,8 +105,10 @@ function isAdmin(req, res, next) {
     console.log(req.user);
     if (req.user?.isAdmin) {
         return next();
+    } else {
+        res.status(403).send('Access denied');
     }
-    res.status(403).send('Access denied');
+
 }
 
 router.post('/api/register', async (req, res) => {
