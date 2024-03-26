@@ -175,8 +175,24 @@ router.get('/api/collectionTypes', (req, res) => {
 });
 
 router.post('/api/collectionTypes', isAdmin, async (req, res) => {
-    const user = await prisma.collectionType.create({data: { name: req.body.name}});
+    const newTypeName = await prisma.collectionType.create({data: { name: req.body.name}});
+
+
+    try {
+        const username = req.body.username;
+        const password = req.body.password;
+        const email = req.body.email;
+        const salt = await bcrypt.genSalt(10,);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        const user = await prisma.collectionType.create({data: { username: username, password: hashedPassword, email: email, isAdmin: true }});
+        res.json(user);
+    } catch (error) {
+        console.error(error);
+        res.status(200).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+    res.send();
     res.json(user);
+
 });
 
 
