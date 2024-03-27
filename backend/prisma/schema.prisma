@@ -20,7 +20,7 @@ model User {
   email   String   @unique
   name    String?
   role    Role     @default(USER)
-  posts   Post[]
+  posts   Post
   profile Profile?
 }
 
