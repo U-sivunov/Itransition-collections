@@ -35,7 +35,7 @@ model Collection {
   authorId       Int
   description    String
   collectionType CollectionTypeEnum
-  collectionImgs String
+  collectionImgs String?
   items          Item[]
   stringFieldNames String[]
 }
