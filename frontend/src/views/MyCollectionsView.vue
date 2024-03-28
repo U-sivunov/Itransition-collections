@@ -36,7 +36,7 @@
             axios
                 .get("/api/collectionTypes",            )
                 .then((res) => {
-                    this.collectionTypes = res;
+                    this.collectionTypes = res.data;
                     console.log(res);
                 });
         },
