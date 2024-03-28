@@ -17,8 +17,9 @@ model Session {
 
 model User {
   id            Int          @id @default(autoincrement())
+  username          String
+  password      String
   email         String       @unique
-  name          String?
   role          Role         @default(USER)
   collecections Collection[]
   Item          Item[]
