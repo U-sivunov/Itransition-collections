@@ -34,6 +34,7 @@ export default {
         )
         .then((res) => {
         if (res.data.status === 'success') {
+            console.log(res.data.user.role)
             this.user.username = res.data.user.username;
             this.user.isAdmin = res.data.user.role === 'ADMIN';
         }
