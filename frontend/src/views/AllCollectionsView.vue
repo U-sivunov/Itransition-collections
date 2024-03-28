@@ -1,17 +1,18 @@
 <template>
   <div class="admin-page">
     <div class="admin-types">
-      <h3>My collections</h3>
-      <b-table hover :items="collections" selectable  @row-clicked="goToCollection"></b-table>
-      <router-link to="/new-collection" custom v-slot="{ navigate }">
-        <b-button v-on:click="navigate">Create new collection</b-button>
-      </router-link>
+      <h3>Collection</h3>
+      <b-table hover :items="collections"></b-table>
+      <b-button v-on:click="goToNew()">Create new collection</b-button>
     </div>
   </div>
 </template>
 
 <script>
     import axios from "axios";
+    import { useRouter } from 'vue-router'
+    const router = useRouter()
+
     export default {
         data() {
             return {
@@ -29,16 +30,15 @@
         },
         mounted() {
             axios
-                .get("/api/my-collections")
+                .get("/api/collection/")
                 .then((res) => {
                     this.collections = res.data;
                 });
         },
         methods: {
-            goToCollection(row) {
+            goToNew() {
                 console.log(7777)
-                console.log(row)
-                this.$router.push({ path: '/collection/' + row.id })
+                router.push({ path: '/new-collection' })
             }
         },
     };

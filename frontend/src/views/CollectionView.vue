@@ -2,8 +2,8 @@
   <div class="admin-page">
     <div class="admin-types">
       <h3>Collection</h3>
-      <b-table hover :items="collections"></b-table>
-      <b-button v-on:click="goToNew()">Create new collection</b-button>
+      <b-table hover :items="collection"></b-table>
+      <b-button v-on:click="goToItem">Create new collection</b-button>
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@
     export default {
         data() {
             return {
-                collections: [],
+                collection: {},
                 newCollectionName: '',
                 newCollectionType: '',
                 newCollectionDescription: '',
@@ -30,13 +30,13 @@
         },
         mounted() {
             axios
-                .get("/api/collection/")
+                .get("/api/collection/" + this.$router.params.id)
                 .then((res) => {
                     this.collections = res.data;
                 });
         },
         methods: {
-            goToNew() {
+            goToItem() {
                 console.log(7777)
                 router.push({ path: '/new-collection' })
             }
