@@ -13,6 +13,7 @@ const prisma = new PrismaClient();
 
 app.use(cors({
     origin: function (origin, callback) {
+        console.log('cors origin: ' + origin)
         if (/^https:\/\/itransition-collections-.*-u-sivunovs-projects\.vercel\.app$/.test(origin) || 'https://itransition-collections-one.vercel.app' === origin || !origin) {
             callback(null, true)
         } else {
