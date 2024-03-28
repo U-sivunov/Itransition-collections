@@ -5,7 +5,7 @@
       <b-table hover :items="collections"></b-table>
       <b-form @submit="addNewCollection()">
         <b-form-input v-model="newCollectionName" placeholder="Enter new collection name"></b-form-input>
-        <b-form-textarea v-model="newCollectionDescription" placeholder="Enter new collection description"></b-form-textarea>
+        <VMarkdownEditor v-model="newCollectionDescription" placeholder="Enter new collection description"></VMarkdownEditor>
         <div v-for="n in stringFieldsNumber">
           <b-form-input class="string-field" placeholder="Parameter name"></b-form-input>
           <b-button v-if="n === stringFieldsNumber" variant="primary" v-on:click="stringFieldsNumber++">Add</b-button>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+    import { VMarkdownEditor } from 'vue3-markdown'
     import axios from "axios";
     export default {
         data() {
