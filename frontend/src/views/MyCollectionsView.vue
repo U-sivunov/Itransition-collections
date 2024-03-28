@@ -5,6 +5,7 @@
       <b-table hover :items="collections"></b-table>
       <b-form @submit="addNewCollection()">
         <b-form-input v-model="newCollectionName" placeholder="Enter new collection name"></b-form-input>
+        <b-form-select v-model="newCollectionType" :options="newCollectionTypes"></b-form-select>
         <VMarkdownEditor v-model="newCollectionDescription" placeholder="Enter new collection description"></VMarkdownEditor>
         <div v-for="n in stringFieldsNumber">
           <b-form-input class="string-field" placeholder="Parameter name"></b-form-input>
@@ -24,7 +25,9 @@
         data() {
             return {
                 collections: [],
+                newCollectionTypes: [],
                 newCollectionName: '',
+                newCollectionType: '',
                 newCollectionDescription: '',
                 stringFieldsNumber: 2,
                 collectionTypes: []
@@ -34,7 +37,7 @@
             axios
                 .get("/api/collectionTypes",            )
                 .then((res) => {
-                    this.collectionTypes = res.data;
+                    this.collectionTypes = res;
                     console.log(res);
                 });
         },

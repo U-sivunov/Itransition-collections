@@ -163,7 +163,7 @@ router.get('/api/users', isAuthenticated, (req, res) => {
 });
 
 router.get('/api/collectionTypes', (req, res) => {
-    res.json(CollectionTypeEnum);
+    res.json(Object.values(CollectionTypeEnum));
 });
 
 router.post('/api/collectionType', isAdmin, async (req, res) => {
