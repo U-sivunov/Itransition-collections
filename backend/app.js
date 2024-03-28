@@ -181,7 +181,8 @@ router.post('/api/collectionType', isAdmin, async (req, res) => {
 });
 
 router.post('/api/collection', (req, res, next) => {
-
+    const collection = prisma.collection.create({data: req.body});
+    res.json(collection);
 });
 
 router.get('/api/collection/:id', (req, res, next) => {
