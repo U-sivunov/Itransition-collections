@@ -37,6 +37,10 @@ model Collection {
   collectionType CollectionTypeEnum
   items          Item[]
   stringFieldNames String[]
+  textFieldNames String[]
+  booleanFieldNames String[]
+  numberFieldNames String[]
+  dateFieldNames DateTime[]
 }
 
 model Item {
