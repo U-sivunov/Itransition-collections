@@ -29,6 +29,7 @@
             };
         },
         mounted() {
+            console.log(7777)
             console.log(this.$router.params);
             axios
                 .get("/api/collections/" + this.$router.params.id)
@@ -38,7 +39,6 @@
         },
         methods: {
             goToItem() {
-                console.log(7777)
                 router.push({ path: '/new-collection' })
             }
         },

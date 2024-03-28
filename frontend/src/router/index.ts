@@ -27,7 +27,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/collections",
     name: "collections",
-    component: AllCollectionsView,
     children:[{
       path: ':id',
       component: CollectionView,
