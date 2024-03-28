@@ -178,6 +178,15 @@ router.post('/api/collection', isAuthenticated, async (req, res, next) => {
     }
 });
 
+router.get('/api/my-collections', isAuthenticated, async (req, res, next) => {
+    try {
+        const collection = await prisma.collection.findMany({where: {authorId: req.user.id}});
+        res.json(collection);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
 router.get('/api/collection/:id', (req, res, next) => {
 
 });

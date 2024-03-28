@@ -34,10 +34,14 @@
         },
         mounted() {
             axios
-                .get("/api/collectionTypes",            )
+                .get("/api/collectionTypes")
                 .then((res) => {
                     this.collectionTypes = res.data;
-                    console.log(res);
+                });
+            axios
+                .get("/api/my-collections")
+                .then((res) => {
+                    this.collections = res.data;
                 });
         },
         methods: {
