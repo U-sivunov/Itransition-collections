@@ -25,7 +25,6 @@
         data() {
             return {
                 collections: [],
-                newCollectionTypes: [],
                 newCollectionName: '',
                 newCollectionType: '',
                 newCollectionDescription: '',
@@ -46,13 +45,14 @@
                 const stringFields = event.target.getElementsByClassName('string-field');
                 const stringFieldsArray = [...stringFields].map(f => f.value);
                 console.log(stringFieldsArray);
-                const newCollecton = {
+                const newCollection = {
                     title: this.newCollectionName,
                     description: this.newCollectionDescription,
+                    collectionType: this.newCollectionType,
                     stringFieldNames: stringFieldsArray,
                 }
                 axios
-                    .post("/api/collection",newCollecton)
+                    .post("/api/collection",newCollection)
                     .then((res) => {
                       console.log(res);
                     });
