@@ -166,19 +166,11 @@ router.get('/api/collectionTypes', (req, res) => {
     res.json(Object.values(CollectionTypeEnum));
 });
 
-router.post('/api/collectionType', isAdmin, async (req, res) => {
-    try {
-        const newTypeName = await prisma.collectionType.create({data: { username: username, password: hashedPassword, email: email, isAdmin: true }});
-        res.json(newTypeName);
-    } catch (error) {
-        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
-    }
-});
-
 router.post('/api/collection', isAuthenticated, (req, res, next) => {
     try {
         const data = req.body;
         data.author = req.user;
+        console.log(data);
         const collection = prisma.collection.create({data: data});
         res.json(collection);
     } catch (error) {
