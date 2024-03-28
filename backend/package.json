@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "postinstall": "prisma migrate reset && prisma generate && prisma db push --accept-data-loss"
+    "postinstall": "prisma migrate reset --force && prisma generate && prisma db push --accept-data-loss"
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
