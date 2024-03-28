@@ -30,22 +30,21 @@
                 collectionTypes: []
             };
         },
-        // mounted() {
-        //     console.log('moooo');
-        //     axios
-        //         .get("/api/collectionTypes",            )
-        //         .then((res) => {
-        //             this.collectionTypes = res.data;
-        //             console.log(res);
-        //         });
-        // },
+        mounted() {
+            axios
+                .get("/api/collectionTypes",            )
+                .then((res) => {
+                    this.collectionTypes = res.data;
+                    console.log(res);
+                });
+        },
         methods: {
             addNewCollection() {
                 const stringFields = event.target.getElementsByClassName('string-field');
                 const stringFieldsArray = [...stringFields].map(f => f.value);
                 console.log(stringFieldsArray);
                 const newCollecton = {
-                    name: this.newCollectionName,
+                    title: this.newCollectionName,
                     description: this.newCollectionDescription,
                     stringFieldNames: stringFieldsArray,
                 }

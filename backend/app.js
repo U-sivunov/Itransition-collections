@@ -184,7 +184,7 @@ router.post('/api/collection', isAuthenticated, (req, res, next) => {
     try {
         const data = req.body;
         data.author = req.user;
-        const collection = prisma.collection.create({data: req.body});
+        const collection = prisma.collection.create({data: data});
         res.json(collection);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
