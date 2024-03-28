@@ -48,13 +48,16 @@ model Item {
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
   title        String
-  published    Boolean     @default(false)
+  published    Boolean     @default(true)
   author       User        @relation(fields: [authorId], references: [id])
   authorId     Int
-  postImgs     String
-  Collection   Collection? @relation(fields: [collectionId], references: [id])
-  collectionId Int?
-  StringFieldValues String[]
+  Collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId Int
+  stringFieldValues String[]
+  textFieldValues String[]
+  booleanFieldValues Boolean[]
+  numberFieldValues Int[]
+  dateFieldValues DateTime[]
 }
 
 model ItemComments {

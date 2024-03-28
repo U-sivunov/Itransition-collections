@@ -11,8 +11,6 @@
 <script>
     import axios from "axios";
     import { useRouter } from 'vue-router'
-    const router = useRouter()
-
     export default {
         data() {
             return {
@@ -38,7 +36,7 @@
         methods: {
             goToNew() {
                 console.log(7777)
-                router.push({ path: '/new-collection' })
+                useRouter().push({ path: '/new-collection' })
             }
         },
     };

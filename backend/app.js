@@ -191,6 +191,18 @@ router.get('/api/collection/:id', (req, res, next) => {
 
 });
 
+router.post('/api/item', isAuthenticated, async (req, res, next) => {
+    try {
+        const data = req.body;
+        data.author = {connect: {id: req.user.id}};
+        console.log(data);
+        const collection = await prisma.collection.create({data: data});
+        res.json(collection);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
 
 
 app.use(router)
