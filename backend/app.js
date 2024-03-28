@@ -3,7 +3,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const cors = require('cors');
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient, Role} = require('@prisma/client');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 
 const session = require('express-session');
@@ -110,7 +110,8 @@ function isAuthenticated(req, res, next) {
 function isAdmin(req, res, next) {
     console.log(req.session);
     console.log(req.user);
-    if (req.user?.isAdmin) {
+    console.log(Role);
+    if (req.user?.role === Role.ADMIN) {
         return next();
     } else {
         res.status(403).send('Access denied');
@@ -125,7 +126,7 @@ router.post('/api/register', async (req, res) => {
         const email = req.body.email;
         const salt = await bcrypt.genSalt(10,);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email, isAdmin: true }});
+        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email}});
         res.json(user);
     } catch (error) {
         console.error(error);
