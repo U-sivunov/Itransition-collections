@@ -29,7 +29,7 @@
             };
         },
         mounted() {
-            console
+            console.log(this.$router.params);
             axios
                 .get("/api/collections/" + this.$router.params.id)
                 .then((res) => {
