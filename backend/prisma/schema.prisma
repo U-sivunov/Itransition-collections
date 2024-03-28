@@ -20,18 +20,22 @@ model User {
   email   String   @unique
   name    String?
   role    Role     @default(USER)
-  posts   ItemPost[]
-  profile Profile?
+  collecections   Collection[]
 }
 
-model Profile {
-  id     Int    @id @default(autoincrement())
-  bio    String
-  user   User   @relation(fields: [userId], references: [id])
-  userId Int    @unique
+model Collection {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  title      String
+  published  Boolean    @default(false)
+  author     User       @relation(fields: [authorId], references: [id])
+  authorId   Int
+  collectionImgs   String
+  items Item[]
 }
 
-model ItemPost {
+model Item {
   id         Int        @id @default(autoincrement())
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
@@ -40,19 +44,18 @@ model ItemPost {
   author     User       @relation(fields: [authorId], references: [id])
   authorId   Int
   postImgs   String
-  dataJSON String
 }
 
 model ItemComments {
-  // Fields
+  id         Int        @id @default(autoincrement())
 }
 
 model Comment {
-  // Fields
+  id         Int        @id @default(autoincrement())
 }
 
 model ItemTag {
-  // Fields
+  id         Int        @id @default(autoincrement())
 }
 
 enum Role {
