@@ -3,11 +3,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const cors = require('cors');
-const { PrismaClient, Role} = require('@prisma/client');
+const { PrismaClient, Role, CollectionTypeEnum} = require('@prisma/client');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 
 const session = require('express-session');
-const MemoryStore = require('memorystore')(session)
 const app = express();
 const router = express.Router();
 const prisma = new PrismaClient();
@@ -164,11 +163,7 @@ router.get('/api/users', isAuthenticated, (req, res) => {
 });
 
 router.get('/api/collectionTypes', (req, res) => {
-    prisma.collectionTypeEnum.findMany().then(types => {
-        res.json(types);
-    }).catch(error => {
-        res.status(500).send(error.message);
-    });
+    res.json(CollectionTypeEnum);
 });
 
 router.post('/api/collectionType', isAdmin, async (req, res) => {

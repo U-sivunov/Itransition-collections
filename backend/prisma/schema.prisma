@@ -74,9 +74,10 @@ enum Role {
 enum CollectionTypeEnum {
   COINS
   BOOKS
+  SILVER
 }
 
-model CollectionTypeExytended {
+model CollectionTypeExtended {
   id   Int    @id @default(autoincrement())
   name String @unique
 }
