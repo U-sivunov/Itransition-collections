@@ -10,7 +10,9 @@
 
 <script>
     import axios from "axios";
-    import {Router as router} from "vue-router";
+    import { useRouter } from 'vue-router'
+    const router = useRouter()
+
     export default {
         data() {
             return {
