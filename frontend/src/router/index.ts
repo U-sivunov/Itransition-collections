@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import MyCollectionsView from "../views/MyCollectionsView.vue";
+import NewCollectionView from "../views/NewCollectionView.vue";
 import AdminView from "../views/AdminView.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -15,6 +16,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/my-collections",
     name: "my-collections",
     component: MyCollectionsView,
+  },
+  {
+    path: "/new-collection",
+    name: "new-collections",
+    component: NewCollectionView,
   },
   {
     path: "/login-page",

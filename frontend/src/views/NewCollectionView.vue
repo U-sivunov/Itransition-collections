@@ -1,9 +1,39 @@
 <template>
   <div class="admin-page">
     <div class="admin-types">
-      <h3>My collections</h3>
-      <b-table hover :items="collections"></b-table>
-      <b-button v-on:click="router.push({ path: '/new-collection' })"></b-button>
+      <h3>Create new collection</h3>
+      <b-form @submit="addNewCollection()">
+        <b-form-input v-model="newCollectionName" placeholder="Enter new collection name"></b-form-input>
+        <b-form-select v-model="newCollectionType" :options="collectionTypes"></b-form-select>
+        <VMarkdownEditor v-model="newCollectionDescription" placeholder="Enter new collection description"></VMarkdownEditor>
+        <div class="block-name" >String parameters</div>
+        <div v-for="n in stringFieldsNumber">
+          <b-form-input class="string-field" placeholder="Parameter name"></b-form-input>
+          <b-button v-if="n === stringFieldsNumber || stringFieldsNumber === 0" variant="primary" v-on:click="stringFieldsNumber++">Add</b-button>
+        </div>
+        <div class="block-name" >Text parameters</div>
+        <div v-for="n in textFieldsNumber">
+          <b-form-input class="text-field" placeholder="Parameter name"></b-form-input>
+          <b-button v-if="n === textFieldsNumber || textFieldsNumber === 0" variant="primary" v-on:click="textFieldsNumber++">Add</b-button>
+        </div>
+        <div class="block-name" >Boolean parameters</div>
+        <div v-for="n in booleanFieldsNumber">
+          <b-form-input class="boolean-field" placeholder="Parameter name"></b-form-input>
+          <b-button v-if="n === booleanFieldsNumber || booleanFieldsNumber === 0" variant="primary" v-on:click="booleanFieldsNumber++">Add</b-button>
+        </div>
+        <div class="block-name" >Number parameters</div>
+        <div v-for="n in numberFieldsNumber">
+          <b-form-input class="number-field" placeholder="Parameter name"></b-form-input>
+          <b-button v-if="n === numberFieldsNumber || numberFieldsNumber === 0" variant="primary" v-on:click="numberFieldsNumber++">Add</b-button>
+        </div>
+        <div class="block-name" >Date parameters</div>
+        <div v-for="n in dateFieldsNumber">
+          <b-form-input class="date-field" placeholder="Parameter name"></b-form-input>
+          <b-button v-if="n === dateFieldsNumber || dateFieldsNumber === 0" variant="primary" v-on:click="dateFieldsNumber++">Add</b-button>
+        </div>
+
+        <b-button type="submit" variant="primary">Create collection</b-button>
+      </b-form>
     </div>
   </div>
 </template>
@@ -14,7 +44,6 @@
     export default {
         data() {
             return {
-                collections: [],
                 newCollectionName: '',
                 newCollectionType: '',
                 newCollectionDescription: '',
@@ -28,9 +57,10 @@
         },
         mounted() {
             axios
-                .get("/api/my-collections")
+                .get("/api/collectionTypes")
                 .then((res) => {
-                    this.collections = res.data;
+                    this.collectionTypes = res.data;
+                    this.collections.push({ value: null, text: 'Please select an option' });
                 });
         },
         methods: {
