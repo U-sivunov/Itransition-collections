@@ -164,7 +164,7 @@ router.get('/api/users', isAuthenticated, (req, res) => {
 });
 
 router.get('/api/collectionTypes', (req, res) => {
-    prisma.collectionType.findMany().then(types => {
+    prisma.collectionTypeEnum.findMany().then(types => {
         res.json(types);
     }).catch(error => {
         res.status(500).send(error.message);
@@ -179,15 +179,15 @@ router.post('/api/collectionType', isAdmin, async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
 });
-// function createNewDatabaseElement(NewDatabaseElementName) {
-//     try {
-//         const eNewDatabaseElement = await prisma.collectionType.create({data: { username: username, password: hashedPassword, email: email, isAdmin: true }});
-//         res.json(newTypeName);
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
-//     }
-// }
+
+router.post('/api/collection', (req, res, next) => {
+
+});
+
+router.get('/api/collection/:id', (req, res, next) => {
+
+});
+
 
 
 app.use(router)

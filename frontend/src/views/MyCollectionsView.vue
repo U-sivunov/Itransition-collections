@@ -1,17 +1,67 @@
 <template>
-  <div class="home">
+  <div class="admin-page">
+    <div class="admin-types">
+      <h3>My collections</h3>
+      <b-table hover :items="collections"></b-table>
+      <b-form @submit="addNewCollection()">
+        <b-form-input v-model="newCollectionName" placeholder="Enter new collection name"></b-form-input>
+        <b-form-textarea v-model="newCollectionDescription" placeholder="Enter new collection description"></b-form-textarea>
+        <div v-for="n in stringFieldsNumber">
+          <b-form-input class="string-field" placeholder="Parameter name"></b-form-input>
+          <b-button v-if="n === stringFieldsNumber" variant="primary" v-on:click="stringFieldsNumber++">Add</b-button>
+        </div>
 
+        <b-button type="submit" variant="primary">Create collection</b-button>
+      </b-form>
+    </div>
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
-
-@Options({
-  components: {
-
-  },
-})
-export default class HomeView extends Vue {}
+<script>
+    import axios from "axios";
+    export default {
+        data() {
+            return {
+                collections: [],
+                newCollectionName: '',
+                newCollectionDescription: '',
+                stringFieldsNumber: 2,
+                collectionTypes: []
+            };
+        },
+        // mounted() {
+        //     console.log('moooo');
+        //     axios
+        //         .get("/api/collectionTypes",            )
+        //         .then((res) => {
+        //             this.collectionTypes = res.data;
+        //             console.log(res);
+        //         });
+        // },
+        methods: {
+            addNewCollection() {
+                const stringFields = event.target.getElementsByClassName('string-field');
+                const stringFieldsArray = [...stringFields].map(f => f.value);
+                console.log(stringFieldsArray);
+                const newCollecton = {
+                    name: this.newCollectionName,
+                    description: this.newCollectionDescription,
+                    stringFieldNames: stringFieldsArray,
+                }
+                axios
+                    .post("/api/collection",newCollecton)
+                    .then((res) => {
+                      console.log(res);
+                    });
+            }
+        },
+    };
 </script>
+
+<style>
+  b-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+</style>

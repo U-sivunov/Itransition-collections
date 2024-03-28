@@ -37,6 +37,7 @@ model Collection {
   collectionType CollectionTypeEnum
   collectionImgs String
   items          Item[]
+  stringFieldNames String[]
 }
 
 model Item {
@@ -50,6 +51,7 @@ model Item {
   postImgs     String
   Collection   Collection? @relation(fields: [collectionId], references: [id])
   collectionId Int?
+  StringFieldValues String[]
 }
 
 model ItemComments {
