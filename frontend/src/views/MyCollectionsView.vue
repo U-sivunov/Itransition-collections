@@ -5,7 +5,7 @@
       <b-table hover :items="collections"></b-table>
       <b-form @submit="addNewCollection()">
         <b-form-input v-model="newCollectionName" placeholder="Enter new collection name"></b-form-input>
-        <b-form-select v-model="newCollectionType" :options="newCollectionTypes"></b-form-select>
+        <b-form-select v-model="newCollectionType" :options="collectionTypes"></b-form-select>
         <VMarkdownEditor v-model="newCollectionDescription" placeholder="Enter new collection description"></VMarkdownEditor>
         <div v-for="n in stringFieldsNumber">
           <b-form-input class="string-field" placeholder="Parameter name"></b-form-input>
