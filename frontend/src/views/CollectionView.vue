@@ -3,7 +3,9 @@
     <div class="admin-types">
       <h3>Collection</h3>
       <b-table hover :items="collection"></b-table>
-      <b-button v-on:click="goToItem">Create new collection</b-button>
+      <router-link to="{path:/new-item, params: { collectionId: 123 }}"  custom v-slot="{ navigate }">
+        <b-button v-on:click="navigate">Add new item</b-button>
+      </router-link>
     </div>
   </div>
 </template>

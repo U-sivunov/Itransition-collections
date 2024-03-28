@@ -4,6 +4,7 @@ import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import MyCollectionsView from "../views/MyCollectionsView.vue";
 import NewCollectionView from "../views/NewCollectionView.vue";
+import NewItemView from "../views/NewItemView.vue";
 import AllCollectionsView from "../views/AllCollectionsView.vue";
 import CollectionView from "../views/CollectionView.vue";
 import AdminView from "../views/AdminView.vue";
@@ -31,6 +32,11 @@ const routes: Array<RouteRecordRaw> = [
       path: ':id',
       component: CollectionView,
     },]
+  },
+  {
+    path: "/new-item",
+    name: "new-item",
+    component: NewItemView,
   },
   {
     path: "/login-page",
