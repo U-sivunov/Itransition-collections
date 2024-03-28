@@ -169,7 +169,7 @@ router.get('/api/collectionTypes', (req, res) => {
 router.post('/api/collection', isAuthenticated, async (req, res, next) => {
     try {
         const data = req.body;
-        data.author = req.user;
+        data.author = {connect: {id: req.user.id}};
         console.log(data);
         const collection = await prisma.collection.create({data: data});
         res.json(collection);
