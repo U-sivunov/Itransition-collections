@@ -29,8 +29,9 @@
             };
         },
         mounted() {
+            console
             axios
-                .get("/api/collection/" + this.$router.params.id)
+                .get("/api/collections/" + this.$router.params.id)
                 .then((res) => {
                     this.collection = res.data;
                 });
