@@ -32,7 +32,7 @@
             axios
                 .get("/api/collection/" + this.$router.params.id)
                 .then((res) => {
-                    this.collections = res.data;
+                    this.collection = res.data;
                 });
         },
         methods: {

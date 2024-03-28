@@ -60,7 +60,7 @@
                 .get("/api/collectionTypes")
                 .then((res) => {
                     this.collectionTypes = res.data;
-                    this.collections.push({ value: null, text: 'Please select an option' });
+                    this.collectionTypes.push({ value: null, text: 'Please select type' });
                 });
         },
         methods: {
