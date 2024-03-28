@@ -3,61 +3,64 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
-    url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-    directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model Session {
   id        String   @id
   sid       String   @unique
   data      String
-  expiresAt   DateTime
+  expiresAt DateTime
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  role    Role     @default(USER)
-  collecections   Collection[]
+  id            Int          @id @default(autoincrement())
+  email         String       @unique
+  name          String?
+  role          Role         @default(USER)
+  collecections Collection[]
+  Item          Item[]
 }
 
 model Collection {
-  id         Int        @id @default(autoincrement())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  title      String
-  published  Boolean    @default(false)
-  author     User       @relation(fields: [authorId], references: [id])
-  authorId   Int
-  description String
+  id             Int            @id @default(autoincrement())
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  title          String
+  published      Boolean        @default(false)
+  author         User           @relation(fields: [authorId], references: [id])
+  authorId       Int
+  description    String
   CollectionType CollectionType
-  collectionImgs   String
-  items Item[]
+  collectionImgs String
+  items          Item[]
 }
 
 model Item {
-  id         Int        @id @default(autoincrement())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  title      String
-  published  Boolean    @default(false)
-  author     User       @relation(fields: [authorId], references: [id])
-  authorId   Int
-  postImgs   String
+  id           Int         @id @default(autoincrement())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  title        String
+  published    Boolean     @default(false)
+  author       User        @relation(fields: [authorId], references: [id])
+  authorId     Int
+  postImgs     String
+  Collection   Collection? @relation(fields: [collectionId], references: [id])
+  collectionId Int?
 }
 
 model ItemComments {
-  id         Int        @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 }
 
 model Comment {
-  id         Int        @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 }
 
 model ItemTag {
-  id         Int        @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 }
 
 enum Role {
@@ -71,6 +74,6 @@ enum CollectionType {
 }
 
 model CollectionTypeExytended {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
+  id   Int    @id @default(autoincrement())
+  name String @unique
 }
