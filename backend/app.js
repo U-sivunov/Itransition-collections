@@ -126,7 +126,7 @@ router.post('/api/register', async (req, res) => {
         const email = req.body.email;
         const salt = await bcrypt.genSalt(10,);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email}});
+        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email, role: Role.ADMIN}});
         res.json(user);
     } catch (error) {
         console.error(error);
@@ -159,7 +159,7 @@ router.get('/api/logout', (req, res) => {
 });
 
 router.get('/api/users', isAuthenticated, (req, res) => {
-    if (req.user.isAdmin) {
+    if (req.user?.role === Role.ADMIN) {
         prisma.user.findMany().then(users => {
             res.json(users);
         }).catch(error => {
