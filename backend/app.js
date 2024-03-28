@@ -14,7 +14,6 @@ const prisma = new PrismaClient();
 
 app.use(cors({
     origin: function (origin, callback) {
-        console.log(origin)
         if (/^https:\/\/itransition-collections-.*-u-sivunovs-projects\.vercel\.app$/.test(origin) || 'https://itransition-collections-one.vercel.app' === origin || !origin) {
             callback(null, true)
         } else {
@@ -54,6 +53,8 @@ app.use(session({
 
 // passport
 const authenticateUser = async (username, password, done) => {
+    console.log(username)
+    console.log(password)
     try {
         // Поиск пользователя по имени пользователя
         const user = await prisma.user.findUnique({where: {username}});
@@ -83,8 +84,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
     try {
         const user = await prisma.user.findUnique({where: {id}});
-        console.log('user');
-        console.log(user);
         done(null, user);
     } catch (error) {
         done(error);
@@ -97,8 +96,6 @@ app.set('trust proxy', 1);
 
 // Middleware для проверки аутентификации
 function isAuthenticated(req, res, next) {
-    console.log(req.session);
-    console.log(req.user);
     if (req.isAuthenticated()) {
         return next();
     } else {res.status(200).send('залогинься');
@@ -108,9 +105,6 @@ function isAuthenticated(req, res, next) {
 
 // Middleware для проверки прав администратора
 function isAdmin(req, res, next) {
-    console.log(req.session);
-    console.log(req.user);
-    console.log(Role);
     if (req.user?.role === Role.ADMIN) {
         return next();
     } else {
@@ -126,10 +120,9 @@ router.post('/api/register', async (req, res) => {
         const email = req.body.email;
         const salt = await bcrypt.genSalt(10,);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email, role: Role.ADMIN}});
+        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email}});
         res.json(user);
     } catch (error) {
-        console.error(error);
         res.status(200).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
     res.send();
@@ -183,7 +176,6 @@ router.post('/api/collectionType', isAdmin, async (req, res) => {
         const newTypeName = await prisma.collectionType.create({data: { username: username, password: hashedPassword, email: email, isAdmin: true }});
         res.json(newTypeName);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
 });
