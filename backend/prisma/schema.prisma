@@ -31,6 +31,8 @@ model Collection {
   published  Boolean    @default(false)
   author     User       @relation(fields: [authorId], references: [id])
   authorId   Int
+  description String
+  CollectionType CollectionType
   collectionImgs   String
   items Item[]
 }
@@ -71,12 +73,4 @@ enum CollectionType {
 model CollectionTypeExytended {
   id    Int    @id @default(autoincrement())
   name  String @unique
-}
-
-model Collection {
-  id    Int     @id @default(autoincrement())
-  name  String
-  description String
-  CollectionType CollectionType
-  StringField String
 }
