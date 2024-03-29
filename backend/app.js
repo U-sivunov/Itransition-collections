@@ -250,7 +250,8 @@ router.get('/api/tags', async (req, res, next) => {
 
 router.get('/api/search/:str', async (req, res, next) => {
     try {
-        const items = await prisma.item.findMany({where: {collectionId: parseInt(req.params.str)}});
+        const items = await prisma.item.findMany({where: {body: {search: parseInt(req.params.str)}}});
+
         res.json(items);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
