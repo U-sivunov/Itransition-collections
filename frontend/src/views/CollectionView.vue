@@ -6,8 +6,7 @@
       <div class="description-wrap">
         <VMarkdownView :content="collection.description"></VMarkdownView>
       </div>
-
-      <b-table hover :items="collection"></b-table>
+      <b-table hover :items="collection.items"></b-table>
       <router-link :to="{
         path: '/new-item',
         query: {

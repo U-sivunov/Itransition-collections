@@ -10,7 +10,7 @@
           autosuggest
           inputPlaceholder="Select Tags ..."
           :sources="availableTags"
-          :allowPaste="{delimiter: ';'}"
+          :allowPaste="{delimiter: ','}"
           :allowDuplicates="false"
         />
       </div>
