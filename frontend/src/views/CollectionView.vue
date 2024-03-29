@@ -6,7 +6,7 @@
       <div class="description-wrap">
         <VMarkdownView :content="collection.description"></VMarkdownView>
       </div>
-      <b-table hover :items="collection.items"></b-table>
+      <b-table hover :items="items"></b-table>
       <router-link :to="{
         path: '/new-item',
         query: {
@@ -36,14 +36,20 @@
                 booleanFieldsNumber: 1,
                 numberFieldsNumber: 1,
                 dateFieldsNumber: 1,
-                collectionTypes: []
+                collectionTypes: [],
+                items:[]
             };
         },
-        mounted() {
+        beforeCreate() {
             axios
                 .get("/api/collections/" + this.$route.params.id)
                 .then((res) => {
                     this.collection = res.data;
+                });
+            axios
+                .get("/api/items-by-collection/" + this.$route.params.id)
+                .then((res) => {
+                    this.items = res.data;
                 });
         },
         methods: {

@@ -204,6 +204,15 @@ router.post('/api/item', isAuthenticated, async (req, res, next) => {
     }
 });
 
+router.get('/api/items-by-collection/:id', async (req, res, next) => {
+    try {
+        const items = await prisma.item.findMany({where: {collectionId: parseInt(req.params.id)}});
+        res.json(items);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
 router.get('/api/tags', async (req, res, next) => {
     try {
         const tags = await prisma.itemTag.findMany();
