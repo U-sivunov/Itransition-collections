@@ -86,7 +86,7 @@
                 const textFieldsArray = [...textFields].map(f => f.value);
 
                 const booleanFields = event.target.getElementsByClassName('boolean-field');
-                const booleanFieldsArray = [...booleanFields].map(f => f.value);
+                const booleanFieldsArray = [...booleanFields].map(f => f._value);
 
                 const numberFields = event.target.getElementsByClassName('number-field');
                 const numberFieldsArray = [...numberFields].map(f => f.value);
