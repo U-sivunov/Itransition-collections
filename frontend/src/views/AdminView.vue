@@ -2,15 +2,11 @@
     <div class="admin-page">
         <div class="admin-users">
             <h3>Users</h3>
-            <b-table hover :items="users"></b-table>
-        </div>
-        <div class="admin-types">
-            <h3>CollectionTypes</h3>
-            <b-table hover :items="collectionTypes"></b-table>
-            <b-form @submit="addNewType">
-              <b-form-input v-model="newType" placeholder="Enter new collection type"></b-form-input>
-              <b-button type="submit" variant="primary">Add</b-button>
-            </b-form>
+            <b-table hover :items="users" :fields="fields">
+                <template v-slot:cell(actions)="{ item }">
+                    <span><b-btn @click="deleteUser(item)">Edit</b-btn></span>
+                </template>
+            </b-table>
         </div>
     </div>
 </template>
@@ -22,6 +18,7 @@
       return {
         collectionTypes: [],
         users: [],
+        fields: ['id', 'username', 'email', 'role', 'actions'],
         newType: '',
       };
     },
@@ -37,13 +34,9 @@
         });
     },
     methods: {
-      addNewType() {
-        axios
-          .post("/api/collectionTypes",{name: this.newType})
-          .then((res) => {
-              this.newType = '';
-          });
-    }
+        deleteUser(u) {
+            console.log(u);
+        }
     },
   };
 </script>

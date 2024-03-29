@@ -46,7 +46,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/search:str",
     name: "search-page",
-    component: SearchView,
+    children:[{
+      path: ':str',
+      component: SearchView,
+    },]
   },
   {
     path: "/register-page",

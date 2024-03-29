@@ -15,8 +15,8 @@
         </b-form>
       </div>
       <div class="login-wrap">
-        <div v-if="!user"><router-link to="/login-page">Login</router-link> | <router-link to="/register-page">Register</router-link></div>
-        <div v-if="user">Hello, {{user.username}}! <router-link v-on:click="logout()" to="/login-page">| Logout</router-link></div>
+        <div v-if="!user.username"><router-link to="/login-page">Login</router-link> | <router-link to="/register-page">Register</router-link></div>
+        <div v-if="user.username">Hello, {{user.username}}! <router-link v-on:click="logout()" to="/login-page">| Logout</router-link></div>
       </div>
     </div>
   </nav>
@@ -78,6 +78,7 @@
             return {
                 user: {
                     username: "",
+                    id: undefined,
                     role: ""
                 },
                 searchText: ''
@@ -90,6 +91,7 @@
             .then((res) => {
               if (res.status === 'success') {
                 this.user.username = '';
+                this.user.id = undefined;
                 this.user.isAdmin = false;
               }
             });

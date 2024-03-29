@@ -35,6 +35,7 @@ export default {
         if (res.data.status === 'success') {
             this.user.username = res.data.user.username;
             this.user.role = res.data.user.role;
+            this.user.id = res.data.user.id;
         }
         });
     },

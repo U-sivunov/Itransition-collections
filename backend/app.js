@@ -154,8 +154,10 @@ router.post('/api/login', (req, res, next) => {
 });
 
 router.get('/api/logout', (req, res) => {
-    req.logout();
-    res.json({ status: 'success', message: 'Logged out successfully' });
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+    });
 });
 
 router.get('/api/users', isAuthenticated, (req, res) => {
