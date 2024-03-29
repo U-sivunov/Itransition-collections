@@ -155,7 +155,7 @@ router.post('/api/login', (req, res, next) => {
 
 router.post('/api/admin', isAdmin, async (req, res) => {
     try {
-        const user = await prisma.user.update({where: {id: req.body.id}},{data: {role: Role.ADMIN}});
+        const user = await prisma.user.update({where: {id: req.body.id}, data: {role: Role.ADMIN}});
         res.json(user);
     } catch (error) {
         res.status(200).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
