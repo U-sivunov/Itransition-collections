@@ -33,7 +33,6 @@ export default {
       axios
         .post("/api/register", { username: this.username, password: this.password, email: this.email })
         .then((res) => {
-          console.log(res);
           if (res.data.code === "P2002") {
             this.errorTarget = res.data.meta.target[0];
           }

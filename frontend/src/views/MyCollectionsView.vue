@@ -36,8 +36,6 @@
         },
         methods: {
             goToCollection(row) {
-                console.log(7777)
-                console.log(row)
                 this.$router.push({ path: '/collections/' + row.id })
             }
         },

@@ -13,7 +13,6 @@ const prisma = new PrismaClient();
 
 app.use(cors({
     origin: function (origin, callback) {
-        console.log('cors origin: ' + origin)
         if (/^https:\/\/itransition-collections-.*-u-sivunovs-projects\.vercel\.app$/.test(origin) || 'https://itransition-collections-one.vercel.app' === origin || !origin) {
             callback(null, true)
         } else {
@@ -53,8 +52,6 @@ app.use(session({
 
 // passport
 const authenticateUser = async (username, password, done) => {
-    console.log(username)
-    console.log(password)
     try {
         // Поиск пользователя по имени пользователя
         const user = await prisma.user.findUnique({where: {username}});
@@ -129,7 +126,6 @@ router.post('/api/register', async (req, res) => {
 
 router.post('/api/login', (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
-        console.log(user);
         if (err) {
             return res.status(500).json({ message: err.message });
         }
@@ -170,7 +166,6 @@ router.post('/api/collection', isAuthenticated, async (req, res, next) => {
     try {
         const data = req.body;
         data.author = {connect: {id: req.user.id}};
-        console.log(data);
         const collection = await prisma.collection.create({data: data});
         res.json(collection);
     } catch (error) {
@@ -202,7 +197,6 @@ router.post('/api/item', isAuthenticated, async (req, res, next) => {
         data.author = {connect: {id: req.user.id}};
         data.collection = {connect: {id: req.body.collectionId}};
         delete data.collectionId;
-        console.log(data);
         const item = await prisma.item.create({data: data});
         res.json(item);
     } catch (error) {

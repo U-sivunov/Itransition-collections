@@ -62,7 +62,6 @@
                 .then((res) => {
                     this.collection = res.data;
                     this.collectionLoaded = true;
-                    console.log(this.collection);
                 });
             axios
                 .get("/api/tags")
@@ -73,12 +72,9 @@
         },
         methods: {
             addNewItem() {
-                console.log('88888888888')
                 const tagElements = event.target.getElementsByClassName('tag-name');
                 const tagArray = [...tagElements].map(f => f.innerText);
                 const filteredTagArray = tagArray.filter((t) => !this.availableTags.includes(t));
-                console.log(tagArray)
-                console.log(filteredTagArray)
 
                 const stringFields = event.target.getElementsByClassName('string-field');
                 const stringFieldsArray = [...stringFields].map(f => f.value);
@@ -103,9 +99,8 @@
                     booleanFieldValues: booleanFieldsArray,
                     numberFieldValues: numberFieldsArray,
                     tags: filteredTagArray,
-                    dateFieldValues: this.dates.
+                    dateFieldValues: this.dates
                 }
-                console.log(newItem)
                 axios
                     .post("/api/item",newItem)
                     .then((res) => {

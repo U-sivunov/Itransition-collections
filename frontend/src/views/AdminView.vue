@@ -26,17 +26,14 @@
       };
     },
     mounted() {
-        console.log('moooo');
       axios
         .get("/api/collectionTypes",            )
         .then((res) => {
             this.collectionTypes = res.data;
-            console.log(res);
         });
       axios.get("/api/users")
         .then((res) => {
             this.users = res.data;
-            console.log(res);
         });
     },
     methods: {

@@ -88,7 +88,6 @@
             )
             .then((res) => {
               if (res.status === 'success') {
-                console.log('logouted');
                 this.user.username = '';
                 this.user.isAdmin = false;
               }

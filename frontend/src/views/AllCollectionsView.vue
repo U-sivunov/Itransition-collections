@@ -37,7 +37,6 @@
         },
         methods: {
             goToNew() {
-                console.log(7777)
                 router.push({ path: '/new-collection' })
             }
         },
