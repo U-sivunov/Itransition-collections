@@ -4,7 +4,7 @@
     <div class="header-wrap">
       <div class="menu-wrap">
         <router-link to="/">Home</router-link>
-        <router-link to="/my-collections" v-if="user.username">My collections</router-link>
+        <router-link to="/my-collections" v-if="localStorage.username">My collections</router-link>
         <router-link v-if="user.role === 'ADMIN'" to="/admin">Admin</router-link>
       </div>
 
@@ -15,8 +15,8 @@
         </b-form>
       </div>
       <div class="login-wrap">
-        <div v-if="!user.username"><router-link to="/login-page">Login</router-link> | <router-link to="/register-page">Register</router-link></div>
-        <div v-if="user.username">Hello, {{user.username}}! <router-link v-on:click="logout()" to="/login-page">| Logout</router-link></div>
+        <div v-if="!localStorage.username"><router-link to="/login-page">Login</router-link> | <router-link to="/register-page">Register</router-link></div>
+        <div v-if="localStorage.username">Hello, {{localStorage.username}}! <router-link v-on:click="logout()" to="/login-page">| Logout</router-link></div>
       </div>
     </div>
   </nav>
@@ -91,9 +91,7 @@
             .then((res) => {
                 console.log(res);
               if (res.status === 'success') {
-                this.user.username = '';
-                this.user.id = undefined;
-                this.user.isAdmin = false;
+                  localStorage.clear();
               }
             });
         },
