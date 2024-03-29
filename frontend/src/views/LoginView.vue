@@ -33,10 +33,10 @@ export default {
         )
         .then((res) => {
         if (res.data.status === 'success') {
-            this.$localStorage.start();
-            this.$localStorage.set('username', res.data.user.username);
-            this.$localStorage.set('role', res.data.user.role);
-            this.$localStorage.set('id', res.data.user.id);
+            this.$session.start();
+            this.$session.set('username', res.data.user.username);
+            this.$session.set('role', res.data.user.role);
+            this.$session.set('id', res.data.user.id);
             this.$router.push('/');
         }
         });
