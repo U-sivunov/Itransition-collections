@@ -1,64 +1,109 @@
 <template>
-  <div class="admin-page">
-    <div class="admin-types">
-      <h3>Create new Item</h3>
-    </div>
+  <div class="page-wrapper">
+    <h3>Create new {{collection.title}} item</h3>
+    <b-form @submit.prevent="addNewItem()" >
+      <b-form-input @keypress.enter.prevent v-model="newItemName" placeholder="Enter new Item name"></b-form-input>
+      <div>
+        <smart-tagz
+          v-if="tagsLoaded"
+          @keypress.enter.prevent
+          autosuggest
+          inputPlaceholder="Select Tags ..."
+          :sources="availableTags"
+          :allowPaste="{delimiter: ';'}"
+          :allowDuplicates="false"
+        />
+      </div>
+      <div v-if="collectionLoaded" class="additional-fields">
+        <div v-for="i in collection.stringFieldNames.length">
+          <label>{{collection.stringFieldNames[i-1]}}</label>
+          <b-form-input class="string-field"></b-form-input>
+        </div>
+        <div v-for="i in collection.textFieldNames.length">
+          <label>{{collection.textFieldNames[i-1]}}</label>
+          <b-form-textarea class="text-field"></b-form-textarea>
+        </div>
+        <div v-for="i in collection.numberFieldNames.length">
+          <label>{{collection.numberFieldNames[i-1]}}</label>
+          <b-form-input type="number" class="number-field"></b-form-input>
+        </div>
+        <div v-for="i in collection.booleanFieldNames.length">
+          <label>{{collection.booleanFieldNames[i-1]}}</label>
+          <b-form-checkbox class="boolean-field"></b-form-checkbox>
+        </div>
+        <div v-for="i in collection.dateFieldNames.length">
+          <label>{{collection.dateFieldNames[i-1]}}</label>
+          <Datepicker class="date-field" v-model="dates[i-1]"></Datepicker>
+        </div>
+      </div>
+      <b-button type="submit" variant="primary">Create Item</b-button>
+    </b-form>
   </div>
 </template>
 
 <script>
-    import { VMarkdownEditor } from 'vue3-markdown'
     import axios from "axios";
     export default {
         data() {
             return {
-                newCollectionName: '',
-                newCollectionType: '',
-                newCollectionDescription: '',
-                stringFieldsNumber: 1,
-                textFieldsNumber: 1,
-                booleanFieldsNumber: 1,
-                numberFieldsNumber: 1,
-                dateFieldsNumber: 1,
-                collectionTypes: []
+                collection: {},
+                newItemTitle: '',
+                newItemTags: [],
+                availableTags: [],
+                tagsLoaded: false,
+                collectionLoaded: false,
+                dates: []
             };
         },
-        mounted() {
+        beforeCreate() {
             axios
-                .get("/api/collectionTypes")
+                .get("/api/collections/" + this.$route.query.collectionId)
                 .then((res) => {
-                    this.collectionTypes = res.data;
-                    this.collectionTypes.push({ value: null, text: 'Please select type' });
+                    this.collection = res.data;
+                    this.collectionLoaded = true;
+                    console.log(this.collection);
+                });
+            axios
+                .get("/api/tags")
+                .then((res) => {
+                    this.availableTags = res.data;
+                    this.tagsLoaded = true;
                 });
         },
         methods: {
-            addNewCollection() {
+            addNewItem() {
+                console.log('88888888888')
+                const tagElements = event.target.getElementsByClassName('tag-name');
+                const tagArray = [...tagElements].map(f => f.innerText);
+                const filteredTagArray = tagArray.filter((t) => !this.availableTags.includes(t));
+                console.log(tagArray)
+                console.log(filteredTagArray)
+
                 const stringFields = event.target.getElementsByClassName('string-field');
                 const stringFieldsArray = [...stringFields].map(f => f.value);
 
                 const textFields = event.target.getElementsByClassName('text-field');
-                const textFieldsArray = [...stringFields].map(f => f.value);
+                const textFieldsArray = [...textFields].map(f => f.value);
 
                 const booleanFields = event.target.getElementsByClassName('boolean-field');
-                const booleanFieldsArray = [...stringFields].map(f => f.value);
+                const booleanFieldsArray = [...booleanFields].map(f => f.value);
 
                 const numberFields = event.target.getElementsByClassName('number-field');
-                const numberFieldsArray = [...stringFields].map(f => f.value);
+                const numberFieldsArray = [...numberFields].map(f => f.value);
 
-                const dateFields = event.target.getElementsByClassName('string-field');
-                const dateFieldsArray = [...stringFields].map(f => f.value);
-                const newCollection = {
-                    title: this.newCollectionName,
-                    description: this.newCollectionDescription,
-                    collectionType: this.newCollectionType,
-                    stringFieldNames: stringFieldsArray,
-                    textFieldNames: textFieldsArray,
-                    booleanFieldNames: booleanFieldsArray,
-                    numberFieldNames: numberFieldsArray,
-                    dateFieldNames: dateFieldsArray
+                const newItem = {
+                    title: this.newItemTitle,
+                    collectionId: this.collection.id,
+                    stringFieldValues: stringFieldsArray,
+                    textFieldValues: textFieldsArray,
+                    booleanFieldValues: booleanFieldsArray,
+                    numberFieldValues: numberFieldsArray,
+                    tags: filteredTagArray,
+                    dateFieldValues: this.dates
                 }
+                console.log(newItem)
                 axios
-                    .post("/api/collection",newCollection)
+                    .post("/api/item",newItem)
                     .then((res) => {
                       console.log(res);
                     });
@@ -68,9 +113,7 @@
 </script>
 
 <style>
-  b-form {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  .additional-fields > div {
+    max-width: 50%;
   }
 </style>

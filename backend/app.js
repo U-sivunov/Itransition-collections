@@ -94,16 +94,15 @@ app.use(passport.initialize());
 app.use(passport.session(undefined));
 app.set('trust proxy', 1);
 
-// Middleware для проверки аутентификации
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
-    } else {res.status(200).send('залогинься');
+    } else {
+        res.status(200).send('залогинься');
     }
 
 }
 
-// Middleware для проверки прав администратора
 function isAdmin(req, res, next) {
     if (req.user?.role === Role.ADMIN) {
         return next();
@@ -190,7 +189,7 @@ router.get('/api/my-collections', isAuthenticated, async (req, res, next) => {
 
 router.get('/api/collections/:id', async (req, res, next) => {
     try {
-        const collection = await prisma.collection.findUnique({where: {id: req.params.id}});
+        const collection = await prisma.collection.findUnique({where: {id: parseInt(req.params.id)}});
         res.json(collection);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
@@ -203,8 +202,17 @@ router.post('/api/item', isAuthenticated, async (req, res, next) => {
         data.author = {connect: {id: req.user.id}};
         data.collection = {connect: {id: req.body.collectionId}};
         console.log(data);
-        const collection = await prisma.collection.create({data: data});
-        res.json(collection);
+        const item = await prisma.item.create({data: data});
+        res.json(item);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
+router.get('/api/tags', async (req, res, next) => {
+    try {
+        const tags = await prisma.itemTag.findMany();
+        res.json(tags);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }

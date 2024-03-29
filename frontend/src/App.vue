@@ -16,7 +16,10 @@
       </div>
     </div>
   </nav>
-  <router-view />
+  <div class="page-content">
+    <router-view />
+  </div>
+
 </template>
 
 <style lang="scss">
@@ -49,6 +52,11 @@
     /*display: flex;*/
     /*flex-direction: row;*/
     /*gap: 10px;*/
+  }
+
+  .page-content {
+    padding: 20px;
+    text-align: start;
   }
 </style>
 
