@@ -1,22 +1,6 @@
 <template>
-  <div class="admin-page">
-    <div class="admin-types">
-      <h3>Collection</h3>
-      <h2>{{collection.title}}</h2>
-      <div class="description-wrap">
-        <VMarkdownView :content="collection.description"></VMarkdownView>
-      </div>
-      <b-table hover :items="items"></b-table>
-      <router-link :to="{
-        path: '/new-item',
-        query: {
-          collectionId: collection.id
-        }
-      }" v-slot="{ navigate }">
-        <b-button v-if="user.id === collection.authorId" v-on:click="navigate">Add new item</b-button>
-      </router-link>
-    </div>
-  </div>
+    <h3>Search result for: {{this.$route.params.str}}</h3>
+    <b-table hover :items="items"></b-table>
 </template>
 
 <script>
@@ -42,12 +26,7 @@
         },
         beforeCreate() {
             axios
-                .get("/api/collections/" + this.$route.params.id)
-                .then((res) => {
-                    this.collection = res.data;
-                });
-            axios
-                .get("/api/items-by-collection/" + this.$route.params.id)
+                .get("/api/search/" + this.$route.params.str)
                 .then((res) => {
                     this.items = res.data;
                 });

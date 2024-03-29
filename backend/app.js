@@ -100,6 +100,18 @@ function isAuthenticated(req, res, next) {
 
 }
 
+function canAdd(req, res, next) {
+    const user = req.user;
+    const collection = prisma.collection.findUnique({where: {id:  req.body.collectionId}});
+
+    if (collection.authorId === user.id || req.user?.role === Role.ADMIN) {
+        return next();
+    } else {
+        res.status(200).send('залогинься');
+    }
+
+}
+
 function isAdmin(req, res, next) {
     if (req.user?.role === Role.ADMIN) {
         return next();
@@ -191,7 +203,7 @@ router.get('/api/collections/:id', async (req, res, next) => {
     }
 });
 
-router.post('/api/item', isAuthenticated, async (req, res, next) => {
+router.post('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
     try {
         const data = req.body;
         data.author = {connect: {id: req.user.id}};
@@ -221,6 +233,17 @@ router.get('/api/tags', async (req, res, next) => {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
 });
+
+router.get('/api/search/:str', async (req, res, next) => {
+    try {
+        const items = await prisma.item.findMany({where: {collectionId: parseInt(req.params.str)}});
+        res.json(items);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
+
 
 
 
