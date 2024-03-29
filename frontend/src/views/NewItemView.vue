@@ -2,7 +2,7 @@
   <div class="page-wrapper">
     <h3>Create new {{collection.title}} item</h3>
     <b-form @submit.prevent="addNewItem()" >
-      <b-form-input @keypress.enter.prevent v-model="newItemName" placeholder="Enter new Item name"></b-form-input>
+      <b-form-input @keypress.enter.prevent v-model="newItemTitle" placeholder="Enter new Item name"></b-form-input>
       <div>
         <smart-tagz
           v-if="tagsLoaded"
@@ -43,6 +43,7 @@
 
 <script>
     import axios from "axios";
+    import { ref } from 'vue';
     export default {
         data() {
             return {
@@ -91,6 +92,9 @@
                 const numberFields = event.target.getElementsByClassName('number-field');
                 const numberFieldsArray = [...numberFields].map(f => f.valueAsNumber);
 
+                const dateArray = this.dates.map(f => ref(f));
+                console.log(dateArray)
+
                 const newItem = {
                     title: this.newItemTitle,
                     collectionId: this.collection.id,
@@ -99,7 +103,7 @@
                     booleanFieldValues: booleanFieldsArray,
                     numberFieldValues: numberFieldsArray,
                     tags: filteredTagArray,
-                    dateFieldValues: this.dates
+                    dateFieldValues: this.dates.
                 }
                 console.log(newItem)
                 axios
