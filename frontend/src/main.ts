@@ -3,7 +3,6 @@ import App from "./App.vue";
 import router from "./router";
 import axios from "axios";
 import BootstrapVue3 from "bootstrap-vue-3";
-import VueSession from "vue-session";
 import { VMarkdownEditor } from "vue3-markdown";
 import { VMarkdownView } from 'vue3-markdown'
 import 'vue3-markdown/dist/style.css'
@@ -19,7 +18,6 @@ axios.defaults.baseURL = "https://itransition-collections-back2.vercel.app/";
 axios.defaults.withCredentials = true;
 createApp(App)
     .use(router)
-    .use(VueSession)
     .use(BootstrapVue3)
     .component('VMarkdownEditor', VMarkdownEditor)
     .component('VMarkdownView', VMarkdownView)
