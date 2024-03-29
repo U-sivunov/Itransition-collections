@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login-dialog">
     <h2>Register</h2>
     <form @submit.prevent="register">
       <label for="username">Username:</label>

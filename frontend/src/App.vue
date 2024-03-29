@@ -58,6 +58,9 @@
     padding: 20px;
     text-align: start;
   }
+  .login-dialog {
+    text-align: center;
+  }
 </style>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="login-dialog">
     <h2>Login</h2>
     <form @submit.prevent="login">
       <label for="username">Username:</label>
@@ -11,7 +11,6 @@
       <button type="submit">Login</button>
     </form>
   </div>
-  <button v-on:click="test()">test</button>
 </template>
 
 <script>
@@ -40,11 +39,6 @@ export default {
         }
         console.log(res);
         });
-    },
-    test() {
-      axios.get("/api/users", { withCredentials: true }).then((res) => {
-        console.log(res);
-      });
     },
   },
 };
