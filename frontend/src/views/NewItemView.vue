@@ -74,7 +74,7 @@
             addNewItem() {
                 const tagElements = event.target.getElementsByClassName('tag-name');
                 const tagArray = [...tagElements].map(f => f.innerText);
-                const filteredTagArray = tagArray.filter((t) => !this.availableTags.includes(t));
+                const uniqTagArray = tagArray.filter((t) => !this.availableTags.includes(t));
 
                 const stringFields = event.target.getElementsByClassName('string-field');
                 const stringFieldsArray = [...stringFields].map(f => f.value);
@@ -98,7 +98,8 @@
                     textFieldValues: textFieldsArray,
                     booleanFieldValues: booleanFieldsArray,
                     numberFieldValues: numberFieldsArray,
-                    tags: filteredTagArray,
+                    tags: tagArray,
+                    uniqTags: uniqTagArray,
                     dateFieldValues: dateArray
                 }
                 axios
