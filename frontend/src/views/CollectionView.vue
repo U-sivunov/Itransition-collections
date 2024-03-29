@@ -6,7 +6,7 @@
       <div class="description-wrap">
         <VMarkdownView :content="collection.description"></VMarkdownView>
       </div>
-      <b-table hover :items="items"></b-table>
+      <b-table hover :items="items" @row-clicked="goToItem"></b-table>
       <router-link :to="{
         path: '/new-item',
         query: {
@@ -53,8 +53,8 @@
                 });
         },
         methods: {
-            goToItem() {
-                router.push({ path: '/new-collection' })
+            goToItem(row) {
+                this.$router.push({ path: '/items/' + row.id })
             }
         },
     };

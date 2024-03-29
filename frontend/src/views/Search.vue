@@ -1,6 +1,6 @@
 <template>
     <h3>Search result for: {{this.$route.params.str}}</h3>
-    <b-table hover :items="items"></b-table>
+    <b-table hover :items="items" @row-clicked="goToItem"></b-table>
 </template>
 
 <script>
@@ -32,8 +32,8 @@
                 });
         },
         methods: {
-            goToItem() {
-                router.push({ path: '/new-collection' })
+            goToItem(row) {
+                this.$router.push({ path: '/items/' + row.id })
             }
         },
     };
