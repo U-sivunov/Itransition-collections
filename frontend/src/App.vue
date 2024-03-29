@@ -75,10 +75,7 @@
         },
         data() {
             return {
-                user: {
-                    username: "",
-                    role: ""
-                },
+                user: {},
                 searchText: ''
             };
         },
