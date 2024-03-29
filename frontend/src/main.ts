@@ -13,7 +13,8 @@ import "smart-tagz/dist/smart-tagz.css";
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
-axios.defaults.baseURL = "https://itransition-collections-back2.vercel.app/";
+// axios.defaults.baseURL = "https://itransition-collections-back2.vercel.app/";
+// axios.defaults.baseURL = "http://127.0.0.1:3000/";
 axios.defaults.withCredentials = true;
 createApp(App)
     .use(router)
