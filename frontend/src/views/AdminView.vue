@@ -37,13 +37,17 @@
     methods: {
         adminUser(u) {
             console.log(u);
-            axios.post("/api/admin")
+            axios.post("/api/admin", {id: u.id})
               .then((res) => {
                   this.$router.go(0);
               });
         },
         deleteUser(u) {
             console.log(u);
+            axios.post("/api/delete-user", {id: u.id})
+              .then((res) => {
+                  this.$router.go(0);
+              });
         }
     },
   };
