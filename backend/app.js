@@ -11,19 +11,19 @@ const app = express();
 const router = express.Router();
 const prisma = new PrismaClient();
 
-app.use(cors({
-    origin: function (origin, callback) {
-        console.log('cors origin: ' + origin)
-        if (/^https:\/\/itransition-collections-.*-u-sivunovs-projects\.vercel\.app$/.test(origin) || 'https://itransition-collections-one.vercel.app' === origin || !origin) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+// app.use(cors({
+//     origin: function (origin, callback) {
+//         console.log('cors origin: ' + origin)
+//         if (/^https:\/\/itransition-collections-.*-u-sivunovs-projects\.vercel\.app$/.test(origin) || 'https://itransition-collections-one.vercel.app' === origin || !origin || 'http://localhost:8080' === origin) {
+//             callback(null, true)
+//         } else {
+//             callback(new Error('Not allowed by CORS'))
+//         }
+//     },
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+// }));
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Credentials', true);
@@ -33,14 +33,18 @@ app.use(function(req, res, next) {
 app.use(express.json());
 app.use(session({
     secret: 'secret',
+    // resave: false,
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        secure: true,
-        maxAge: 24 * 60 * 60 * 1000,
-        httpOnly: false,
-        sameSite: 'none',
-    },
+    // cookie: {
+    //     // secure: true,
+    //     secure: true,
+    //     maxAge: 24 * 60 * 60 * 1000,
+    //     // httpOnly: false,
+    //     httpOnly: false,
+    //     // sameSite: 'none',
+    //     sameSite: 's',
+    // },
     store: new PrismaSessionStore(
         prisma,
         {
@@ -98,7 +102,9 @@ app.set('trust proxy', 1);
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
-    } else {res.status(200).send('залогинься');
+    } else {
+        console.log(req.user)
+        res.status(200).send('залогинься');
     }
 
 }
@@ -120,7 +126,7 @@ router.post('/api/register', async (req, res) => {
         const email = req.body.email;
         const salt = await bcrypt.genSalt(10,);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email}});
+        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email, role: Role.ADMIN}});
         res.json(user);
     } catch (error) {
         res.status(200).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
@@ -190,7 +196,7 @@ router.get('/api/my-collections', isAuthenticated, async (req, res, next) => {
 
 router.get('/api/collections/:id', async (req, res, next) => {
     try {
-        const collection = await prisma.collection.findUnique({where: {id: req.params.id}});
+        const collection = await prisma.collection.findUnique({where: {id: parseInt(req.params.id)}});
         res.json(collection);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
@@ -203,8 +209,17 @@ router.post('/api/item', isAuthenticated, async (req, res, next) => {
         data.author = {connect: {id: req.user.id}};
         data.collection = {connect: {id: req.body.collectionId}};
         console.log(data);
-        const collection = await prisma.collection.create({data: data});
-        res.json(collection);
+        const item = await prisma.item.create({data: data});
+        res.json(item);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
+router.get('/api/tags', async (req, res, next) => {
+    try {
+        const tags = await prisma.itemTag.findMany();
+        res.json(tags);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
