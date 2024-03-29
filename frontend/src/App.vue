@@ -4,8 +4,8 @@
     <div class="header-wrap">
       <div class="menu-wrap">
         <router-link to="/">Home</router-link>
-        <router-link to="/my-collections" v-if="user.username">My collections</router-link>
-        <router-link v-if="user.role === 'ADMIN'" to="/admin">Admin</router-link>
+        <router-link to="/my-collections" v-if="this.$session.has('username')">My collections</router-link>
+        <router-link v-if="this.$session.get('role') === 'ADMIN'" to="/admin">Admin</router-link>
       </div>
 
       <div class="search-wrap">
@@ -91,9 +91,8 @@
             .then((res) => {
                 console.log(res);
               if (res.status === 'success') {
-                this.user.username = '';
-                this.user.id = undefined;
-                this.user.isAdmin = false;
+                  this.$session.destroy();
+                  this.$router.push('/');
               }
             });
         },
