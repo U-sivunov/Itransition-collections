@@ -36,9 +36,7 @@ export default {
             this.user.username = res.data.user.username;
             this.user.role = res.data.user.role;
             this.user.id = res.data.user.id;
-            localStorage.setItem('username', res.data.user.username);
-            localStorage.setItem('role', res.data.user.role);
-            localStorage.setItem('id', res.data.user.id);
+            localStorage.setItem('user', this.user);
         }
         });
     },
