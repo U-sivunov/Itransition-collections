@@ -44,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
     component: LoginView,
   },
   {
-    path: "/search:str",
+    path: "/search",
     name: "search-page",
     children:[{
       path: ':str',

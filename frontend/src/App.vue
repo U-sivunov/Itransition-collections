@@ -89,6 +89,7 @@
           axios
             .get("/api/logout")
             .then((res) => {
+                console.log(res);
               if (res.status === 'success') {
                 this.user.username = '';
                 this.user.id = undefined;
