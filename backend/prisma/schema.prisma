@@ -58,6 +58,7 @@ model Item {
   collection         Collection @relation(fields: [collectionId], references: [id])
   authorId           Int
   collectionId       Int
+  tags               String[]
 }
 
 model ItemComments {
