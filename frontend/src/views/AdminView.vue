@@ -37,6 +37,10 @@
     methods: {
         deleteUser(u) {
             console.log(u);
+            axios.get("/api/admin")
+              .then((res) => {
+                  this.$router.go(0);
+              });
         },
         adminUser(u) {
             console.log(u);

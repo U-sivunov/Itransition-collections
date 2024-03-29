@@ -128,7 +128,7 @@ router.post('/api/register', async (req, res) => {
         const email = req.body.email;
         const salt = await bcrypt.genSalt(10,);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email, role: Role.ADMIN}});
+        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email}});
         res.json(user);
     } catch (error) {
         res.status(200).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
@@ -151,6 +151,16 @@ router.post('/api/login', (req, res, next) => {
             return res.json({ status: 'success', message: 'Logged in successfully', user });
         });
     })(req, res, next);
+});
+
+router.post('/api/admin', isAdmin, async (req, res) => {
+    try {
+        const user = await prisma.user.update({where: {id: req.body.id}},{data: {role: Role.ADMIN}});
+        res.json(user);
+    } catch (error) {
+        res.status(200).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+    res.send();
 });
 
 router.get('/api/logout', (req, res) => {
@@ -250,8 +260,7 @@ router.get('/api/tags', async (req, res, next) => {
 
 router.get('/api/search/:str', async (req, res, next) => {
     try {
-        const items = await prisma.item.findMany({where: {body: {search: parseInt(req.params.str)}}});
-
+        const items = await prisma.item.findMany({where: {tags: {search: parseInt(req.params.str)}}});
         res.json(items);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
