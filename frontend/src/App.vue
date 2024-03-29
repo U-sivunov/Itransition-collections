@@ -8,14 +8,14 @@
       </div>
 
       <div class="search-wrap">
-        <b-form @submit="search()">
+        <b-form @submit="search()" style="display: flex">
           <b-form-input v-model="searchText" placeholder="Search"></b-form-input>
-          <b-button>Find</b-button>
+          <b-button type="submit">Find</b-button>
         </b-form>
       </div>
       <div class="login-wrap">
-        <div v-if="!user.username"><router-link to="/login-page">Login</router-link> | <router-link to="/register-page">Register</router-link></div>
-        <div v-if="user.username">Hello, {{user.username}}! <router-link v-on:click="logout()" to="/login-page">| Logout</router-link></div>
+        <div v-if="!user"><router-link to="/login-page">Login</router-link> | <router-link to="/register-page">Register</router-link></div>
+        <div v-if="user">Hello, {{user.username}}! <router-link v-on:click="logout()" to="/login-page">| Logout</router-link></div>
       </div>
     </div>
   </nav>
