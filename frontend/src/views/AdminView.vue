@@ -4,7 +4,8 @@
             <h3>Users</h3>
             <b-table hover :items="users" :fields="fields">
                 <template v-slot:cell(actions)="{ item }">
-                    <span><b-btn @click="deleteUser(item)">Edit</b-btn></span>
+                    <span><b-button @click="deleteUser(item)">Delete</b-button></span>
+                    <span><b-button @click="adminUser(item)">Admin</b-button></span>
                 </template>
             </b-table>
         </div>
@@ -35,6 +36,9 @@
     },
     methods: {
         deleteUser(u) {
+            console.log(u);
+        },
+        adminUser(u) {
             console.log(u);
         }
     },
