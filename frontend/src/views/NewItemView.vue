@@ -89,7 +89,7 @@
                 const booleanFieldsArray = [...booleanFields].map(f => f._value);
 
                 const numberFields = event.target.getElementsByClassName('number-field');
-                const numberFieldsArray = [...numberFields].map(f => f.value);
+                const numberFieldsArray = [...numberFields].map(f => f.valueAsNumber);
 
                 const newItem = {
                     title: this.newItemTitle,
