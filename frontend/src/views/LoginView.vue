@@ -33,7 +33,8 @@ export default {
         )
         .then((res) => {
         if (res.data.status === 'success') {
-            this.user = res.data.user;
+            this.user.username = res.data.user.username;
+            this.user.role = res.data.user.role;
         }
         });
     },
