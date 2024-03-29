@@ -201,6 +201,7 @@ router.post('/api/item', isAuthenticated, async (req, res, next) => {
         const data = req.body;
         data.author = {connect: {id: req.user.id}};
         data.collection = {connect: {id: req.body.collectionId}};
+        delete data.collectionId;
         console.log(data);
         const item = await prisma.item.create({data: data});
         res.json(item);

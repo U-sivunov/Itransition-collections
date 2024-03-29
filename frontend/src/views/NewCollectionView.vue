@@ -32,7 +32,7 @@
           <b-button variant="primary" v-on:click="numberFieldsNumber++">Add</b-button>
         </div>
         <div class="parameters-wrapper">
-          <div class="block-name" >Number parameters</div>
+          <div class="block-name" >Date parameters</div>
           <b-form-input v-for="n in dateFieldsNumber" class="date-field" placeholder="Parameter name"></b-form-input>
           <b-button variant="primary" v-on:click="dateFieldsNumber++">Add</b-button>
         </div>
