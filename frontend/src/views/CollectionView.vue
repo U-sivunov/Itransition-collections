@@ -7,13 +7,9 @@
         <VMarkdownView :content="collection.description"></VMarkdownView>
       </div>
       <b-table hover :items="items" @row-clicked="goToItem"></b-table>
-      <router-link :to="{
-        path: '/new-item',
-        query: {
-          collectionId: collection.id
-        }
-      }" v-slot="{ navigate }">
-        <b-button v-if="user.id === collection.authorId" v-on:click="navigate">Add new item</b-button>
+      {{this.user}}
+      <router-link v-if="this.user.id === collection.authorId" :to="{ path: '/new-item', query: { collectionId: collection.id }}" v-slot="{ navigate }">
+        <b-button v-on:click="navigate">Add new item</b-button>
       </router-link>
     </div>
   </div>

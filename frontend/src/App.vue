@@ -4,11 +4,14 @@
       <div class="menu-wrap">
         <router-link to="/">Home</router-link>
         <router-link to="/my-collections" v-if="user.username">My collections</router-link>
-        <router-link v-if="user.isAdmin" to="/admin">Admin</router-link>
+        <router-link v-if="user.role === 'ADMIN'" to="/admin">Admin</router-link>
       </div>
 
       <div class="search-wrap">
-        <b-form-input v-model="searchText" placeholder="Search"></b-form-input>
+        <b-form @submit="search()">
+          <b-form-input v-model="searchText" placeholder="Search"></b-form-input>
+          <b-button>Find</b-button>
+        </b-form>
       </div>
       <div class="login-wrap">
         <div v-if="!user.username"><router-link to="/login-page">Login</router-link> | <router-link to="/register-page">Register</router-link></div>
@@ -19,7 +22,6 @@
   <div class="page-content">
     <router-view />
   </div>
-
 </template>
 
 <style lang="scss">
@@ -75,17 +77,15 @@
             return {
                 user: {
                     username: "",
-                    isAdmin: false,
-                    searchText: ''
-                }
+                    role: ""
+                },
+                searchText: ''
             };
         },
       methods: {
         logout() {
           axios
-            .get(
-                    "/api/logout",
-            )
+            .get("/api/logout")
             .then((res) => {
               if (res.status === 'success') {
                 this.user.username = '';
@@ -93,6 +93,9 @@
               }
             });
         },
+        search() {
+          this.$router.push({ path: '/search/' + this.searchText});
+        }
       }
     };
 </script>

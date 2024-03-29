@@ -33,8 +33,7 @@ export default {
         )
         .then((res) => {
         if (res.data.status === 'success') {
-            this.user.username = res.data.user.username;
-            this.user.isAdmin = res.data.user.role === 'ADMIN';
+            this.user = res.data.user;
         }
         });
     },
