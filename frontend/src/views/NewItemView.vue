@@ -88,7 +88,7 @@
                 const numberFields = event.target.getElementsByClassName('number-field');
                 const numberFieldsArray = [...numberFields].map(f => f.valueAsNumber);
 
-                const dateArray = this.dates.map(f => ref(f));
+                const dateArray = this.dates.map(f => ref(f)._value);
                 console.log(dateArray)
 
                 const newItem = {
@@ -99,7 +99,7 @@
                     booleanFieldValues: booleanFieldsArray,
                     numberFieldValues: numberFieldsArray,
                     tags: filteredTagArray,
-                    dateFieldValues: this.dates
+                    dateFieldValues: dateArray
                 }
                 axios
                     .post("/api/item",newItem)
