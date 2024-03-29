@@ -35,14 +35,14 @@
         });
     },
     methods: {
-        deleteUser(u) {
+        adminUser(u) {
             console.log(u);
-            axios.get("/api/admin")
+            axios.post("/api/admin")
               .then((res) => {
                   this.$router.go(0);
               });
         },
-        adminUser(u) {
+        deleteUser(u) {
             console.log(u);
         }
     },
