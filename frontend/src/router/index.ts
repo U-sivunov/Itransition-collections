@@ -6,6 +6,7 @@ import MyCollectionsView from "../views/MyCollectionsView.vue";
 import NewCollectionView from "../views/NewCollectionView.vue";
 import NewItemView from "../views/NewItemView.vue";
 import SearchView from "../views/SearchView.vue";
+import ItemView from "../views/ItemView.vue";
 import CollectionView from "../views/CollectionView.vue";
 import AdminView from "../views/AdminView.vue";
 
@@ -31,6 +32,14 @@ const routes: Array<RouteRecordRaw> = [
     children:[{
       path: ':id',
       component: CollectionView,
+    },]
+  },
+  {
+    path: "/items",
+    name: "items",
+    children:[{
+      path: ':id',
+      component: ItemView,
     },]
   },
   {

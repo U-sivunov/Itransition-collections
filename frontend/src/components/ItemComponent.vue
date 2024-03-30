@@ -1,22 +1,17 @@
 <template>
-  <div item-wrapper>
+  <div class="item-wrapper">
     <div>{{item.title}}</div>
     <div class="item-tags">
       <div v-for="tag in item.tags">
         {{tag}}
       </div>
     </div>
-    <div class="additional-fields">
-      <div v-for="i in collection.stringFieldNames.length">
-        <div>{{collection.stringFieldNames[i-1]}}</div>
-        <div>{{item.stringFieldValues[i-1]}}</div>
-      </div>
-<!--      <div v-for="i in collection.dateFieldNames.length">-->
-<!--        <div>{{collection.dateFieldNames[i-1]}}</div>-->
-<!--        <Datepicker class="date-field" v-model="dates[i-1]"></Datepicker>-->
+<!--    <div class="additional-fields">-->
+<!--      <div v-for="i in collection.stringFieldNames.length">-->
+<!--        <div>{{collection.stringFieldNames[i-1]}}</div>-->
+<!--        <div>{{item.stringFieldValues[i-1]}}</div>-->
 <!--      </div>-->
-    </div>
-    <b-button type="submit" variant="primary">Create Item</b-button>
+<!--    </div>-->
   </div>
 </template>
 
@@ -24,9 +19,6 @@
     export default {
         name: 'ItemComponent',
         props: {
-            collection: {
-                type: Object
-            },
             item: {
                 type: Object
             }
@@ -39,6 +31,17 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+  }
+
+  .item-wrapper {
+    box-shadow: #555555 10px 10px 5px;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .item-wrapper:hover {
+    box-shadow: #555555 10px 10px 10px;
   }
   
   .item-tags div {
