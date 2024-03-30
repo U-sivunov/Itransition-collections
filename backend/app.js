@@ -162,6 +162,15 @@ router.post('/api/admin', isAdmin, async (req, res) => {
     }
 });
 
+router.post('/api/unadmin', isAdmin, async (req, res) => {
+    try {
+        const user = await prisma.user.update({where: {id: req.body.id}, data: {role: Role.USER}});
+        res.json(user);
+    } catch (error) {
+        res.status(200).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
 router.post('/api/delete-user', isAdmin, async (req, res) => {
     try {
         const user = await prisma.user.delegatesFocus({where: {id: req.body.id}});

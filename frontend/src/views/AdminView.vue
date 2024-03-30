@@ -5,7 +5,8 @@
             <b-table hover :items="users" :fields="fields">
                 <template v-slot:cell(actions)="{ item }">
                     <span><b-button @click="deleteUser(item)">Delete</b-button></span>
-                    <span><b-button @click="adminUser(item)">Admin</b-button></span>
+                    <span v-if="item.role !== 'ADMIN'"><b-button @click="adminUser(item)">Admin</b-button></span>
+                    <span v-if="item.role === 'ADMIN'"><b-button @click="unAdminUser(item)">Unadmin</b-button></span>
                 </template>
             </b-table>
         </div>
@@ -24,31 +25,33 @@
       };
     },
     mounted() {
-      axios
-        .get("/api/collectionTypes",            )
-        .then((res) => {
-            this.collectionTypes = res.data;
-        });
-      axios.get("/api/users")
-        .then((res) => {
-            this.users = res.data;
-        });
+      this.loadUsers();
     },
     methods: {
-        adminUser(u) {
-            console.log(u);
-            axios.post("/api/admin", {id: u.id})
+      adminUser(u) {
+        axios.post("/api/admin", {id: u.id})
+          .then((res) => {
+              this.$router.go(0);
+          });
+      },
+      unAdminUser(u) {
+          axios.post("/api/unadmin", {id: u.id})
               .then((res) => {
                   this.$router.go(0);
               });
-        },
-        deleteUser(u) {
-            console.log(u);
-            axios.post("/api/delete-user", {id: u.id})
-              .then((res) => {
-                  this.$router.go(0);
-              });
-        }
+      },
+      deleteUser(u) {
+        axios.post("/api/delete-user", {id: u.id})
+          .then((res) => {
+              this.loadUsers();
+          });
+      },
+      loadUsers() {
+        axios.get("/api/users")
+          .then((res) => {
+              this.users = res.data;
+          });
+      }
     },
   };
 </script>

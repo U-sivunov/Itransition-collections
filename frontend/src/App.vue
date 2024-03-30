@@ -86,7 +86,7 @@
         },
         mounted() {
             if (localStorage.user) {
-                this.user = localStorage.user;
+                this.user = JSON.parse(localStorage.user);
             }
         },
         methods: {
