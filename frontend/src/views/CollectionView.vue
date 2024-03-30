@@ -7,7 +7,9 @@
         <VMarkdownView :content="collection.description"></VMarkdownView>
       </div>
       <b-table hover :items="items" @row-clicked="goToItem"></b-table>
-      {{user}}
+      <item-component v-for="item in items" :collection="collection" :item="item">
+
+      </item-component>
       <router-link v-if="this.user.id === collection.authorId" :to="{ path: '/new-item', query: { collectionId: collection.id }}" v-slot="{ navigate }">
         <b-button v-on:click="navigate">Add new item</b-button>
       </router-link>
@@ -18,8 +20,10 @@
 <script>
     import axios from "axios";
     import { useRouter } from 'vue-router';
+    import ItemComponent from "@/components/ItemComponent";
 
     export default {
+        components: {ItemComponent},
         inject: ['user'],
         data() {
             return {
