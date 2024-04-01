@@ -16,14 +16,14 @@
 </template>
 
 <script>
-    export default {
-        name: 'ItemComponent',
-        props: {
-            item: {
-                type: Object
-            }
-        }
+  export default {
+    name: 'ItemComponent',
+    props: {
+      item: {
+          type: Object
+      }
     }
+  }
 </script>
 
 <style scoped>
@@ -34,18 +34,20 @@
   }
 
   .item-wrapper {
-    box-shadow: #555555 10px 10px 5px;
+    box-shadow: #555555 5px 5px 5px;
     margin: 15px;
     padding: 10px;
     border-radius: 8px;
   }
 
   .item-wrapper:hover {
-    box-shadow: #555555 10px 10px 10px;
+    box-shadow: #555555 10px 10px 5px;
+    cursor: pointer;
   }
   
   .item-tags div {
     margin: 4px;
+    padding: 4px;
     background-color: lightgreen;
     border-radius: 4px;
   }

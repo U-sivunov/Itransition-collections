@@ -257,6 +257,15 @@ router.get('/api/item/:id', async (req, res, next) => {
     }
 });
 
+router.get('/api/get-resent-items', async (req, res, next) => {
+    try {
+        const item = await prisma.item.findMany({where: {id: parseInt(req.params.id)}});
+        res.json(item);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
 router.get('/api/items-by-collection/:id', async (req, res, next) => {
     try {
         const items = await prisma.item.findMany({where: {collectionId: parseInt(req.params.id)}});
