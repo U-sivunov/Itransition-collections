@@ -263,7 +263,7 @@ router.get('/api/item/:id', async (req, res, next) => {
 
 router.get('/api/get-resent-items', async (req, res, next) => {
     try {
-        const items = await prisma.item.findMany({where: {published: true}, orderBy: {id: 'desc', take: 5}});
+        const items = await prisma.item.findMany({where: {published: true}, orderBy: {id: 'desc'}, take: 5});
         res.json(items);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
