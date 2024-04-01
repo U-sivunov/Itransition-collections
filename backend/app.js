@@ -309,7 +309,17 @@ router.get('/api/tags-values', async (req, res, next) => {
 
 router.get('/api/search/:str', async (req, res, next) => {
     try {
-        const items = await prisma.item.findMany({where: {title: {search: req.params.str}}});
+        const items = await prisma.item.findMany({
+            where: {OR: [
+                {title: {search: req.params.str}},
+                {stringFieldValues: {has: {search: req.params.str}}},
+                {textFieldValues: {has: {search: req.params.str}}},
+                {tags: {has: {search: req.params.str}}},
+                // {stringFieldValues: {has: {search: req.params.str}}},
+                // {stringFieldValues: {has: {search: req.params.str}}},
+                // {stringFieldValues: {has: {search: req.params.str}}},
+            ]}
+        });
         res.json(items);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
