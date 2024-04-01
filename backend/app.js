@@ -297,10 +297,6 @@ router.get('/api/search/:str', async (req, res, next) => {
     }
 });
 
-
-
-
-
 app.use(router)
 module.exports = app;
 
