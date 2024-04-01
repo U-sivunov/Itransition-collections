@@ -312,12 +312,17 @@ router.get('/api/search/:str', async (req, res, next) => {
         const items = await prisma.item.findMany({
             where: {OR: [
                 {title: {search: req.params.str}},
-                {stringFieldValues: {has: {search: req.params.str}}},
-                {textFieldValues: {has: {search: req.params.str}}},
-                {tags: {has: {search: req.params.str}}},
-                // {stringFieldValues: {has: {search: req.params.str}}},
-                // {stringFieldValues: {has: {search: req.params.str}}},
-                // {stringFieldValues: {has: {search: req.params.str}}},
+                {stringFieldValues1: {some: {
+                            value: {
+                                search: req.params.str
+                            }
+                        }
+                        }},
+                // {textFieldValues: {has: req.params.str}},
+                // {stringFieldValues: {has: req.params.str}},
+                // {stringFieldValues: {has: req.params.str}},
+                // {stringFieldValues: {has: req.params.str}},
+                // {stringFieldValues: {has: req.params.str}},
             ]}
         });
         res.json(items);

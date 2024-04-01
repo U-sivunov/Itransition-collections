@@ -50,6 +50,7 @@ model Item {
   updatedAt          DateTime   @updatedAt
   title              String
   published          Boolean    @default(true)
+  stringFieldValues1  ItemStringValues[]
   stringFieldValues  String[]
   textFieldValues    String[]
   booleanFieldValues Boolean[]
@@ -60,6 +61,14 @@ model Item {
   authorId           Int
   collectionId       Int
   tags               String[]
+}
+
+model ItemStringValues {
+    id                 Int        @id @default(autoincrement())
+    item             Item       @relation(fields: [itemId], references: [id])
+    itemId             Int
+    name        String
+    value       String
 }
 
 model ItemComments {
