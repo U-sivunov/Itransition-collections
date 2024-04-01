@@ -1,19 +1,21 @@
 <template>
-  <div class="admin-page">
-    <div class="admin-types">
-      <h3>Collection</h3>
-      <h2>{{collection.title}}</h2>
-      <div class="description-wrap">
-        <VMarkdownView :content="collection.description"></VMarkdownView>
-      </div>
-      <b-table hover :items="items" @row-clicked="goToItem"></b-table>
-      <item-component v-for="item in items" :collection="collection" :item="item">
-
-      </item-component>
-      <router-link v-if="this.user.id === collection.authorId  || this.user.role === 'ADMIN'" :to="{ path: '/new-item', query: { collectionId: collection.id }}" v-slot="{ navigate }">
-        <b-button v-on:click="navigate">Add new item</b-button>
-      </router-link>
+  <div class="collection-page">
+    <h3>Collection</h3>
+    <h2>{{collection.title}}</h2>
+    <div class="description-wrap">
+      <VMarkdownView :content="collection.description"></VMarkdownView>
     </div>
+    <b-table hover :items="items" @row-clicked="goToItem"></b-table>
+    <item-component v-for="item in items" :collection="collection" :item="item"></item-component>
+    <router-link v-if="user.id === collection.authorId  || user.role === 'ADMIN'" :to="{ path: '/new-item', query: { collectionId: collection.id }}" v-slot="{ navigate }">
+      <b-button v-on:click="navigate">Add new item</b-button>
+    </router-link>
+    {{this.user.id}}
+    {{this.user.role}}
+    {{collection.authorId}}
+
+    {{user.id}}
+    {{user.role}}
   </div>
 </template>
 
