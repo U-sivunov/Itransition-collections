@@ -284,8 +284,8 @@ router.get('/api/items-by-collection/:id', async (req, res, next) => {
 router.get('/api/tags', async (req, res, next) => {
     try {
         const tags = await prisma.itemTag.findMany();
-        tagsArr = tags.map(t => t.name);
-        res.json(tags);
+        const tagsArr = tags.map(t => t.name);
+        res.json(tagsArr);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
