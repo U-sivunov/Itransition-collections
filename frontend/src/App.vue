@@ -67,45 +67,57 @@
 </style>
 
 <script>
-    import axios from "axios";
-    export default {
-        provide() {
-            return {
-                user: this.user
-            };
-        },
-        data() {
-            return {
-                user: {
-                    username: "",
-                    id: undefined,
-                    role: ""
-                },
-                searchText: ''
-            };
-        },
-        mounted() {
-            if (localStorage.user) {
-                this.user = JSON.parse(localStorage.user);
-            }
-        },
-        methods: {
-        logout() {
-          axios
-            .get("/api/logout")
-            .then((res) => {
-                console.log(res);
-              if (res.status === 'success') {
-                this.user.username = '';
-                this.user.id = undefined;
-                this.user.isAdmin = false;
-                localStorage.clear();
-              }
-            });
-        },
-        search() {
-          this.$router.push({ path: '/search/' + this.searchText});
+  import axios from "axios";
+  export default {
+    provide() {
+        return {
+            user: this.user
+        };
+    },
+    data() {
+        return {
+            user: {
+                username: "",
+                id: undefined,
+                role: ""
+            },
+            searchText: ''
+        };
+    },
+    mounted() {
+        if (localStorage.user) {
+            this.user = JSON.parse(localStorage.user);
         }
+    },
+    methods: {
+      logout() {
+        axios
+          .get("/api/logout")
+          .then((res) => {
+              console.log(res);
+            if (res.status === 'success') {
+              this.user.username = '';
+              this.user.id = undefined;
+              this.user.isAdmin = false;
+              localStorage.clear();
+            }
+          });
+      },
+      search() {
+        this.$router.push({ path: '/search/' + this.searchText});
+      },
+      getAuthUser() {
+          axios
+              .get("/api/getAuthUser")
+              .then((res) => {
+                  if (res.data.user) {
+                      this.user.username = res.data.user.username;
+                      this.user.role = res.data.user.role;
+                      this.user.id = res.data.user.id;
+                      localStorage.setItem('user', JSON.stringify(this.user));
+                  }
+              });
       }
-    };
+    }
+  };
 </script>

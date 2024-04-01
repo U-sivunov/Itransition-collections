@@ -1,22 +1,24 @@
 <template>
   <div class="home">
     <div class="recent-items">
+      <item-component v-for="item in resentItems" :item="item">
 
+      </item-component>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { Options, Vue } from "vue-class-component";
+<script>
+
 import axios from "axios";
 
-@Options({
+export default {
   components: {
 
   },
   data() {
     return {
-      resentItems: {},
+      resentItems: [],
     };
   },
   beforeCreate() {
@@ -25,12 +27,11 @@ import axios from "axios";
   methods: {
     getResentItems() {
       axios
-      .get("/api/collections/" + this.$route.params.id)
+      .get("/api/recentItems/" + this.$route.params.id)
       .then((res) => {
-        this.collection = res.data;
+        this.recentItems = res.data;
       });
     }
   }
 })
-export default class HomeView extends Vue {}
 </script>

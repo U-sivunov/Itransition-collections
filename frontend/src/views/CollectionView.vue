@@ -19,7 +19,6 @@
 
 <script>
     import axios from "axios";
-    import { useRouter } from 'vue-router';
     import ItemComponent from "@/components/ItemComponent";
 
     export default {

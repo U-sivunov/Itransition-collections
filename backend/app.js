@@ -121,6 +121,10 @@ function isAdmin(req, res, next) {
 
 }
 
+router.get('/api/getAuthUser', isAdmin, async (req, res) => {
+    res.json(req.user);
+});
+
 router.post('/api/register', async (req, res) => {
     try {
         const username = req.body.username;
