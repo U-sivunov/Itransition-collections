@@ -85,9 +85,7 @@
         };
     },
     mounted() {
-        if (localStorage.user) {
-            this.user = JSON.parse(localStorage.user);
-        }
+        this.getAuthUser();
     },
     methods: {
       logout() {
