@@ -40,6 +40,7 @@
     justify-content: space-between;
     width: 100%;
     gap: 20px;
+    background-color: lightgreen;
   }
   .menu-wrap {
     display: flex;
@@ -114,7 +115,9 @@
                       this.user.id = res.data.user.id;
                       localStorage.setItem('user', JSON.stringify(this.user));
                   } else {
-                      this.user = {};
+                      this.user.username = '';
+                      this.user.role = '';
+                      this.user.id = undefined;
                       localStorage.removeItem('user');
                   }
               });
