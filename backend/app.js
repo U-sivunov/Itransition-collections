@@ -239,7 +239,9 @@ router.get('/api/collections/:id', async (req, res, next) => {
 router.post('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
     try {
         const newTags = req.body.uniqTags.map(t => {return {name: t}});
-        prisma.itemTag.createMany({data: newTags, skipDuplicates: true});
+        console.log(newTags)
+        const nt = await prisma.itemTag.createMany({data: newTags, skipDuplicates: true});
+        console.log(nt)
         const data = req.body;
         data.author = {connect: {id: req.user.id}};
         data.collection = {connect: {id: req.body.collectionId}};
