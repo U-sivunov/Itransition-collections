@@ -288,6 +288,22 @@ router.get('/api/tags', async (req, res, next) => {
     }
 });
 
+router.get('/api/tags-values', async (req, res, next) => {
+    try {
+        const tags = await prisma.item.findMany({
+            include: {
+                _count: {
+                    select: { tags: true },
+                },
+            },
+        });
+        res.json(tags);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
+
 router.get('/api/search/:str', async (req, res, next) => {
     try {
         const items = await prisma.item.findMany({where: {title: {search: req.params.str}}});
