@@ -77,7 +77,7 @@
                 const uniqTagArray = tagArray.filter((t) => !this.availableTags.includes(t));
 
                 const stringFields = event.target.getElementsByClassName('string-field');
-                const stringFieldsArray = [...stringFields].map(f, i => { return {value: f.value, name: this.collection.stringFieldNames[i]}});
+                const stringFieldsArray = [...stringFields].map((f, i) => { return {value: f.value, name: this.collection.stringFieldNames[i]}});
                 const stringFieldsArrayCreate = { create: [...stringFieldsArray] }
 
                 const textFields = event.target.getElementsByClassName('text-field');

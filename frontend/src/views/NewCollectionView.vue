@@ -81,7 +81,7 @@
                 const numberFields = event.target.getElementsByClassName('number-field');
                 const numberFieldsArray = [...numberFields].map(f => f.value);
 
-                const dateFields = event.target.getElementsByClassName('string-field');
+                const dateFields = event.target.getElementsByClassName('date-field');
                 const dateFieldsArray = [...dateFields].map(f => f.value);
                 const newCollection = {
                     title: this.newCollectionName,
