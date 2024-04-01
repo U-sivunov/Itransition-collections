@@ -10,7 +10,7 @@
       <item-component v-for="item in items" :collection="collection" :item="item">
 
       </item-component>
-      <router-link v-if="this.user.id === collection.authorId" :to="{ path: '/new-item', query: { collectionId: collection.id }}" v-slot="{ navigate }">
+      <router-link v-if="this.user.id === collection.authorId  || this.user.role === 'ADMIN'" :to="{ path: '/new-item', query: { collectionId: collection.id }}" v-slot="{ navigate }">
         <b-button v-on:click="navigate">Add new item</b-button>
       </router-link>
     </div>
