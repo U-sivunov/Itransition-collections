@@ -27,7 +27,7 @@ export default {
   methods: {
     getResentItems() {
       axios
-      .get("/api/get-resent-items/" + this.$route.params.id)
+      .get("/api/get-resent-items/")
       .then((res) => {
         this.recentItems = res.data;
       });
