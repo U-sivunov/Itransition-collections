@@ -96,7 +96,6 @@
                     title: this.newItemTitle,
                     collectionId: this.collection.id,
                     stringFieldValues1: stringFieldsArrayCreate,
-                    stringFieldValues: stringFieldsArray,
                     textFieldValues: textFieldsArray,
                     booleanFieldValues: booleanFieldsArray,
                     numberFieldValues: numberFieldsArray,
