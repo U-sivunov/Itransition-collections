@@ -21,13 +21,13 @@ export default {
       resentItems: [],
     };
   },
-  beforeCreate() {
+  mounted() {
     this.getResentItems();
   },
   methods: {
     getResentItems() {
       axios
-      .get("/api/recentItems/" + this.$route.params.id)
+      .get("/api/get-resent-items/" + this.$route.params.id)
       .then((res) => {
         this.recentItems = res.data;
       });
