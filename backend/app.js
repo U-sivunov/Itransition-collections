@@ -312,20 +312,25 @@ router.get('/api/tags-values', async (req, res, next) => {
 
 
 router.get('/api/search/:str', async (req, res, next) => {
+    const conditionArray = [
+        {title: {search: req.params.str}},
+        {stringFieldValues: {some: {
+                    value: { search: req.params.str }
+                }}},
+        {textFieldValues: {some: {
+                    value: { search: req.params.str }
+                }}}
+    ];
+    if (parseInt(req.params.str) || parseInt(req.params.str) === 0) {
+        conditionArray.push(
+            {numberFieldValues:
+                {some: {
+                    value:  parseInt(req.params.str)
+            }}})
+    }
     try {
         const items = await prisma.item.findMany({
-            where: {OR: [
-                {title: {search: req.params.str}},
-                {stringFieldValues: {some: {
-                                                value: { search: req.params.str }
-                                            }}},
-                {textFieldValues: {some: {
-                                                value: { search: req.params.str }
-                                            }}},
-                {numberFieldValues: {some: {
-                                                value:  parseInt(req.params.str)
-                                            }}},
-            ]}
+            where: {OR: conditionArray}
         });
         res.json(items);
     } catch (error) {
