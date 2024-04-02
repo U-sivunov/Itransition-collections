@@ -2,6 +2,7 @@
   <div class="collection-page">
     <h3>Collection</h3>
     <h2>{{collection.title}}</h2>
+    <h2>{{collection.collectionType}}</h2>
     <div class="description-wrap">
       <VMarkdownView :content="collection.description"></VMarkdownView>
     </div>
@@ -10,12 +11,6 @@
     <router-link v-if="user.id === collection.authorId  || user.role === 'ADMIN'" :to="{ path: '/new-item', query: { collectionId: collection.id }}" v-slot="{ navigate }">
       <b-button v-on:click="navigate">Add new item</b-button>
     </router-link>
-    {{this.user.id}}
-    {{this.user.role}}
-    {{collection.authorId}}
-
-    {{user.id}}
-    {{user.role}}
   </div>
 </template>
 
