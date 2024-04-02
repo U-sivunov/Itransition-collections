@@ -50,12 +50,11 @@ model Item {
   updatedAt          DateTime   @updatedAt
   title              String
   published          Boolean    @default(true)
-  stringFieldValues1  ItemStringValues[]
-  stringFieldValues  String[]
-  textFieldValues    String[]
-  booleanFieldValues Boolean[]
-  numberFieldValues  Int[]
-  dateFieldValues    DateTime[]
+  stringFieldValues  ItemStringValues[]
+  textFieldValues    ItemTextValues[]
+  booleanFieldValues ItemBooleanValues[]
+  numberFieldValues  ItemNumberValues[]
+  dateFieldValues    ItemDateValues[]
   author             User       @relation(fields: [authorId], references: [id])
   collection         Collection @relation(fields: [collectionId], references: [id])
   authorId           Int
@@ -70,6 +69,39 @@ model ItemStringValues {
     name        String
     value       String
 }
+
+model ItemTextValues {
+    id                 Int        @id @default(autoincrement())
+    item             Item       @relation(fields: [itemId], references: [id])
+    itemId             Int
+    name        String
+    value       String
+}
+
+model ItemBooleanValues {
+    id                 Int        @id @default(autoincrement())
+    item             Item       @relation(fields: [itemId], references: [id])
+    itemId             Int
+    name        String
+    value       Boolean
+}
+
+model ItemNumberValues {
+    id                 Int        @id @default(autoincrement())
+    item             Item       @relation(fields: [itemId], references: [id])
+    itemId             Int
+    name        String
+    value       Int
+}
+
+model ItemDateValues {
+    id                 Int        @id @default(autoincrement())
+    item             Item       @relation(fields: [itemId], references: [id])
+    itemId             Int
+    name        String
+    value       DateTime
+}
+
 
 model ItemComments {
   id Int @id @default(autoincrement())

@@ -33,7 +33,7 @@
         </div>
         <div v-for="i in collection.dateFieldNames.length">
           <label>{{collection.dateFieldNames[i-1]}}</label>
-          <Datepicker class="date-field" v-model="dates[i-1]"></Datepicker>
+          <Datepicker v-model="dates[i-1]"></Datepicker>
         </div>
       </div>
       <b-button type="submit" variant="primary">Create Item</b-button>
@@ -74,35 +74,26 @@
             addNewItem() {
                 const tagElements = event.target.getElementsByClassName('tag-name');
                 const tagArray = [...tagElements].map(f => f.innerText);
-                const uniqTagArray = tagArray.filter((t) => !this.availableTags.includes(t));
+                // const uniqTagArray = tagArray.filter((t) => !this.availableTags.includes(t));
 
-                const stringFields = event.target.getElementsByClassName('string-field');
-                const stringFieldsArray = [...stringFields].map((f, i) => { return {value: f.value, name: this.collection.stringFieldNames[i]}});
-                const stringFieldsArrayCreate = { create: [...stringFieldsArray] }
+                // const dateArray = this.dates.map((f, i) => { return {value: ref(f)._value, name: this.collection[t+'FieldNames'][i]}});
 
-                const textFields = event.target.getElementsByClassName('text-field');
-                const textFieldsArray = [...textFields].map(f => f.value);
-
-                const booleanFields = event.target.getElementsByClassName('boolean-field');
-                const booleanFieldsArray = [...booleanFields].map(f => f.checked);
-
-                const numberFields = event.target.getElementsByClassName('number-field');
-                const numberFieldsArray = [...numberFields].map(f => f.valueAsNumber);
-
-                const dateArray = this.dates.map(f => ref(f)._value);
-                console.log(dateArray)
 
                 const newItem = {
                     title: this.newItemTitle,
                     collectionId: this.collection.id,
-                    stringFieldValues1: stringFieldsArrayCreate,
-                    textFieldValues: textFieldsArray,
-                    booleanFieldValues: booleanFieldsArray,
-                    numberFieldValues: numberFieldsArray,
                     tags: tagArray,
-                    uniqTags: uniqTagArray,
-                    dateFieldValues: dateArray
                 }
+
+                const types = ['string', 'text', 'boolean', 'number', 'date'];
+                types.forEach((t) => {
+                    const fields = event.target.getElementsByClassName(t + '-field');
+                    const fieldsArray = t === 'date' ?
+                        [...this.dates].map((f, i) => { return {value: ref(f)._value, name: this.collection[t+'FieldNames'][i]}}) :
+                        [...fields].map((f, i) => { return {value: f.value, name: this.collection[t+'FieldNames'][i]}});
+                    const fieldsArrayCreate = { create: [...fieldsArray] }
+                    newItem[t + 'FieldValues'] = fieldsArrayCreate
+                })
                 axios
                     .post("/api/item",newItem)
                     .then((res) => {
