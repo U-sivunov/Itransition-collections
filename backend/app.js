@@ -312,11 +312,11 @@ router.get('/api/search/:str', async (req, res, next) => {
                 {stringFieldValues: {some: {
                                                 value: { search: req.params.str }
                                             }}},
-                {stringTextValues: {some: {
+                {textFieldValues: {some: {
                                                 value: { search: req.params.str }
                                             }}},
-                {stringNumberValues: {some: {
-                                                value: { search: req.params.str }
+                {numberFieldValues: {some: {
+                                                value: req.params.str
                                             }}},
             ]}
         });
