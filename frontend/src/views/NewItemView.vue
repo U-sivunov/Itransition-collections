@@ -85,14 +85,20 @@
                     tags: tagArray,
                 }
 
-                const types = ['string', 'text', 'boolean', 'number', 'date'];
+                const types = [
+                      {tName: 'string', val: 'value'},
+                      {tName: 'text', val: 'value'},
+                      {tName: 'boolean', val: 'checked'},
+                      {tName: 'number', val: 'valueAsNumber'},
+                      {tName: 'date', val: 'value'},
+                    ];
                 types.forEach((t) => {
-                    const fields = event.target.getElementsByClassName(t + '-field');
-                    const fieldsArray = t === 'date' ?
-                        [...this.dates].map((f, i) => { return {value: ref(f)._value, name: this.collection[t+'FieldNames'][i]}}) :
-                        [...fields].map((f, i) => { return {value: f.value, name: this.collection[t+'FieldNames'][i]}});
+                    const fields = event.target.getElementsByClassName(t.tName + '-field');
+                    const fieldsArray = t.tName === 'date' ?
+                        [...this.dates].map((f, i) => { return {value: ref(f)._value, name: this.collection[t.tName+'FieldNames'][i]}}) :
+                        [...fields].map((f, i) => { return {value: f[t.val], name: this.collection[t.tName+'FieldNames'][i]}});
                     const fieldsArrayCreate = { create: [...fieldsArray] }
-                    newItem[t + 'FieldValues'] = fieldsArrayCreate
+                    newItem[t.tName + 'FieldValues'] = fieldsArrayCreate
                 })
                 axios
                     .post("/api/item",newItem)
