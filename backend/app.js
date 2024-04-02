@@ -320,9 +320,8 @@ router.get('/api/search/:str', async (req, res, next) => {
         {textFieldValues: {some: {
                     value: { search: req.params.str }
                 }}},
-        {tags: {hasSome: {
-                    name: req.params.str
-                }}}
+        {tags: {has: req.params.str
+                }}
     ];
     if (parseInt(req.params.str) || parseInt(req.params.str) === 0) {
         conditionArray.push(
