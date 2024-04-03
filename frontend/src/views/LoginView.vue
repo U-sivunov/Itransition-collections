@@ -10,6 +10,7 @@
       <br />
       <button type="submit">Login</button>
     </form>
+    {{ errorMessage }}
     <b-alert v-if="errorMessage" variant="danger" dismissible>
       {{ errorMessage }}
     </b-alert>
