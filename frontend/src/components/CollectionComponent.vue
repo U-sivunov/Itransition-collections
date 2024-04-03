@@ -35,18 +35,4 @@
     box-shadow: #555555 5px 5px 5px;
     cursor: pointer;
   }
-  
-  .item-tags div {
-    margin: 4px;
-    padding: 4px;
-    background-color: lightgreen;
-    border-radius: 4px;
-  }
-
-  .additional-fields div {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
 </style>

@@ -20,7 +20,7 @@ app.use(cors({
         }
     },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', "PATCH"],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
@@ -263,6 +263,16 @@ router.patch('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
         const nt = await prisma.itemTag.createMany({data: newTags, skipDuplicates: true});
         const data = req.body;
         const item = await prisma.item.update({where: {id: data.id}}, {data: data});
+        res.json(item);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
+router.delete('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
+    try {
+        const data = req.body;
+        const item = await prisma.item.delete({where: {id: data.id}});
         res.json(item);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});

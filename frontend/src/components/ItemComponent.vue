@@ -57,5 +57,7 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 </style>

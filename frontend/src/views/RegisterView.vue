@@ -2,16 +2,16 @@
   <div class="login-dialog">
     <h2>Register</h2>
     <form @submit.prevent="register">
-      <label for="username">Username:</label>
-      <input id="username" v-model="username" type="text" name="username" required />
+      <label>Username:</label>
+      <b-form-input id="username" v-model="username" type="text" name="username" required />
       <br />
-      <label for="password">Password:</label>
-      <input id="password" v-model="password" type="password" name="password" required />
+      <label>Password:</label>
+      <b-form-input id="password" v-model="password" type="password" name="password" required />
       <br />
-      <label for="email">Email:</label>
-      <input id="email" v-model="email" type="email" name="email" required />
+      <label>Email:</label>
+      <b-form-input id="email" v-model="email" type="email" name="email" required />
       <br />
-      <button type="submit">Register</button>
+      <b-button type="submit">Register</b-button>
     </form>
     <b-alert v-if="errorTarget" variant="danger" dismissible>
       Such {{ errorTarget }} already exist
