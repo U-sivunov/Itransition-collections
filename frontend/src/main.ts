@@ -12,7 +12,6 @@ import { SmartTagz } from "smart-tagz";
 import "smart-tagz/dist/smart-tagz.css";
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
-import wordcloud from 'vue-wordcloud'
 
 axios.defaults.baseURL = "https://itransition-collections-back2.vercel.app/";
 axios.defaults.withCredentials = true;
@@ -23,7 +22,6 @@ createApp(App)
     .component('VMarkdownView', VMarkdownView)
     .component('smart-tagz', SmartTagz)
     .component('Datepicker', VueDatePicker)
-    .component('wordcloud', wordcloud)
     .mount("#app");
 
 

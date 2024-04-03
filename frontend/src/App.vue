@@ -27,7 +27,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style>
   #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -81,6 +81,7 @@
     width: 50%;
     margin: auto;
   }
+
   .spinner-wrapper {
     position: fixed;
     width: 100vw;
