@@ -17,22 +17,16 @@
 </script>
 
 <style scoped>
-  .item-tags {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-
-  .item-wrapper {
-    box-shadow: #555555 5px 5px 5px;
-    border: 1px solid black;
+  .collection-wrapper {
+    box-shadow: #555555 2px 2px 5px;
     margin: 15px;
     padding: 10px;
     border-radius: 8px;
+    border: 1px solid black;
   }
 
-  .item-wrapper:hover {
-    box-shadow: #555555 10px 10px 5px;
+  .collection-wrapper:hover {
+    box-shadow: #555555 5px 5px 5px;
     cursor: pointer;
   }
   

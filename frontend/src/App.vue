@@ -11,7 +11,7 @@
       <div class="search-wrap">
         <b-form @submit="search()" style="display: flex">
           <b-form-input v-model="searchText" placeholder="Search"></b-form-input>
-          <b-button type="submit">Find</b-button>
+          <b-button type="submit" variant="primary">Find</b-button>
         </b-form>
       </div>
       <div class="login-wrap">
@@ -51,6 +51,16 @@
   .search-wrap {
     flex-grow: 10;
     max-width: 50%;
+  }
+
+  .search-wrap input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .search-wrap input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
   .login-wrap div {

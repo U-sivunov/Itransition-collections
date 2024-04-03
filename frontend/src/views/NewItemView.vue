@@ -45,6 +45,9 @@
     import axios from "axios";
     import { ref } from 'vue';
     export default {
+        props: {
+            createNew: false;
+        },
         data() {
             return {
                 collection: {},
