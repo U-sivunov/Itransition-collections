@@ -23,6 +23,9 @@
   <div class="page-content">
     <router-view />
   </div>
+  <div v-if="spinner" class="spinner-wrapper">
+    <b-spinner variant="primary" label="Spinning"></b-spinner>
+  </div>
 </template>
 
 <style lang="scss">
@@ -76,6 +79,17 @@
   .login-dialog {
     text-align: center;
   }
+  .spinner-wrapper {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px);
+    top: 0;
+    transition-duration: .3s;
+  }
 </style>
 
 <script>
@@ -83,7 +97,8 @@
   export default {
     provide() {
         return {
-            user: this.user
+            user: this.user,
+            spinner: this.spinner
         };
     },
     data() {
@@ -93,10 +108,12 @@
                 id: undefined,
                 role: ""
             },
+            spinner: false,
             searchText: ''
         };
     },
     mounted() {
+        this.initSpinner();
         this.getAuthUser();
     },
     methods: {
@@ -132,6 +149,22 @@
                       localStorage.removeItem('user');
                   }
               });
+      },
+      initSpinner() {
+          axios.interceptors.request.use(function (config) {
+              this.spinner = true;
+              return config;
+          }.bind(this), function (error) {
+              this.spinner = false;
+              return Promise.reject(error);
+          });
+          axios.interceptors.response.use(function (response) {
+              this.spinner = false;
+              return response;
+          }, function (error) {
+              this.spinner = false;
+              return Promise.reject(error);
+          });
       }
     }
   };

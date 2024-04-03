@@ -11,7 +11,7 @@
       <button type="submit">Login</button>
     </form>
     <b-alert v-if="errorMessage" variant="danger" dismissible>
-      such {{ errorTarget }} already exist
+      {{ errorMessage }}
     </b-alert>
   </div>
 </template>
@@ -24,6 +24,7 @@ export default {
     return {
       username: "",
       password: "",
+      errorMessage: "",
     };
   },
   methods: {
@@ -40,8 +41,10 @@ export default {
             this.user.role = res.data.user.role;
             this.user.id = res.data.user.id;
             localStorage.setItem('user', JSON.stringify(this.user));
+            this.$router.push({ path: '/my-collections'});
         }})
         .catch( e => {
+            this.errorMessage = e.response.data.message;
             console.log(e)
         });
     },

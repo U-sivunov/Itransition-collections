@@ -14,7 +14,7 @@
       <button type="submit">Register</button>
     </form>
     <b-alert v-if="errorTarget" variant="danger" dismissible>
-      such {{ errorTarget }} already exist
+      Such {{ errorTarget }} already exist
     </b-alert>
   </div>
 </template>
@@ -37,6 +37,8 @@ export default {
         .then((res) => {
           if (res.data.code === "P2002") {
             this.errorTarget = res.data.meta.target[0];
+          } else {
+            this.$router.push({ path: '/my-collections'});
           }
         });
     },
