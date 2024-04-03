@@ -187,7 +187,7 @@ router.post('/api/delete-user', isAdmin, async (req, res) => {
 router.get('/api/logout', (req, res) => {
     req.logout(function(err) {
         if (err) { return next(err); }
-        res.redirect('/');
+        res.status(200).send();
     });
 });
 

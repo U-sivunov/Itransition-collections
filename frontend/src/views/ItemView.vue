@@ -66,7 +66,6 @@
           <div>{{f.value}}</div>
         </div>
       </div>
-      <b-button type="submit" variant="primary">Create Item</b-button>
   </div>
   <b-button v-if="user.id === item.authorId" variant="primary" v-on:click="editMode()">Edit item</b-button>
 </template>

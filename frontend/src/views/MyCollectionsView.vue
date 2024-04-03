@@ -3,7 +3,7 @@
     <div class="admin-types">
       <h3>My collections</h3>
 <!--      <b-table hover :items="collections" selectable"></b-table>-->
-      <CollectionComponent v-for="collection in collections" :collection="collection" v-on:click="goToCollection(collection.id)"></CollectionComponent>
+      <CollectionComponent v-for="collection in collections" :collection="collection"></CollectionComponent>
       <router-link to="/new-collection" custom v-slot="{ navigate }">
         <b-button v-on:click="navigate">Create new collection</b-button>
       </router-link>

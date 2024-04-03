@@ -25,7 +25,7 @@
   }
 </script>
 
-<style scoped>
+<style>
   .item-tags {
     display: flex;
     flex-direction: row;
