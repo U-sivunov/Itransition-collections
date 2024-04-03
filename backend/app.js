@@ -262,7 +262,7 @@ router.patch('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
         const newTags = req.body.tags.map(t => {return {name: t}});
         const nt = await prisma.itemTag.createMany({data: newTags, skipDuplicates: true});
         const data = req.body;
-        const item = await prisma.item.update({where: {id: data.id}}, {data: data});
+        const item = await prisma.item.update({where: {id: data.id}, data: data});
         res.json(item);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});

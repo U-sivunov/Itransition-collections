@@ -67,7 +67,7 @@
         </div>
       </div>
   </div>
-  <b-button v-if="user.id === item.authorId" variant="primary" v-on:click="editModeOn()">Edit item</b-button>
+  <b-button v-if="editMode" v-if="user.id === item.authorId" variant="primary" v-on:click="editModeOn()">Edit item</b-button>
   <b-button v-if="user.id === item.authorId" variant="danger" v-on:click="deleteItem()">Delete item</b-button>
 </template>
 
@@ -116,11 +116,9 @@
             },
             deleteItem() {
                 axios
-                    .delete("/api/tags")
+                    .delete("/api/item")
                     .then((res) => {
-                        this.availableTags = res.data;
-                        this.tagsLoaded = true;
-                        this.editMode = true;
+
                     });
             }
 

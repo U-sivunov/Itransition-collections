@@ -77,6 +77,8 @@
   }
   .login-dialog {
     text-align: center;
+    width: 50%;
+    margin: auto;
   }
   .spinner-wrapper {
     position: fixed;
