@@ -34,7 +34,8 @@
 
   .item-wrapper {
     box-shadow: #555555 2px 2px 5px;
-    margin: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     padding: 10px;
     border-radius: 8px;
     border: 1px solid black;

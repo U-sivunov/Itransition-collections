@@ -1,7 +1,7 @@
 <template>
   <div class="collection-wrapper" v-on:click="goToCollection(collection.id)">
-    <div>{{collection.title}}</div>
-    <div>{{collection.collectionType}}</div>
+    <h4>{{collection.title}} ({{collection.collectionType}})</h4>
+    <div>Created by {{collection.user.username}}</div>
   </div>
 </template>
 

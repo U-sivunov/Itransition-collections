@@ -60,7 +60,7 @@
     border-bottom-right-radius: 0;
   }
 
-  .search-wrap input {
+  .search-wrap button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
@@ -75,6 +75,7 @@
     padding: 20px;
     text-align: start;
   }
+
   .login-dialog {
     text-align: center;
     width: 50%;
@@ -97,21 +98,21 @@
   import axios from "axios";
   export default {
     provide() {
-        return {
-            user: this.user,
-            spinner: this.spinner
-        };
+      return {
+          user: this.user,
+          spinner: this.spinner
+      };
     },
     data() {
-        return {
-            user: {
-                username: "",
-                id: undefined,
-                role: ""
-            },
-            spinner: false,
-            searchText: ''
-        };
+      return {
+        user: {
+            username: "",
+            id: undefined,
+            role: ""
+        },
+        spinner: false,
+        searchText: ''
+      };
     },
     mounted() {
         this.initSpinner();
@@ -122,49 +123,47 @@
         axios
           .get("/api/logout")
           .then((res) => {
-            if (res.status === 'success') {
-              this.user.username = '';
-              this.user.id = undefined;
-              this.user.isAdmin = false;
-              localStorage.clear();
-            }
+            this.user.username = '';
+            this.user.id = undefined;
+            this.user.isAdmin = false;
+            localStorage.clear();
           });
       },
       search() {
         this.$router.push({ path: '/search/' + this.searchText});
       },
       getAuthUser() {
-          axios
-              .get("/api/getAuthUser")
-              .then((res) => {
-                  if (res.data.user) {
-                      this.user.username = res.data.user.username;
-                      this.user.role = res.data.user.role;
-                      this.user.id = res.data.user.id;
-                      localStorage.setItem('user', JSON.stringify(this.user));
-                  } else {
-                      this.user.username = '';
-                      this.user.role = '';
-                      this.user.id = undefined;
-                      localStorage.removeItem('user');
-                  }
-              });
+        axios
+          .get("/api/getAuthUser")
+          .then((res) => {
+            if (res.data.user) {
+              this.user.username = res.data.user.username;
+              this.user.role = res.data.user.role;
+              this.user.id = res.data.user.id;
+              localStorage.setItem('user', JSON.stringify(this.user));
+            } else {
+              this.user.username = '';
+              this.user.role = '';
+              this.user.id = undefined;
+              localStorage.removeItem('user');
+            }
+          });
       },
       initSpinner() {
-          axios.interceptors.request.use(function (config) {
-              this.spinner = true;
-              return config;
-          }.bind(this), function (error) {
-              this.spinner = false;
-              return Promise.reject(error);
-          }.bind(this));
-          axios.interceptors.response.use(function (response) {
-              this.spinner = false;
-              return response;
-          }.bind(this), function (error) {
-              this.spinner = false;
-              return Promise.reject(error);
-          }.bind(this));
+        axios.interceptors.request.use(function (config) {
+            this.spinner = true;
+            return config;
+        }.bind(this), function (error) {
+            this.spinner = false;
+            return Promise.reject(error);
+        }.bind(this));
+        axios.interceptors.response.use(function (response) {
+            this.spinner = false;
+            return response;
+        }.bind(this), function (error) {
+            this.spinner = false;
+            return Promise.reject(error);
+        }.bind(this));
       }
     }
   };

@@ -1,12 +1,12 @@
 <template>
-  <wordcloud
-    :data="tags"
-    nameKey="name"
-    valueKey="value"
-    :color="colors"
-    :showTooltip="true"
-    :wordClick="wordClickHandler">
-  </wordcloud>
+<!--  <wordcloud-->
+<!--    :data="tags"-->
+<!--    nameKey="name"-->
+<!--    valueKey="value"-->
+<!--    :color="colors"-->
+<!--    :showTooltip="true"-->
+<!--    :wordClick="wordClickHandler">-->
+<!--  </wordcloud>-->
   <div class="home">
     <div class="recent-items">
       <item-component v-for="item in resentItems" :item="item">
