@@ -157,14 +157,14 @@
           }.bind(this), function (error) {
               this.spinner = false;
               return Promise.reject(error);
-          });
+          }.bind(this));
           axios.interceptors.response.use(function (response) {
               this.spinner = false;
               return response;
-          }, function (error) {
+          }.bind(this), function (error) {
               this.spinner = false;
               return Promise.reject(error);
-          });
+          }.bind(this));
       }
     }
   };

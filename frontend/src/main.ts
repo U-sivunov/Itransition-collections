@@ -15,11 +15,6 @@ import '@vuepic/vue-datepicker/dist/main.css';
 
 axios.defaults.baseURL = "https://itransition-collections-back2.vercel.app/";
 axios.defaults.withCredentials = true;
-axios.interceptors.response.use(response => response, error => {
-    console.error('Axios error');
-    console.error(error.request);
-    return Promise.reject(error);
-});
 createApp(App)
     .use(router)
     .use(BootstrapVue3)
