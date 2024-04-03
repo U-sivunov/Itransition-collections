@@ -13,7 +13,7 @@ import "smart-tagz/dist/smart-tagz.css";
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 
-axios.defaults.baseURL = process.env.API_URL;
+axios.defaults.baseURL = "https://itransition-collections-back2.vercel.app/";
 axios.defaults.withCredentials = true;
 axios.interceptors.response.use(response => response, error => {
     console.error('Axios error');
