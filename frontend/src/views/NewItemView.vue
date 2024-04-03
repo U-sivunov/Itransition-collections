@@ -46,7 +46,7 @@
     import { ref } from 'vue';
     export default {
         props: {
-            createNew: false;
+            createNew: false
         },
         data() {
             return {

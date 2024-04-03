@@ -10,6 +10,9 @@
       <br />
       <button type="submit">Login</button>
     </form>
+    <b-alert v-if="errorMessage" variant="danger" dismissible>
+      such {{ errorTarget }} already exist
+    </b-alert>
   </div>
 </template>
 

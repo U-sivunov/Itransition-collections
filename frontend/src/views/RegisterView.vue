@@ -13,7 +13,9 @@
       <br />
       <button type="submit">Register</button>
     </form>
-    <div v-if="errorTarget">such {{ errorTarget }} already exist</div>
+    <b-alert v-if="errorTarget" variant="danger" dismissible>
+      such {{ errorTarget }} already exist
+    </b-alert>
   </div>
 </template>
 
