@@ -1,39 +1,40 @@
 <template>
     <h2>{{item}}</h2>
-    <b-form @submit.prevent="addNewItem()" >
-<!--        <b-form-input @keypress.enter.prevent v-model="newItemTitle" placeholder="Enter new Item name"></b-form-input>-->
-<!--        <div>-->
-<!--            <smart-tagz-->
-<!--              v-if="tagsLoaded"-->
-<!--              @keypress.enter.prevent-->
-<!--              autosuggest-->
-<!--              inputPlaceholder="Select Tags ..."-->
-<!--              :sources="availableTags"-->
-<!--              :allowPaste="{delimiter: ','}"-->
-<!--              :allowDuplicates="false"-->
-<!--            />-->
-<!--        </div>-->
+    <b-form  @submit.prevent="addNewItem()" >
+      <b-form-input @keypress.enter.prevent v-model="newItemTitle" placeholder="Enter new Item name"></b-form-input>
+      <div>
+        <smart-tagz
+          v-if="tagsLoaded"
+          @keypress.enter.prevent
+          autosuggest
+          inputPlaceholder="Select Tags ..."
+          :sources="availableTags"
+          :allowPaste="{delimiter: ','}"
+          :allowDuplicates="false"
+          :defaultTags=item.tags
+        />
+      </div>
         <div class="additional-fields">
-            <div v-for="f in item.stringFieldValues">
-                <label>{{f.name}}</label>
-                <b-form-input class="string-field" v-model="f.value"></b-form-input>
-            </div>
-<!--            <div v-for="i in collection.textFieldNames.length">-->
-<!--                <label>{{collection.textFieldNames[i-1]}}</label>-->
-<!--                <b-form-textarea class="text-field"></b-form-textarea>-->
-<!--            </div>-->
-<!--            <div v-for="i in collection.numberFieldNames.length">-->
-<!--                <label>{{collection.numberFieldNames[i-1]}}</label>-->
-<!--                <b-form-input type="number" class="number-field"></b-form-input>-->
-<!--            </div>-->
-<!--            <div v-for="i in collection.booleanFieldNames.length">-->
-<!--                <label>{{collection.booleanFieldNames[i-1]}}</label>-->
-<!--                <b-form-checkbox class="boolean-field"></b-form-checkbox>-->
-<!--            </div>-->
-<!--            <div v-for="i in collection.dateFieldNames.length">-->
-<!--                <label>{{collection.dateFieldNames[i-1]}}</label>-->
-<!--                <Datepicker v-model="dates[i-1]"></Datepicker>-->
-<!--            </div>-->
+          <div v-for="f in item.stringFieldValues">
+              <label>{{f.name}}</label>
+              <b-form-input class="string-field" v-model="f.value"></b-form-input>
+          </div>
+          <div v-for="f in item.textFieldValues">
+            <label>{{f.name}}</label>
+            <b-form-input class="text-field" v-model="f.value"></b-form-input>
+          </div>
+          <div v-for="f in item.numberFieldValues">
+            <label>{{f.name}}</label>
+            <b-form-input type="number" class="number-field" v-model="f.value"></b-form-input>
+          </div>
+          <div v-for="f in item.booleanFieldValues">
+            <label>{{f.name}}</label>
+            <b-form-checkbox class="boolean-field" v-model="f.value"></b-form-checkbox>
+          </div>
+          <div v-for="f in item.dateFieldValues">
+            <label>{{f.name}}</label>
+            <Datepicker v-model="f.value"></Datepicker>
+          </div>
         </div>
         <b-button type="submit" variant="primary">Create Item</b-button>
     </b-form>
