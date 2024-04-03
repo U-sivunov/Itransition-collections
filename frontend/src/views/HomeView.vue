@@ -21,14 +21,12 @@
 </template>
 
 <script>
-  import wordcloud from 'vue-wordcloud'
   import axios from "axios";
   import ItemComponent from "@/components/ItemComponent";
 
   export default {
     components: {
         ItemComponent,
-        wordcloud
     },
     data() {
       return {
