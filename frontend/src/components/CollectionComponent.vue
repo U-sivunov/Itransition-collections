@@ -1,5 +1,5 @@
 <template>
-  <div class="collection-wrapper">
+  <div class="collection-wrapper" v-on:click="goToCollection(collection.id)">
     <div>{{collection.title}}</div>
     <div>{{collection.collectionType}}</div>
   </div>
@@ -12,7 +12,12 @@
       collection: {
           type: Object
       }
-    }
+    },
+      methods: {
+        goToCollection(id) {
+            this.$router.push({ path: '/collections/' + id })
+        }
+      }
   }
 </script>
 

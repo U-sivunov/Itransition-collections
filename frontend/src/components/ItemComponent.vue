@@ -1,5 +1,5 @@
 <template>
-  <div class="item-wrapper">
+  <div class="item-wrapper" v-on:click="goToItem(item.id)">
     <h5>{{item.title}}</h5>
     <div class="item-tags">
       <div v-for="tag in item.tags">
@@ -16,6 +16,11 @@
       item: {
           type: Object
       }
+    },
+    methods: {
+        goToItem(id) {
+            this.$router.push({ path: '/items/' + id })
+        }
     }
   }
 </script>

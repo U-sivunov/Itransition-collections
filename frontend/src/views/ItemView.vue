@@ -1,7 +1,6 @@
 <template>
-    <h2>{{item}}</h2>
-    <b-form  @submit.prevent="addNewItem()" >
-      <b-form-input @keypress.enter.prevent v-model="newItemTitle" placeholder="Enter new Item name"></b-form-input>
+    <b-form v-if="editmMde" @submit.prevent="addNewItem()" >
+      <b-form-input @keypress.enter.prevent placeholder="Enter new Item name" v-model="item.title"></b-form-input>
       <div>
         <smart-tagz
           v-if="tagsLoaded"
@@ -38,6 +37,38 @@
         </div>
         <b-button type="submit" variant="primary">Create Item</b-button>
     </b-form>
+    <div  v-if="!editmMde" @submit.prevent="addNewItem()" >
+      <div>{{item.title}}</div>
+      <div class="item-tags">
+        <div v-for="tag in item.tags">
+          {{tag}}
+        </div>
+      </div>
+      <div class="additional-fields">
+        <div v-for="f in item.stringFieldValues">
+          <div>{{f.name}}:</div>
+          <div>{{f.value}}</div>
+        </div>
+        <div v-for="f in item.textFieldValues">
+          <div>{{f.name}}:</div>
+          <div>{{f.value}}</div>
+        </div>
+        <div v-for="f in item.numberFieldValues">
+          <div>{{f.name}}:</div>
+          <div>{{f.value}}</div>
+        </div>
+        <div v-for="f in item.booleanFieldValues">
+          <label>{{f.name}}</label>
+          <b-form-checkbox class="boolean-field" v-model="f.value" disabled></b-form-checkbox>
+        </div>
+        <div v-for="f in item.dateFieldValues">
+          <div>{{f.name}}</div>
+          <div>{{f.value}}</div>
+        </div>
+      </div>
+      <b-button type="submit" variant="primary">Create Item</b-button>
+  </div>
+  <b-button v-if="user.id === item.authorId" variant="primary" v-on:click="editMode()">Edit item</b-button>
 </template>
 
 <script>
@@ -52,7 +83,8 @@
         data() {
             return {
               item: {},
-              collection: {}
+              collection: {},
+              editMode: false
             };
         },
         beforeCreate() {
@@ -98,7 +130,17 @@
                   .then((res) => {
                       console.log(res);
                   });
+            },
+            editMode() {
+                axios
+                    .get("/api/tags")
+                    .then((res) => {
+                        this.availableTags = res.data;
+                        this.tagsLoaded = true;
+                        this.editMode = true;
+                    });
             }
+
         },
     };
 </script>
