@@ -40,7 +40,10 @@ export default {
             this.user.role = res.data.user.role;
             this.user.id = res.data.user.id;
             localStorage.setItem('user', JSON.stringify(this.user));
-        }});
+        }})
+        .catch( e => {
+            console.log(e)
+        });
     },
   },
 };

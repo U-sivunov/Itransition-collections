@@ -30,6 +30,9 @@ export default {
       .get("/api/get-resent-items/")
       .then((res) => {
         this.recentItems = res.data;
+      })
+      .catch( e => {
+          console.log(e)
       });
     }
   }
