@@ -43,7 +43,7 @@
         axios
         .get("/api/get-resent-items/")
         .then((res) => {
-          this.recentItems = res.data;
+          this.resentItems = res.data;
         })
         .catch( e => {
             console.log(e)
