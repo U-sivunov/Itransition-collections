@@ -45,7 +45,7 @@
     cursor: pointer;
   }
   
-  .item-tags div {
+  .item-tags > div {
     margin: 4px;
     padding: 4px;
     background-color: lightgreen;
