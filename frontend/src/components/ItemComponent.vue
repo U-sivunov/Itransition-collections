@@ -52,7 +52,7 @@
     border-radius: 4px;
   }
 
-  .additional-fields div {
+  .additional-fields > div {
     width: 100%;
     display: flex;
     flex-direction: row;
