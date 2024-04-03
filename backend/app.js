@@ -235,7 +235,7 @@ router.get('/api/my-collections', isAuthenticated, async (req, res, next) => {
 
 router.get('/api/collections/:id', async (req, res, next) => {
     try {
-        const collection = await prisma.collection.findUnique({where: {id: parseInt(req.params.id)}, include: {_count: {items: true}}});
+        const collection = await prisma.collection.findUnique({where: {id: parseInt(req.params.id)}, include: {_count: { select: {items: true}}}});
         res.json(collection);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});

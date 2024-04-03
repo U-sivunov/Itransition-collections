@@ -35,7 +35,7 @@
             <Datepicker v-model="f.value"></Datepicker>
           </div>
         </div>
-        <b-button type="submit" variant="primary">Create Item</b-button>
+        <b-button type="submit" variant="primary">Update Item</b-button>
     </b-form>
     <div  v-if="!editMode">
       <div>{{item.title}}</div>
@@ -67,7 +67,8 @@
         </div>
       </div>
   </div>
-  <b-button v-if="user.id === item.authorId" variant="primary" v-on:click="editMode()">Edit item</b-button>
+  <b-button v-if="user.id === item.authorId" variant="primary" v-on:click="editModeOn()">Edit item</b-button>
+  <b-button v-if="user.id === item.authorId" variant="danger" v-on:click="deleteItem()">Delete item</b-button>
 </template>
 
 <script>
@@ -84,7 +85,8 @@
               item: {},
               collection: {},
               editMode: false,
-              tagsLoaded: false
+              tagsLoaded: false,
+              availableTags: []
             };
         },
         beforeCreate() {
@@ -103,9 +105,18 @@
                       this.$router.push({ path: '/my-collections'});
                   });
             },
-            editMode() {
+            editModeOn() {
                 axios
                     .get("/api/tags")
+                    .then((res) => {
+                        this.availableTags = res.data;
+                        this.tagsLoaded = true;
+                        this.editMode = true;
+                    });
+            },
+            deleteItem() {
+                axios
+                    .delete("/api/tags")
                     .then((res) => {
                         this.availableTags = res.data;
                         this.tagsLoaded = true;
