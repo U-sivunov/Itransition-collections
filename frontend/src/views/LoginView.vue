@@ -11,8 +11,14 @@
       <button type="submit">Login</button>
     </form>
     {{ errorMessage }}
-    <b-alert v-if="errorMessage" variant="danger" dismissible>
+    <b-alert v-if="errorMessage" variant="danger">
       {{ errorMessage }}
+    </b-alert>
+    <b-alert variant="danger">
+      {{ errorMessage }}
+    </b-alert>
+    <b-alert variant="danger">
+      еуыыые
     </b-alert>
   </div>
 </template>

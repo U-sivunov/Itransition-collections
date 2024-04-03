@@ -260,7 +260,15 @@ router.post('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
 
 router.get('/api/item/:id', async (req, res, next) => {
     try {
-        const item = await prisma.item.findUnique({where: {id: parseInt(req.params.id)}});
+        const item = await prisma.item.findUnique({where: {id: parseInt(req.params.id)},
+            include: {
+                collection: true,
+                stringFieldValues: true,
+                textFieldValues: true,
+                booleanFieldValues: true,
+                numberFieldValues: true,
+                dateFieldValues: true,
+            }});
         res.json(item);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
