@@ -24,6 +24,7 @@ model User {
   role          Role         @default(USER)
   collecections Collection[]
   Item          Item[]
+  comments Comment[]
 }
 
 model Collection {
