@@ -2,7 +2,7 @@
   <div class="page-wrapper">
     <h3>Create new {{collection.title}} item</h3>
     <b-form @submit.prevent="addNewItem()" >
-      <b-form-input @keypress.enter.prevent v-model="newItemTitle" placeholder="Enter new Item name"></b-form-input>
+      <b-form-input require @keypress.enter.prevent v-model="newItemTitle" placeholder="Enter new Item name"></b-form-input>
       <div>
         <smart-tagz
           v-if="tagsLoaded"

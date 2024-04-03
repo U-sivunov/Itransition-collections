@@ -1,5 +1,5 @@
 <template>
-    <b-form v-if="editmMde" @submit.prevent="addNewItem()" >
+    <b-form v-if="editMode" @submit.prevent="updateItem()" >
       <b-form-input @keypress.enter.prevent placeholder="Enter new Item name" v-model="item.title"></b-form-input>
       <div>
         <smart-tagz
@@ -37,7 +37,7 @@
         </div>
         <b-button type="submit" variant="primary">Create Item</b-button>
     </b-form>
-    <div  v-if="!editmMde" @submit.prevent="addNewItem()" >
+    <div  v-if="!editMode">
       <div>{{item.title}}</div>
       <div class="item-tags">
         <div v-for="tag in item.tags">
@@ -83,7 +83,8 @@
             return {
               item: {},
               collection: {},
-              editMode: false
+              editMode: false,
+              tagsLoaded: false
             };
         },
         beforeCreate() {
@@ -95,39 +96,11 @@
                 });
         },
         methods: {
-            addNewItem() {
-                const tagElements = event.target.getElementsByClassName('tag-name');
-                const tagArray = [...tagElements].map(f => f.innerText);
-                // const uniqTagArray = tagArray.filter((t) => !this.availableTags.includes(t));
-
-                // const dateArray = this.dates.map((f, i) => { return {value: ref(f)._value, name: this.collection[t+'FieldNames'][i]}});
-
-
-                const newItem = {
-                    title: this.newItemTitle,
-                    collectionId: this.collection.id,
-                    tags: tagArray,
-                }
-
-                const types = [
-                    {tName: 'string', val: 'value'},
-                    {tName: 'text', val: 'value'},
-                    {tName: 'boolean', val: 'checked'},
-                    {tName: 'number', val: 'valueAsNumber'},
-                    {tName: 'date', val: 'value'},
-                ];
-                types.forEach((t) => {
-                    const fields = event.target.getElementsByClassName(t.tName + '-field');
-                    const fieldsArray = t.tName === 'date' ?
-                      [...this.dates].map((f, i) => { return {value: ref(f)._value, name: this.collection[t.tName+'FieldNames'][i]}}) :
-                      [...fields].map((f, i) => { return {value: f[t.val], name: this.collection[t.tName+'FieldNames'][i]}});
-                    const fieldsArrayCreate = { create: [...fieldsArray] }
-                    newItem[t.tName + 'FieldValues'] = fieldsArrayCreate
-                })
+            updateItem() {
                 axios
-                  .post("/api/item",newItem)
+                  .patch("/api/item",this.item)
                   .then((res) => {
-                      console.log(res);
+                      this.$router.push({ path: '/my-collections'});
                   });
             },
             editMode() {

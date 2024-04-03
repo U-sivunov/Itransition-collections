@@ -1,9 +1,9 @@
 <template>
   <wordcloud
-    :data="defaultWords"
+    :data="tags"
     nameKey="name"
     valueKey="value"
-    :color="myColors"
+    :color="colors"
     :showTooltip="true"
     :wordClick="wordClickHandler">
   </wordcloud>
@@ -33,7 +33,8 @@
     data() {
       return {
         resentItems: [],
-        tags:[]
+        tags:[],
+        colors: ['#1f77b4', '#9fc962', '#94ff94', '#ff00ef'],
       };
     },
     mounted() {
