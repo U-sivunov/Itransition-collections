@@ -95,7 +95,7 @@ function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     } else {
-        res.status(200).send('залогинься');
+        res.status(403).send('залогинься');
     }
 
 }
@@ -107,7 +107,7 @@ function canAdd(req, res, next) {
     if (collection.authorId === user.id || req.user?.role === Role.ADMIN) {
         return next();
     } else {
-        res.status(200).send('залогинься');
+        res.status(403).send('залогинься');
     }
 
 }
