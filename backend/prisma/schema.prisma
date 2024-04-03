@@ -60,6 +60,7 @@ model Item {
   authorId           Int
   collectionId       Int
   tags               String[]
+  comments           Comment[]
 }
 
 model ItemStringValues {
@@ -102,13 +103,14 @@ model ItemDateValues {
     value       DateTime
 }
 
-
-model ItemComments {
-  id Int @id @default(autoincrement())
-}
-
 model Comment {
   id Int @id @default(autoincrement())
+  createdAt         DateTime           @default(now())
+  item             Item       @relation(fields: [itemId], references: [id])
+  itemId             Int
+  author             User       @relation(fields: [authorId], references: [id])
+  authorId           Int
+  text  String
 }
 
 model ItemTag {
