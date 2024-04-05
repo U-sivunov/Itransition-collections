@@ -108,6 +108,7 @@
                 fields.forEach(f => {
                     item[f] = {update: item[f]}
                 });
+                delete item.collection;
                 axios
                   .post("/api/update-item",item)
                   .then((res) => {
