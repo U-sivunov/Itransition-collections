@@ -116,7 +116,7 @@
             },
             deleteItem() {
                 axios
-                    .delete("/api/item")
+                    .put("/api/delete-item",this.item)
                     .then((res) => {
 
                     });

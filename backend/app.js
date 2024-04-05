@@ -269,7 +269,7 @@ router.patch('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
     }
 });
 
-router.delete('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
+router.put('/api/delete-item', isAuthenticated, canAdd, async (req, res, next) => {
     try {
         const data = req.body;
         const item = await prisma.item.delete({where: {id: data.id}});
