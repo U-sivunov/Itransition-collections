@@ -12,12 +12,28 @@ import { SmartTagz } from "smart-tagz";
 import "smart-tagz/dist/smart-tagz.css";
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
+import { createStore } from 'vuex'
+
+const store = createStore({
+    state: {
+        user: {}
+    },
+    mutations: {
+        login (state, user) {
+            state.user = user;
+        },
+        logout (state) {
+            state.user = {}
+        }
+    }
+})
 
 axios.defaults.baseURL = "https://itransition-collections-back2.vercel.app/";
 axios.defaults.withCredentials = true;
 createApp(App)
     .use(router)
     .use(BootstrapVue3)
+    .use(store)
     .component('VMarkdownEditor', VMarkdownEditor)
     .component('VMarkdownView', VMarkdownView)
     .component('smart-tagz', SmartTagz)

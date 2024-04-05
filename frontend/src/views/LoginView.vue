@@ -26,7 +26,11 @@
 <script>
 import axios from "axios";
 export default {
-  inject: ['user'],
+          computed: {
+            user () {
+                return this.$store.state.user
+            }
+        },
   data() {
     return {
       username: "",
@@ -39,8 +43,7 @@ export default {
       axios
         .post(
           "/api/login",
-          { username: this.username, password: this.password, email: this.email },
-          { withCredentials: true }
+          { username: this.username, password: this.password, email: this.email }
         )
         .then((res) => {
         if (res.data.status === 'success') {
@@ -48,6 +51,7 @@ export default {
             this.user.role = res.data.user.role;
             this.user.id = res.data.user.id;
             localStorage.setItem('user', JSON.stringify(this.user));
+            this.$store.commit('login', res.data.user);
             this.$router.push({ path: '/my-collections'});
         }})
         .catch( e => {

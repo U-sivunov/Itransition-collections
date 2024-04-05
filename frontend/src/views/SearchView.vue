@@ -8,7 +8,11 @@
     import { useRouter } from 'vue-router';
 
     export default {
-        inject: ['user'],
+                computed: {
+            user () {
+                return this.$store.state.user
+            }
+        },
         data() {
             return {
                 collection: {},

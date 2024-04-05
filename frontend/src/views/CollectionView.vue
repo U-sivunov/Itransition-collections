@@ -20,7 +20,11 @@
 
   export default {
     components: {ItemComponent},
-    inject: ['user'],
+            computed: {
+            user () {
+                return this.$store.state.user
+            }
+        },
     data() {
       return {
         collection: {},

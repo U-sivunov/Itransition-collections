@@ -1,5 +1,5 @@
 <template>
-    <h3 v-if="">My collections</h3>
+    <h3>My collections</h3>
 <!--      <b-table hover :items="collections" selectable"></b-table>-->
     <CollectionComponent v-for="collection in collections" :collection="collection"></CollectionComponent>
     <router-link to="/new-collection" custom v-slot="{ navigate }">
@@ -12,7 +12,11 @@
   import CollectionComponent from "@/components/CollectionComponent";
   export default {
     components: {CollectionComponent},
-    inject: ['user'],
+            computed: {
+            user () {
+                return this.$store.state.user
+            }
+        },
     data() {
         return {
             collections: [],

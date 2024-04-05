@@ -31,7 +31,8 @@
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.3",
-    "vue3-markdown": "^1.1.9"
+    "vue3-markdown": "^1.1.9",
+    "vuex": "^4.0.2"
   },
   "browserslist": [
     "> 1%",
