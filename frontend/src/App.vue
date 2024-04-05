@@ -1,5 +1,6 @@
 <template>
   <nav>
+    {{user}}
     <div class="header-wrap">
       <div class="menu-wrap">
         <router-link to="/">Home</router-link>
