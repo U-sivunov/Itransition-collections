@@ -111,11 +111,6 @@
     },
     data() {
       return {
-        user: {
-            username: "",
-            id: undefined,
-            role: ""
-        },
         spinner: false,
         searchText: ''
       };
