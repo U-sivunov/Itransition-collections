@@ -20,7 +20,7 @@ app.use(cors({
         }
     },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', "PATCH"],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
@@ -102,11 +102,12 @@ function isAuthenticated(req, res, next) {
 function canAdd(req, res, next) {
     const user = req.user;
     const collection = prisma.collection.findUnique({where: {id:  req.body.collectionId}});
-
+    console.log(user)
+    console.log(collection)
     if (collection.authorId === user.id || req.user?.role === Role.ADMIN) {
         return next();
     } else {
-        res.status(403).send('залогинься');
+        res.status(403).send('неположено');
     }
 
 }

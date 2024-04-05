@@ -67,8 +67,8 @@
         </div>
       </div>
   </div>
-  <b-button v-if="user.id === item.authorId" variant="primary" v-on:click="editModeOn()">Edit item</b-button>
-  <b-button v-if="user.id === item.authorId" variant="danger" v-on:click="deleteItem()">Delete item</b-button>
+  <b-button v-if="user.id === item.authorId || user.role === 'ADMIN'" variant="primary" v-on:click="editModeOn()">Edit item</b-button>
+  <b-button v-if="user.id === item.authorId || user.role === 'ADMIN'" variant="danger" v-on:click="deleteItem()">Delete item</b-button>
 </template>
 
 <script>
