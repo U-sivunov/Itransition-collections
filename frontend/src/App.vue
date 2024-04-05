@@ -99,9 +99,13 @@
 <script>
   import axios from "axios";
   export default {
+    computed: {
+        user () {
+            return this.$store.state.user
+        }
+    },
     provide() {
       return {
-          user: this.user,
           spinner: this.spinner
       };
     },

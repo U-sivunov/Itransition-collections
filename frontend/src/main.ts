@@ -30,6 +30,7 @@ const store = createStore({
 
 axios.defaults.baseURL = "https://itransition-collections-back2.vercel.app/";
 axios.defaults.withCredentials = true;
+
 createApp(App)
     .use(router)
     .use(BootstrapVue3)
