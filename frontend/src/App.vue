@@ -138,17 +138,14 @@
           .get("/api/getAuthUser")
           .then((res) => {
             if (res.data.user) {
-              this.user.username = res.data.user.username;
-              this.user.role = res.data.user.role;
-              this.user.id = res.data.user.id;
-              localStorage.setItem('user', JSON.stringify(this.user));
+              this.$store.commit('login', res.data.user);
             } else {
-              this.user.username = '';
-              this.user.role = '';
-              this.user.id = undefined;
-              localStorage.removeItem('user');
+                this.$store.commit('logout');
             }
-          });
+          })
+        .catch(() => {
+          this.$store.commit('logout');
+        });
       },
       initSpinner() {
         axios.interceptors.request.use(function (config) {

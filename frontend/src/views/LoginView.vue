@@ -26,11 +26,11 @@
 <script>
 import axios from "axios";
 export default {
-          computed: {
-            user () {
-                return this.$store.state.user
-            }
-        },
+  computed: {
+    user () {
+        return this.$store.state.user
+    }
+  },
   data() {
     return {
       username: "",
@@ -47,10 +47,6 @@ export default {
         )
         .then((res) => {
         if (res.data.status === 'success') {
-            this.user.username = res.data.user.username;
-            this.user.role = res.data.user.role;
-            this.user.id = res.data.user.id;
-            localStorage.setItem('user', JSON.stringify(this.user));
             this.$store.commit('login', res.data.user);
             this.$router.push({ path: '/my-collections'});
         }})
