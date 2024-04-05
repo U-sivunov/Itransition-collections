@@ -103,8 +103,13 @@
         },
         methods: {
             updateItem() {
+                const item = this.item;
+                const fields = ['stringFieldValues','textFieldValues','booleanFieldValues','numberFieldValues','dateFieldValues'];
+                fields.forEach(f => {
+                    item[f] = {update: item[f]}
+                });
                 axios
-                  .post("/api/update-item",this.item)
+                  .post("/api/update-item",item)
                   .then((res) => {
                       this.$router.push({ path: '/my-collections'});
                   });
