@@ -99,9 +99,9 @@ function isAuthenticated(req, res, next) {
 
 }
 
-function canAdd(req, res, next) {
+async function canAdd(req, res, next) {
     const user = req.user;
-    const collection = prisma.collection.findUnique({where: {id:  req.body.collectionId}});
+    const collection = await prisma.collection.findUnique({where: {id:  req.body.collectionId}});
     console.log(user)
     console.log(collection)
     if (collection.authorId === user.id || req.user?.role === Role.ADMIN) {
