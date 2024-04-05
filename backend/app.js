@@ -257,7 +257,7 @@ router.post('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
     }
 });
 
-router.patch('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
+router.post('/api/update-item', isAuthenticated, canAdd, async (req, res, next) => {
     try {
         const newTags = req.body.tags.map(t => {return {name: t}});
         const nt = await prisma.itemTag.createMany({data: newTags, skipDuplicates: true});
@@ -269,7 +269,7 @@ router.patch('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
     }
 });
 
-router.put('/api/delete-item', isAuthenticated, canAdd, async (req, res, next) => {
+router.post('/api/delete-item', isAuthenticated, canAdd, async (req, res, next) => {
     try {
         const data = req.body;
         const item = await prisma.item.delete({where: {id: data.id}});

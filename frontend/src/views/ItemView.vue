@@ -100,7 +100,7 @@
         methods: {
             updateItem() {
                 axios
-                  .patch("/api/item",this.item)
+                  .post("/api/update-item",this.item)
                   .then((res) => {
                       this.$router.push({ path: '/my-collections'});
                   });
@@ -116,7 +116,7 @@
             },
             deleteItem() {
                 axios
-                    .put("/api/delete-item",this.item)
+                    .post("/api/delete-item",this.item)
                     .then((res) => {
 
                     });
