@@ -260,6 +260,9 @@ router.post('/api/update-item', isAuthenticated, canAdd, async (req, res, next) 
         const newTags = req.body.data.tags.map(t => {return {name: t}});
         const nt = await prisma.itemTag.createMany({data: newTags, skipDuplicates: true});
         const updateRequest = req.body;
+        console.log('11111111111');
+        console.log(updateRequest);
+        console.log('11111111111');
         const item = await prisma.item.update(updateRequest);
         res.json(item);
     } catch (error) {
