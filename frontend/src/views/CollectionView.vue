@@ -11,6 +11,8 @@
     <router-link v-if="user.id === collection.authorId  || user.role === 'ADMIN'" :to="{ path: '/new-item', query: { collectionId: collection.id }}" v-slot="{ navigate }">
       <b-button v-on:click="navigate">Add new item</b-button>
     </router-link>
+    <b-button v-if="(user.id === collection.authorId || user.role === 'ADMIN') && !editMode" variant="primary" v-on:click="editModeOn()">Edit collection</b-button>
+    <b-button v-if="(user.id === collection.authorId || user.role === 'ADMIN') && !editMode" variant="danger" v-on:click="deleteCollection()">Delete Collection</b-button>
   </div>
 </template>
 
@@ -28,7 +30,8 @@
     data() {
       return {
         collection: {},
-        items:[]
+        items:[],
+        editMode: false
       };
     },
     beforeCreate() {
@@ -46,6 +49,12 @@
     methods: {
       goToItem(row) {
           this.$router.push({ path: '/items/' + row.id })
+      },
+      editModeOn() {
+          this.editMode = true;
+      },
+      deleteCollection() {
+
       }
     },
   };

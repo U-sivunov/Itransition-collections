@@ -90,7 +90,8 @@
               collection: {},
               editMode: false,
               tagsLoaded: false,
-              availableTags: []
+              availableTags: [],
+              tagObjects: [],
             };
         },
         beforeCreate() {
@@ -98,6 +99,7 @@
                 .get("/api/item/" + this.$route.params.id)
                 .then((res) => {
                     this.item = res.data;
+                    this.tagObjects = this.item.tags;
                     this.item.tags = this.item.tags.map(t => t.name);
                     this.collection = res.data.collection;
                 });
@@ -120,6 +122,22 @@
                 delete item.data.createdAt;
                 delete item.data.updatedAt;
                 delete item.data.collection;
+
+                const tagElements = event.target.getElementsByClassName('tag-name');
+                const tagsNameArray = tagElements.map(f => f.innerText);
+                const existingTags = [];
+                const newTags = [];
+                tagsNameArray.forEach(tagName => {
+                    const existingTag = this.tagObjects.find(t => t.name === tagName);
+                    if (existingTag) {
+                        existingTags.push({id: existingTag.id});
+                    } else {
+                        newTags.push(tagName);
+                    }
+                })
+                item.data.tags = {set: existingTags, create: newTags};
+
+
                 axios
                   .post("/api/update-item",item)
                   .then((res) => {
