@@ -119,6 +119,7 @@
                 delete item.data.collectionId;
                 delete item.data.createdAt;
                 delete item.data.updatedAt;
+                delete item.data.collection;
                 axios
                   .post("/api/update-item",item)
                   .then((res) => {
