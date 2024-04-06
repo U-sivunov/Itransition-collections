@@ -263,8 +263,8 @@ router.post('/api/update-item', isAuthenticated, canAdd, async (req, res, next) 
         console.log('11111111111');
         console.log(updateRequest);
         console.log('11111111111');
-        const item = await prisma.item.update(updateRequest);
-        res.json(item);
+        // const item = await prisma.item.update(updateRequest);
+        // res.json(item);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
