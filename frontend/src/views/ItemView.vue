@@ -106,7 +106,7 @@
                 const item = this.item;
                 const fields = ['stringFieldValues','textFieldValues','booleanFieldValues','numberFieldValues','dateFieldValues'];
                 fields.forEach(f => {
-                    item[f] = {update: item[f]}
+                    item[f] = {update: {where: {id: item[f].id}, data: item[f]}};
                 });
                 delete item.collection;
                 axios
