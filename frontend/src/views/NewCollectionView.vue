@@ -45,7 +45,6 @@
 </template>
 
 <script>
-    import { VMarkdownEditor } from 'vue3-markdown'
     import axios from "axios";
     export default {
         data() {
