@@ -105,11 +105,11 @@
             updateItem() {
                 let item = ref(this.item)._rawValue;
                 const fields = ['stringFieldValues','textFieldValues','booleanFieldValues','numberFieldValues','dateFieldValues'];
-                const dynamicFields = [];
                 fields.forEach(f => {
                     item[f] = {updateMany: item[f].map(obj => {
                           const res = {where: {id: obj.id}, data: obj};
                           delete res.data.id;
+                          delete res.data.itemId;
                           return res;
                         })}
                 })
