@@ -44,75 +44,71 @@
 <script>
     import axios from "axios";
     import { ref } from 'vue';
-    export default {
-        props: {
-            createNew: false
-        },
-        data() {
-            return {
-                collection: {},
-                newItemTitle: '',
-                newItemTags: [],
-                availableTags: [],
-                tagsLoaded: false,
-                collectionLoaded: false,
-                dates: []
-            };
-        },
-        beforeCreate() {
-            axios
-                .get("/api/collections/" + this.$route.query.collectionId)
-                .then((res) => {
-                    this.collection = res.data;
-                    this.collectionLoaded = true;
-                });
-            axios
-                .get("/api/tags")
-                .then((res) => {
-                    this.availableTags = res.data;
-                    this.tagsLoaded = true;
-                });
-        },
-        methods: {
-            addNewItem() {
-                const tagElements = event.target.getElementsByClassName('tag-name');
-                const tags = [...tagElements].map(f =>{
-                    return { name: f.innerText }
-                });
-                // const uniqTagArray = tagArray.filter((t) => !this.availableTags.includes(t));
+  export default {
+    props: {
+        createNew: false
+    },
+    data() {
+      return {
+          collection: {},
+          newItemTitle: '',
+          newItemTags: [],
+          availableTags: [],
+          tagsLoaded: false,
+          collectionLoaded: false,
+          dates: []
+      };
+    },
+    beforeCreate() {
+      axios
+        .get("/api/collections/" + this.$route.query.collectionId)
+        .then((res) => {
+            this.collection = res.data;
+            this.collectionLoaded = true;
+        });
+      axios
+        .get("/api/tags")
+        .then((res) => {
+            this.availableTags = res.data.map(t => t.name);
+            this.tagsLoaded = true;
+        });
+    },
+    methods: {
+      addNewItem() {
+        const tagElements = event.target.getElementsByClassName('tag-name');
+        const tags = [...tagElements].map(f =>{
+            return { name: f.innerText }
+        });
 
-                // const dateArray = this.dates.map((f, i) => { return {value: ref(f)._value, name: this.collection[t+'FieldNames'][i]}});
+        const newItem = {
+            title: this.newItemTitle,
+            collectionId: this.collection.id,
+            tags: tags,
+        }
 
-
-                const newItem = {
-                    title: this.newItemTitle,
-                    collectionId: this.collection.id,
-                    tags: tags,
-                }
-
-                const types = [
-                      {tName: 'string', val: 'value'},
-                      {tName: 'text', val: 'value'},
-                      {tName: 'boolean', val: 'checked'},
-                      {tName: 'number', val: 'valueAsNumber'},
-                      {tName: 'date', val: 'value'},
-                    ];
-                types.forEach((t) => {
-                    const fields = event.target.getElementsByClassName(t.tName + '-field');
-                    const fieldsArray = t.tName === 'date' ?
-                        [...this.dates].map((f, i) => { return {value: ref(f)._value, name: this.collection[t.tName+'FieldNames'][i]}}) :
-                        [...fields].map((f, i) => { return {value: f[t.val], name: this.collection[t.tName+'FieldNames'][i]}});
-                    const fieldsArrayCreate = { create: [...fieldsArray] }
-                    newItem[t.tName + 'FieldValues'] = fieldsArrayCreate
-                })
-                axios
-                    .post("/api/item",newItem)
-                    .then((res) => {
-                        this.$router.push({ path: '/collections/' + this.collection.id })
-                    });
-            }
-        },
-    };
+        const types = [
+              {tName: 'string', val: 'value'},
+              {tName: 'text', val: 'value'},
+              {tName: 'boolean', val: 'checked'},
+              {tName: 'number', val: 'valueAsNumber'},
+              {tName: 'date', val: 'value'},
+            ];
+        types.forEach((t) => {
+            const fields = event.target.getElementsByClassName(t.tName + '-field');
+            const fieldsArray = t.tName === 'date' ?
+                [...this.dates].map((f, i) => { return {value: ref(f)._value, name: this.collection[t.tName+'FieldNames'][i]}}) :
+                [...fields].map((f, i) => { return {value: f[t.val], name: this.collection[t.tName+'FieldNames'][i]}});
+            const fieldsArrayCreate = { create: [...fieldsArray] }
+            newItem[t.tName + 'FieldValues'] = fieldsArrayCreate
+        })
+        axios
+            .post("/api/item",newItem)
+            .then((res) => {
+                this.$router.push({ path: '/collections/' + this.collection.id })
+            });
+      }
+    },
+  };
 </script>
 
 <style>

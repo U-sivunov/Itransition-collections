@@ -1,51 +1,47 @@
 <template>
-  <div class="admin-page">
-    <div class="admin-types">
-      <h3>Create new collection</h3>
-      <b-form @submit="addNewCollection()">
-        <b-form-input v-model="newCollectionName" placeholder="Enter new collection name"></b-form-input>
-        <b-form-select v-model="newCollectionType" :options="collectionTypes">
-          <template #first>
-            <b-form-select-option value="" disabled>Please select collection type</b-form-select-option>
-          </template>
-        </b-form-select>
-        <VMarkdownEditor v-model="newCollectionDescription" placeholder="Enter new collection description"></VMarkdownEditor>
-        <div class="parameters-wrapper">
-          <div class="block-name" >String parameters</div>
-          <b-form-input v-for="n in stringFieldsNumber" class="string-field" placeholder="Parameter name"></b-form-input>
-          <b-button variant="primary" v-on:click="stringFieldsNumber++">Add</b-button>
-          <b-button variant="primary" v-on:click="stringFieldsNumber--">Remove</b-button>
-        </div>
-        <div class="parameters-wrapper">
-          <div class="block-name" >Text parameters</div>
-          <b-form-input v-for="n in textFieldsNumber" class="text-field" placeholder="Parameter name"></b-form-input>
-          <b-button variant="primary" v-on:click="textFieldsNumber++">Add</b-button>
-          <b-button variant="primary" v-on:click="textFieldsNumber--">Remove</b-button>
-        </div>
-
-        <div class="parameters-wrapper">
-          <div class="block-name" >Boolean parameters</div>
-          <b-form-input v-for="n in booleanFieldsNumber" class="boolean-field" placeholder="Parameter name"></b-form-input>
-          <b-button variant="primary" v-on:click="booleanFieldsNumber++">Add</b-button>
-          <b-button variant="primary" v-on:click="booleanFieldsNumber--">Remove</b-button>
-        </div>
-        <div class="parameters-wrapper">
-          <div class="block-name" >Number parameters</div>
-          <b-form-input v-for="n in numberFieldsNumber" class="number-field" placeholder="Parameter name"></b-form-input>
-          <b-button variant="primary" v-on:click="numberFieldsNumber++">Add</b-button>
-          <b-button variant="primary" v-on:click="numberFieldsNumber--">Remove</b-button>
-        </div>
-        <div class="parameters-wrapper">
-          <div class="block-name" >Date parameters</div>
-          <b-form-input v-for="n in dateFieldsNumber" class="date-field" placeholder="Parameter name"></b-form-input>
-          <b-button variant="primary" v-on:click="dateFieldsNumber++">Add</b-button>
-          <b-button variant="primary" v-on:click="dateFieldsNumber--">Remove</b-button>
-        </div>
-
-        <b-button type="submit" variant="primary">Create collection</b-button>
-      </b-form>
+  <h3>Create new collection</h3>
+  <b-form @submit="addNewCollection()">
+    <b-form-input v-model="newCollectionName" placeholder="Enter new collection name"></b-form-input>
+    <b-form-select v-model="newCollectionType" :options="collectionTypes">
+      <template #first>
+        <b-form-select-option value="" disabled>Please select collection type</b-form-select-option>
+      </template>
+    </b-form-select>
+    <VMarkdownEditor v-model="newCollectionDescription" placeholder="Enter new collection description"></VMarkdownEditor>
+    <div class="parameters-wrapper">
+      <div class="block-name" >String parameters</div>
+      <b-form-input v-for="n in stringFieldsNumber" class="string-field" placeholder="Parameter name"></b-form-input>
+      <b-button variant="primary" v-on:click="stringFieldsNumber++">Add</b-button>
+      <b-button variant="primary" v-on:click="stringFieldsNumber--">Remove</b-button>
     </div>
-  </div>
+    <div class="parameters-wrapper">
+      <div class="block-name" >Text parameters</div>
+      <b-form-input v-for="n in textFieldsNumber" class="text-field" placeholder="Parameter name"></b-form-input>
+      <b-button variant="primary" v-on:click="textFieldsNumber++">Add</b-button>
+      <b-button variant="primary" v-on:click="textFieldsNumber--">Remove</b-button>
+    </div>
+
+    <div class="parameters-wrapper">
+      <div class="block-name" >Boolean parameters</div>
+      <b-form-input v-for="n in booleanFieldsNumber" class="boolean-field" placeholder="Parameter name"></b-form-input>
+      <b-button variant="primary" v-on:click="booleanFieldsNumber++">Add</b-button>
+      <b-button variant="primary" v-on:click="booleanFieldsNumber--">Remove</b-button>
+    </div>
+    <div class="parameters-wrapper">
+      <div class="block-name" >Number parameters</div>
+      <b-form-input v-for="n in numberFieldsNumber" class="number-field" placeholder="Parameter name"></b-form-input>
+      <b-button variant="primary" v-on:click="numberFieldsNumber++">Add</b-button>
+      <b-button variant="primary" v-on:click="numberFieldsNumber--">Remove</b-button>
+    </div>
+    <div class="parameters-wrapper">
+      <div class="block-name" >Date parameters</div>
+      <b-form-input v-for="n in dateFieldsNumber" class="date-field" placeholder="Parameter name"></b-form-input>
+      <b-button variant="primary" v-on:click="dateFieldsNumber++">Add</b-button>
+      <b-button variant="primary" v-on:click="dateFieldsNumber--">Remove</b-button>
+    </div>
+
+    <b-button type="submit" variant="primary">Create collection</b-button>
+  </b-form>
 </template>
 
 <script>

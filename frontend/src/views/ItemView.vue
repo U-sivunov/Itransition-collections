@@ -147,7 +147,7 @@
                 axios
                     .get("/api/tags")
                     .then((res) => {
-                        this.availableTags = res.data;
+                        this.availableTags = res.data.map(t => t.name);
                         this.tagsLoaded = true;
                         this.editMode = true;
                     });

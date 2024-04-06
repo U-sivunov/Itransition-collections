@@ -138,6 +138,7 @@
               this.$store.commit('login', res.data);
             } else {
                 this.$store.commit('logout');
+                this.$router.push({ path: '/'})
             }
           })
         .catch(() => {

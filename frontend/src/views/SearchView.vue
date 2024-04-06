@@ -28,7 +28,7 @@
                 items:[]
             };
         },
-        mounted() {
+        updated() {
             axios
                 .get("/api/search/" + this.$route.params.str)
                 .then((res) => {
