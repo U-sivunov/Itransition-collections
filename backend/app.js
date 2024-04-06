@@ -116,6 +116,15 @@ async function canUpdateItem(req, res, next) {
     } else {
         res.status(403).send('неположено');
     }
+}
+
+async function canDeleteItem(req, res, next) {
+    const user = req.user;
+    if (req.body.authorId === user.id || req.user?.role === Role.ADMIN) {
+        return next();
+    } else {
+        res.status(403).send('неположено');
+    }
 
 }
 
@@ -279,11 +288,19 @@ router.post('/api/update-item', isAuthenticated, canUpdateItem, async (req, res,
     }
 });
 
-router.post('/api/delete-item', isAuthenticated, canAdd, async (req, res, next) => {
+router.post('/api/delete-item', isAuthenticated, canUpdateItem, async (req, res, next) => {
     try {
         const data = req.body;
-        const item = await prisma.item.delete({where: {id: data.id}});
-        res.json(item);
+        const delete1 = prisma.itemStringValues.deleteMany({where: { itemID: data.id}});
+        const delete2 = prisma.itemTextValues.deleteMany({where: { itemID: data.id}});
+        const delete3 = prisma.itemBooleanValues.deleteMany({where: { itemID: data.id}});
+        const delete4 = prisma.itemNumberValues.deleteMany({where: { itemID: data.id}});
+        const delete5 = prisma.itemDateValues.deleteMany({where: { itemID: data.id}});
+
+        const deleteItem = prisma.user.delete({where: { id: data.id}});
+
+        const transaction = await prisma.$transaction([delete1, delete2, delete3, delete4, delete5, deleteItem])
+        res.json(transaction);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
