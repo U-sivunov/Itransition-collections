@@ -265,7 +265,7 @@ router.post('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
     }
 });
 
-router.post('/api/update-item', isAuthenticated, canUpdateItem(), async (req, res, next) => {
+router.post('/api/update-item', isAuthenticated, canUpdateItem, async (req, res, next) => {
     try {
         const newTags = req.body.data.tags.map(t => {return {name: t}});
         const nt = await prisma.itemTag.createMany({data: newTags, skipDuplicates: true});
