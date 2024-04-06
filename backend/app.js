@@ -292,6 +292,7 @@ router.post('/api/update-item', isAuthenticated, canUpdateItem, async (req, res,
 router.post('/api/delete-item', isAuthenticated, canDeleteItem, async (req, res, next) => {
     try {
         const data = req.body;
+        console.log(data)
         const delete1 = prisma.itemStringValues.deleteMany({where: { itemId: data.id}});
         const delete2 = prisma.itemTextValues.deleteMany({where: { itemId: data.id}});
         const delete3 = prisma.itemBooleanValues.deleteMany({where: { itemId: data.id}});
