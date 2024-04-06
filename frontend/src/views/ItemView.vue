@@ -124,7 +124,7 @@
                 delete item.data.collection;
 
                 const tagElements = event.target.getElementsByClassName('tag-name');
-                const tagsNameArray = tagElements.map(f => f.innerText);
+                const tagsNameArray = [...tagElements].map(f => f.innerText);
                 const existingTags = [];
                 const newTags = [];
                 tagsNameArray.forEach(tagName => {
