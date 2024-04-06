@@ -103,7 +103,7 @@
         },
         methods: {
             updateItem() {
-                const item = ref(this.item);
+                const item = ref(this.item)._rawValue;
                 const fields = ['stringFieldValues','textFieldValues','booleanFieldValues','numberFieldValues','dateFieldValues'];
                 const dynamicFields = [];
                 fields.forEach(f => {
