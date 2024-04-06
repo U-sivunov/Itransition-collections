@@ -107,9 +107,9 @@
                 const fields = ['stringFieldValues','textFieldValues','booleanFieldValues','numberFieldValues','dateFieldValues'];
                 const dynamicFields = [];
                 fields.forEach(f => {
-                    // const valuesArray = item[f]
                     item[f] = {updateMany: item[f].map(obj => {
-                          return {where: {id: obj.id}, data: obj}
+                          const objData = delete obj.id;
+                          return {where: {id: obj.id}, data: objData}
                         })}
                 })
                 axios
