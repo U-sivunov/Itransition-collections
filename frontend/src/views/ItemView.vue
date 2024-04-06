@@ -108,8 +108,9 @@
                 const dynamicFields = [];
                 fields.forEach(f => {
                     item[f] = {updateMany: item[f].map(obj => {
-                          const objData = delete obj.id;
-                          return {where: {id: obj.id}, data: objData}
+                          const res = {where: {id: obj.id}, data: obj}
+                          delete obj.id
+                          return res;
                         })}
                 })
                 axios
