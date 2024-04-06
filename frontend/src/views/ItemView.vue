@@ -132,7 +132,7 @@
                     if (existingTag) {
                         existingTags.push({id: existingTag.id});
                     } else {
-                        newTags.push(tagName);
+                        newTags.push({name: tagName});
                     }
                 })
                 item.data.tags = {set: existingTags, create: newTags};
