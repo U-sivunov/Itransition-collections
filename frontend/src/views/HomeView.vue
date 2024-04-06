@@ -1,13 +1,12 @@
 <template>
-<!--  <wordcloud-->
-<!--    :data="tags"-->
-<!--    nameKey="name"-->
-<!--    valueKey="value"-->
-<!--    :color="colors"-->
-<!--    :showTooltip="true"-->
-<!--    :wordClick="wordClickHandler">-->
-<!--  </wordcloud>-->
   <div class="home">
+    <wordcloud
+      :data="defaultWords"
+      nameKey="name"
+      valueKey="value"
+      :showTooltip="true"
+      :wordClick="wordClickHandler">
+    </wordcloud>
     <div class="recent-items">
       <item-component v-for="item in resentItems" :item="item">
 
@@ -31,7 +30,7 @@
       return {
         resentItems: [],
         tags:[],
-        colors: ['#1f77b4', '#9fc962', '#94ff94', '#ff00ef'],
+        defaultWords: [{name: 'fwgfewgew', value: 1},{name: 'fasfafaf', value: 4}]
       };
     },
     mounted() {
