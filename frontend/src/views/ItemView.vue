@@ -137,7 +137,7 @@
                 axios
                     .post("/api/delete-item",this.item)
                     .then((res) => {
-
+                        this.$router.push({ path: '/collections/' + this.collection.id })
                     });
             }
 

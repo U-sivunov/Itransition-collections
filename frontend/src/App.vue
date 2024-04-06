@@ -124,10 +124,7 @@
         axios
           .get("/api/logout")
           .then((res) => {
-            this.user.username = '';
-            this.user.id = undefined;
-            this.user.isAdmin = false;
-            localStorage.clear();
+              this.$store.commit('logout');
           });
       },
       search() {
