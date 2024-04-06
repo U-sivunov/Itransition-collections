@@ -103,15 +103,17 @@
         },
         methods: {
             updateItem() {
-                const item = this.item;
+                const item = ref(this.item);
                 const fields = ['stringFieldValues','textFieldValues','booleanFieldValues','numberFieldValues','dateFieldValues'];
+                const dynamicFields = [];
                 fields.forEach(f => {
-                    item[f] = {updateMany: ref(item[f]).map(obj => {
+                    // const valuesArray = item[f]
+                    item[f] = {updateMany: item[f].map(obj => {
                           return {where: {id: obj.id}, data: obj}
                         })}
                 })
                 axios
-                  .post("/api/update-item",this.item)
+                  .post("/api/update-item",item)
                   .then((res) => {
                       this.$router.push({ path: '/my-collections'});
                   });
