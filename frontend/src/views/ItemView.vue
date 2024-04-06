@@ -116,8 +116,7 @@
                   .post("/api/update-item",item)
                   .then((res) => {
                       this.$router.push({ path: '/my-collections'});
-                  });
-            },
+                  });},
             editModeOn() {
                 axios
                     .get("/api/tags")
