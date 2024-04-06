@@ -109,6 +109,16 @@ async function canAdd(req, res, next) {
 
 }
 
+async function canUpdateItem(req, res, next) {
+    const user = req.user;
+    if (req.data.authorId === user.id || req.user?.role === Role.ADMIN) {
+        return next();
+    } else {
+        res.status(403).send('неположено');
+    }
+
+}
+
 function isAdmin(req, res, next) {
     if (req.user?.role === Role.ADMIN) {
         return next();
@@ -256,9 +266,17 @@ router.post('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
 });
 
 router.post('/api/update-item', isAuthenticated, canAdd, async (req, res, next) => {
-    console.log('11111111111');
-    console.log(req.body);
-    console.log('11111111111');
+    try {
+        const newTags = req.body.data.tags.map(t => {return {name: t}});
+        const nt = await prisma.itemTag.createMany({data: newTags, skipDuplicates: true});
+        const updateRequest = req.body;
+        delete updateRequest.data.authorId;
+        console.log(updateRequest);
+        const item = await prisma.item.update(updateRequest);
+        res.json(item);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
 });
 
 router.post('/api/delete-item', isAuthenticated, canAdd, async (req, res, next) => {

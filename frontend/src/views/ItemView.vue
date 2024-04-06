@@ -115,7 +115,6 @@
                 })
                 item = {where: {id: item.id}, data: item }
                 delete item.data.id;
-                delete item.data.authorId;
                 delete item.data.collectionId;
                 delete item.data.createdAt;
                 delete item.data.updatedAt;
