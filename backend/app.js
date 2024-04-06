@@ -111,7 +111,7 @@ async function canAdd(req, res, next) {
 
 async function canUpdateItem(req, res, next) {
     const user = req.user;
-    if (req.data.authorId === user.id || req.user?.role === Role.ADMIN) {
+    if (req.body.data.authorId === user.id || req.user?.role === Role.ADMIN) {
         return next();
     } else {
         res.status(403).send('неположено');
