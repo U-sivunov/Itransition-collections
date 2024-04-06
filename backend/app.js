@@ -261,12 +261,11 @@ router.get('/api/collections/:id', async (req, res, next) => {
 
 router.post('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
     try {
-        const newTags = req.body.tags.map(t => {return {name: t}});
         // const nt = await prisma.itemTag.createMany({data: newTags, skipDuplicates: true, items: { push}});
         const data = req.body;
         data.author = {connect: {id: req.user.id}};
         data.collection = {connect: {id: req.body.collectionId}};
-        data.tags = {crate: {newTags}};
+        data.tags = {crate: data.tags};
         delete data.collectionId;
         console.log(data);
         const item = await prisma.item.create({data: data});
@@ -346,8 +345,7 @@ router.get('/api/items-by-collection/:id', async (req, res, next) => {
 router.get('/api/tags', async (req, res, next) => {
     try {
         const tags = await prisma.itemTag.findMany();
-        const tagsArr = tags.map(t => t.name);
-        res.json(tagsArr);
+        res.json(tags);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }

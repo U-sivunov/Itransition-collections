@@ -76,7 +76,9 @@
         methods: {
             addNewItem() {
                 const tagElements = event.target.getElementsByClassName('tag-name');
-                const tagArray = [...tagElements].map(f => f.innerText);
+                const tags = [...tagElements].map(f =>{
+                    return { name: f.innerText }
+                });
                 // const uniqTagArray = tagArray.filter((t) => !this.availableTags.includes(t));
 
                 // const dateArray = this.dates.map((f, i) => { return {value: ref(f)._value, name: this.collection[t+'FieldNames'][i]}});
@@ -85,7 +87,7 @@
                 const newItem = {
                     title: this.newItemTitle,
                     collectionId: this.collection.id,
-                    tags: tagArray,
+                    tags: tags,
                 }
 
                 const types = [

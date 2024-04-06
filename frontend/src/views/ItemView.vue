@@ -10,7 +10,7 @@
           :sources="availableTags"
           :allowPaste="{delimiter: ','}"
           :allowDuplicates="false"
-          :defaultTags=item.tags
+          :defaultTags=item.tags.name
         />
       </div>
         <div class="additional-fields">
