@@ -292,11 +292,11 @@ router.post('/api/update-item', isAuthenticated, canUpdateItem, async (req, res,
 router.post('/api/delete-item', isAuthenticated, canDeleteItem, async (req, res, next) => {
     try {
         const data = req.body;
-        const delete1 = prisma.itemStringValues.deleteMany({where: { itemID: data.id}});
-        const delete2 = prisma.itemTextValues.deleteMany({where: { itemID: data.id}});
-        const delete3 = prisma.itemBooleanValues.deleteMany({where: { itemID: data.id}});
-        const delete4 = prisma.itemNumberValues.deleteMany({where: { itemID: data.id}});
-        const delete5 = prisma.itemDateValues.deleteMany({where: { itemID: data.id}});
+        const delete1 = prisma.itemStringValues.deleteMany({where: { itemId: data.id}});
+        const delete2 = prisma.itemTextValues.deleteMany({where: { itemId: data.id}});
+        const delete3 = prisma.itemBooleanValues.deleteMany({where: { itemId: data.id}});
+        const delete4 = prisma.itemNumberValues.deleteMany({where: { itemId: data.id}});
+        const delete5 = prisma.itemDateValues.deleteMany({where: { itemId: data.id}});
 
         const deleteItem = prisma.user.delete({where: { id: data.id}});
 
@@ -317,6 +317,7 @@ router.get('/api/item/:id', async (req, res, next) => {
                 booleanFieldValues: true,
                 numberFieldValues: true,
                 dateFieldValues: true,
+                tags: true,
             }});
         res.json(item);
     } catch (error) {

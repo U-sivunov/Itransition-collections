@@ -137,8 +137,8 @@
         axios
           .get("/api/getAuthUser")
           .then((res) => {
-            if (res.data.user) {
-              this.$store.commit('login', res.data.user);
+            if (res.data) {
+              this.$store.commit('login', res.data);
             } else {
                 this.$store.commit('logout');
             }
