@@ -13,7 +13,7 @@ import "smart-tagz/dist/smart-tagz.css";
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import { createStore } from 'vuex';
-import wordcloud from 'vue-wordcloud'
+import Vue3WordCloud from 'vue3-word-cloud';
 
 const store = createStore({
     state: {
@@ -37,7 +37,7 @@ createApp(App)
     .use(BootstrapVue3)
     .use(store)
     .component('VMarkdownEditor', VMarkdownEditor)
-    .component('wordcloud', wordcloud)
+    .component(Vue3WordCloud.name, Vue3WordCloud)
     .component('VMarkdownView', VMarkdownView)
     .component('smart-tagz', SmartTagz)
     .component('Datepicker', VueDatePicker)

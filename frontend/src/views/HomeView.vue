@@ -1,12 +1,14 @@
 <template>
   <div class="home">
-    <wordcloud
-      :data="defaultWords"
-      nameKey="name"
-      valueKey="value"
-      :showTooltip="true"
-      :wordClick="wordClickHandler">
-    </wordcloud>
+    <vue3-word-cloud
+      style="
+    height: 480px;
+    width: 640px;
+  "
+      :words="[['romance', 19], ['horror', 3], ['fantasy', 7], ['adventure', 3]]"
+      :color="([, weight]) => weight > 10 ? 'DeepPink' : weight > 5 ? 'RoyalBlue' : 'Indigo'"
+      font-family="Roboto"
+    />
     <div class="recent-items">
       <item-component v-for="item in resentItems" :item="item">
 
