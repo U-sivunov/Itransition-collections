@@ -106,7 +106,9 @@
                 const item = this.item;
                 const fields = ['stringFieldValues','textFieldValues','booleanFieldValues','numberFieldValues','dateFieldValues'];
                 fields.forEach(f => {
-                    item[f] = {updateMany: ref(item[f])}
+                    item[f] = {updateMany: ref(item[f]).map(obj => {
+                          return {where: {id: obj.id}, data: obj}
+                        })}
                 })
                 axios
                   .post("/api/update-item",this.item)
