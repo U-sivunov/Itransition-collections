@@ -109,7 +109,7 @@
                 fields.forEach(f => {
                     item[f] = {updateMany: item[f].map(obj => {
                           const res = {where: {id: obj.id}, data: obj};
-                          delete obj.id;
+                          delete res.data.id;
                           return res;
                         })}
                 })
