@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import MyCollectionsView from "../views/MyCollectionsView.vue";
+import AllCollectionsView from "../views/AllCollectionsView.vue";
 import NewCollectionView from "../views/NewCollectionView.vue";
 import NewItemView from "../views/NewItemView.vue";
 import SearchView from "../views/SearchView.vue";
@@ -20,6 +21,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/my-collections",
     name: "my-collections",
     component: MyCollectionsView,
+  },
+  {
+    path: "/all-collections",
+    name: "all-collections",
+    component: AllCollectionsView,
   },
   {
     path: "/new-collection",

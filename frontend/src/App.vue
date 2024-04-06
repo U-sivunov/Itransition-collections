@@ -5,6 +5,7 @@
       <div class="menu-wrap">
         <router-link to="/">Home</router-link>
         <router-link to="/my-collections" v-if="user.username">My collections</router-link>
+        <router-link to="/all-collections">All collections</router-link>
         <router-link v-if="user.role === 'ADMIN'" to="/admin">Admin</router-link>
       </div>
 

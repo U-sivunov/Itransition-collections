@@ -1,11 +1,6 @@
 <template>
-  <div class="admin-page">
-    <div class="admin-types">
-      <h3>Collection</h3>
-      <b-table hover :items="collections"></b-table>
-      <b-button v-on:click="goToNew()">Create new collection</b-button>
-    </div>
-  </div>
+  <h3>All collections</h3>
+  <b-table hover :items="collections"></b-table>
 </template>
 
 <script>
@@ -30,7 +25,7 @@
         },
         mounted() {
             axios
-                .get("/api/collection/")
+                .get("/api/all-collections")
                 .then((res) => {
                     this.collections = res.data;
                 });

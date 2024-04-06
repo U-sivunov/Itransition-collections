@@ -250,6 +250,24 @@ router.get('/api/my-collections', isAuthenticated, async (req, res, next) => {
     }
 });
 
+router.get('/api/all-collections', isAuthenticated, async (req, res, next) => {
+    try {
+        const collection = await prisma.collection.findMany({
+            include: {
+                _count: {
+                    select: { items: true },
+                },
+            },
+        });
+        res.json(collection);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
+
+
+
 router.get('/api/collections/:id', async (req, res, next) => {
     try {
         const collection = await prisma.collection.findUnique({where: {id: parseInt(req.params.id)}, include: {_count: { select: {items: true}}}});
@@ -299,7 +317,7 @@ router.post('/api/delete-item', isAuthenticated, canDeleteItem, async (req, res,
         const delete4 = prisma.itemNumberValues.deleteMany({where: { itemId: data.id}});
         const delete5 = prisma.itemDateValues.deleteMany({where: { itemId: data.id}});
 
-        const deleteItem = prisma.user.delete({where: { id: data.id}});
+        const deleteItem = prisma.user.delete({where: {id: data.id}});
 
         const transaction = await prisma.$transaction([delete1, delete2, delete3, delete4, delete5, deleteItem])
         res.json(transaction);
