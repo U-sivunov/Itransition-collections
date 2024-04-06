@@ -3,7 +3,7 @@
     <h5>{{item.title}}</h5>
     <div class="item-tags">
       <div v-for="tag in item.tags">
-        {{tag}}
+        {{tag.name}}
       </div>
     </div>
   </div>

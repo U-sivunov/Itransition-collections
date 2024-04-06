@@ -10,7 +10,7 @@
           :sources="availableTags"
           :allowPaste="{delimiter: ','}"
           :allowDuplicates="false"
-          :defaultTags=item.tags.name
+          :defaultTags=item.tags
         />
       </div>
         <div class="additional-fields">
@@ -98,6 +98,7 @@
                 .get("/api/item/" + this.$route.params.id)
                 .then((res) => {
                     this.item = res.data;
+                    this.item.tags = this.item.tags.map(t => t.name);
                     this.collection = res.data.collection;
                 });
         },

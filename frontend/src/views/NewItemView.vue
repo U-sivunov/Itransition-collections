@@ -108,7 +108,7 @@
                 axios
                     .post("/api/item",newItem)
                     .then((res) => {
-                      console.log(res);
+                        this.$router.push({ path: '/collections/' + this.collection.id })
                     });
             }
         },
