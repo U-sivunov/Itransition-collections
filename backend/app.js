@@ -336,7 +336,7 @@ router.get('/api/get-resent-items', async (req, res, next) => {
 
 router.get('/api/items-by-collection/:id', async (req, res, next) => {
     try {
-        const items = await prisma.item.findMany({where: {collectionId: parseInt(req.params.id)}});
+        const items = await prisma.item.findMany({where: {collectionId: parseInt(req.params.id)}, include: {tags: true}});
         res.json(items);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
@@ -344,6 +344,15 @@ router.get('/api/items-by-collection/:id', async (req, res, next) => {
 });
 
 router.get('/api/tags', async (req, res, next) => {
+    try {
+        const tags = await prisma.itemTag.findMany();
+        res.json(tags);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
+router.get('/api/tagsForCloud', async (req, res, next) => {
     try {
         const tags = await prisma.itemTag.findMany();
         res.json(tags);

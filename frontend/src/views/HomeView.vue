@@ -3,9 +3,9 @@
     <vue3-word-cloud
       style="
     height: 480px;
-    width: 640px;
+    width: 100%;
   "
-      :words="[['romance', 19], ['horror', 3], ['fantasy', 7], ['adventure', 3]]"
+      :words="tagsForCloud"
       :color="([, weight]) => weight > 10 ? 'DeepPink' : weight > 5 ? 'RoyalBlue' : 'Indigo'"
       font-family="Roboto"
     />
@@ -31,7 +31,7 @@
     data() {
       return {
         resentItems: [],
-        tags:[],
+        tagsForCloud:[],
         defaultWords: [{name: 'fwgfewgew', value: 1},{name: 'fasfafaf', value: 4}]
       };
     },
@@ -52,9 +52,9 @@
       },
       getTags() {
         axios
-          .get("/api/tags")
+          .get("/api/tagsForCloud")
           .then((res) => {
-              this.tags = res.data.map(t => {return {name: t.name, value: 1}});
+              this.tagsForCloud = res.data.map(t => {return {name: t.name, value: 1}});
               this.tagsLoaded = true;
           });
       },
