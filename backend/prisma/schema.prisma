@@ -117,7 +117,11 @@ model Comment {
 model ItemTag {
   id Int @id @default(autoincrement())
   name String @unique
+  items Item[]
 }
+
+
+
 
 model CollectionTypeExtended {
   id   Int    @id @default(autoincrement())

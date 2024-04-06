@@ -137,7 +137,7 @@ function isAdmin(req, res, next) {
 
 }
 
-router.get('/api/getAuthUser', isAdmin, async (req, res) => {
+router.get('/api/getAuthUser', async (req, res) => {
     res.json(req.user);
 });
 
@@ -262,11 +262,13 @@ router.get('/api/collections/:id', async (req, res, next) => {
 router.post('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
     try {
         const newTags = req.body.tags.map(t => {return {name: t}});
-        const nt = await prisma.itemTag.createMany({data: newTags, skipDuplicates: true});
+        // const nt = await prisma.itemTag.createMany({data: newTags, skipDuplicates: true, items: { push}});
         const data = req.body;
         data.author = {connect: {id: req.user.id}};
         data.collection = {connect: {id: req.body.collectionId}};
+        data.tags = {crate: {newTags}};
         delete data.collectionId;
+        console.log(data);
         const item = await prisma.item.create({data: data});
         res.json(item);
     } catch (error) {
@@ -288,7 +290,7 @@ router.post('/api/update-item', isAuthenticated, canUpdateItem, async (req, res,
     }
 });
 
-router.post('/api/delete-item', isAuthenticated, canUpdateItem, async (req, res, next) => {
+router.post('/api/delete-item', isAuthenticated, canDeleteItem, async (req, res, next) => {
     try {
         const data = req.body;
         const delete1 = prisma.itemStringValues.deleteMany({where: { itemID: data.id}});
