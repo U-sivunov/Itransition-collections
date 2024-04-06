@@ -67,8 +67,8 @@
         </div>
       </div>
   </div>
-  <b-button v-if="user.id === item.authorId || user.role === 'ADMIN'" variant="primary" v-on:click="editModeOn()">Edit item</b-button>
-  <b-button v-if="user.id === item.authorId || user.role === 'ADMIN'" variant="danger" v-on:click="deleteItem()">Delete item</b-button>
+  <b-button v-if="(user.id === item.authorId || user.role === 'ADMIN') && !editMode" variant="primary" v-on:click="editModeOn()">Edit item</b-button>
+  <b-button v-if="(user.id === item.authorId || user.role === 'ADMIN') && !editMode" variant="danger" v-on:click="deleteItem()">Delete item</b-button>
 </template>
 
 <script>
@@ -103,7 +103,7 @@
         },
         methods: {
             updateItem() {
-                const item = ref(this.item)._rawValue;
+                let item = ref(this.item)._rawValue;
                 const fields = ['stringFieldValues','textFieldValues','booleanFieldValues','numberFieldValues','dateFieldValues'];
                 const dynamicFields = [];
                 fields.forEach(f => {
@@ -113,6 +113,8 @@
                           return res;
                         })}
                 })
+                item = {where: {id: item.id}, data: item }
+                delete item.data.id;
                 axios
                   .post("/api/update-item",item)
                   .then((res) => {
