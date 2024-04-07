@@ -361,11 +361,31 @@ router.get('/api/item/:id', async (req, res, next) => {
         const item = await prisma.item.findUnique({where: {id: parseInt(req.params.id)},
             include: {
                 collection: true,
-                stringFieldValues: true,
-                textFieldValues: true,
-                booleanFieldValues: true,
-                numberFieldValues: true,
-                dateFieldValues: true,
+                stringFieldValues: {
+                    include: {
+                        name: true,
+                    },
+                },
+                textFieldValues: {
+                    include: {
+                        name: true,
+                    },
+                },
+                booleanFieldValues: {
+                    include: {
+                        name: true,
+                    },
+                },
+                numberFieldValues: {
+                    include: {
+                        name: true,
+                    },
+                },
+                dateFieldValues: {
+                    include: {
+                        name: true,
+                    },
+                },
                 tags: true,
             }});
         res.json(item);
