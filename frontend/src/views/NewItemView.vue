@@ -15,24 +15,24 @@
         />
       </div>
       <div v-if="collectionLoaded" class="additional-fields">
-        <div v-for="i in collection.stringFieldNames.length">
-          <label>{{collection.stringFieldNames[i-1]}}</label>
+        <div v-for="n in collection.stringFieldNames">
+          <label>{{n.name}}</label>
           <b-form-input class="string-field"></b-form-input>
         </div>
-        <div v-for="i in collection.textFieldNames.length">
-          <label>{{collection.textFieldNames[i-1]}}</label>
+        <div v-for="n in collection.textFieldNames">
+          <label>{{n.name}}</label>
           <b-form-textarea class="text-field"></b-form-textarea>
         </div>
-        <div v-for="i in collection.numberFieldNames.length">
-          <label>{{collection.numberFieldNames[i-1]}}</label>
+        <div v-for="n in collection.numberFieldNames">
+          <label>{{n.name}}</label>
           <b-form-input type="number" class="number-field"></b-form-input>
         </div>
-        <div v-for="i in collection.booleanFieldNames.length">
-          <label>{{collection.booleanFieldNames[i-1]}}</label>
+        <div v-for="n in collection.booleanFieldNames">
+          <label>{{n.name}}</label>
           <b-form-checkbox class="boolean-field"></b-form-checkbox>
         </div>
-        <div v-for="i in collection.dateFieldNames.length">
-          <label>{{collection.dateFieldNames[i-1]}}</label>
+        <div v-for="n in collection.dateFieldNames">
+          <label>{{n.name}}</label>
           <Datepicker v-model="dates[i-1]"></Datepicker>
         </div>
       </div>

@@ -38,7 +38,7 @@ export default {
           if (res.data.code === "P2002") {
             this.errorTarget = res.data.meta.target[0];
           } else {
-            this.$router.push({ path: '/my-collections'});
+            this.$router.push({ path: '/login'});
           }
         });
     },
