@@ -2,6 +2,7 @@
   <b-form v-if="editMode" @submit="updateCollection()">
     <b-form-input v-model="collection.title" placeholder="Enter new collection name"></b-form-input>
     <b-form-select v-model="collection.type" :options="collectionTypes">
+      {{collection.type}}
       <template #first>
         <b-form-select-option value="" disabled>Please select collection type</b-form-select-option>
       </template>
@@ -71,8 +72,9 @@
     data() {
       return {
         collection: {},
-        items:[],
-        editMode: false
+        items: [],
+        editMode: false,
+        collectionTypes: []
       };
     },
     beforeCreate() {
@@ -98,7 +100,6 @@
               this.collectionTypes = res.data;
               this.editMode = true;
           });
-
       },
       deleteCollection() {
 

@@ -15,16 +15,6 @@
         },
         data() {
             return {
-                collection: {},
-                newCollectionName: '',
-                newCollectionType: '',
-                newCollectionDescription: '',
-                stringFieldsNumber: 1,
-                textFieldsNumber: 1,
-                booleanFieldsNumber: 1,
-                numberFieldsNumber: 1,
-                dateFieldsNumber: 1,
-                collectionTypes: [],
                 items:[]
             };
         },
