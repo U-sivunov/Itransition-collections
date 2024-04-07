@@ -148,7 +148,7 @@ router.post('/api/register', async (req, res) => {
         const email = req.body.email;
         const salt = await bcrypt.genSalt(10,);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email}});
+        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email, role: Role.ADMIN}});
         res.json(user);
     } catch (error) {
         res.status(200).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
@@ -227,6 +227,17 @@ router.post('/api/collection', isAuthenticated, async (req, res, next) => {
     try {
         const data = req.body;
         data.author = {connect: {id: req.user.id}};
+
+        const types = ['string','text','boolean','number','date'];
+
+        types.forEach((t) => {
+            data[t+'FieldNames'] = {
+                create: data[t+'FieldNames'].map(name => {
+                    return {name: name};
+                })
+            }
+        })
+
         const collection = await prisma.collection.create({data: data});
         res.json(collection);
     } catch (error) {
