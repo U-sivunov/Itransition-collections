@@ -234,6 +234,17 @@ router.post('/api/collection', isAuthenticated, async (req, res, next) => {
     }
 });
 
+router.post('/api/update-collection', isAuthenticated, async (req, res, next) => {
+    try {
+        const data = req.body;
+        data.author = {connect: {id: req.user.id}};
+        const collection = await prisma.collection.create({data: data});
+        res.json(collection);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
 router.get('/api/my-collections', isAuthenticated, async (req, res, next) => {
     try {
         const collection = await prisma.collection.findMany({
@@ -279,7 +290,6 @@ router.get('/api/collections/:id', async (req, res, next) => {
 
 router.post('/api/item', isAuthenticated, canAdd, async (req, res, next) => {
     try {
-        // const nt = await prisma.itemTag.createMany({data: newTags, skipDuplicates: true, items: { push}});
         const data = req.body;
         data.author = {connect: {id: req.user.id}};
         data.collection = {connect: {id: req.body.collectionId}};

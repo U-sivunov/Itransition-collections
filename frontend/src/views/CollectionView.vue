@@ -10,34 +10,33 @@
     <div class="parameters-wrapper">
       <div class="block-name" >String parameters</div>
       <b-form-input v-for="n in collection.stringFieldNames.length" class="string-field" v-model="collection.stringFieldNames[n-1]" placeholder="Parameter name"></b-form-input>
-      <b-button variant="primary" v-on:click="collection.stringFieldNames.push('')"></b-button>
-      <b-button variant="primary" v-on:click="collection.stringFieldNames.pull()"></b-button>
+      <b-button variant="primary" v-on:click="collection.stringFieldNames.push('')">Add</b-button>
+      <b-button variant="primary" v-on:click="collection.stringFieldNames.pop()">Remove</b-button>
     </div>
-<!--    <div class="parameters-wrapper">-->
-<!--      <div class="block-name" >Text parameters</div>-->
-<!--      <b-form-input v-for="n in textFieldsNumber" class="text-field" placeholder="Parameter name"></b-form-input>-->
-<!--      <b-button variant="primary" v-on:click="textFieldsNumber++">Add</b-button>-->
-<!--      <b-button variant="primary" v-on:click="textFieldsNumber&#45;&#45;">Remove</b-button>-->
-<!--    </div>-->
-
-<!--    <div class="parameters-wrapper">-->
-<!--      <div class="block-name" >Boolean parameters</div>-->
-<!--      <b-form-input v-for="n in booleanFieldsNumber" class="boolean-field" placeholder="Parameter name"></b-form-input>-->
-<!--      <b-button variant="primary" v-on:click="booleanFieldsNumber++">Add</b-button>-->
-<!--      <b-button variant="primary" v-on:click="booleanFieldsNumber&#45;&#45;">Remove</b-button>-->
-<!--    </div>-->
-<!--    <div class="parameters-wrapper">-->
-<!--      <div class="block-name" >Number parameters</div>-->
-<!--      <b-form-input v-for="n in numberFieldsNumber" class="number-field" placeholder="Parameter name"></b-form-input>-->
-<!--      <b-button variant="primary" v-on:click="numberFieldsNumber++">Add</b-button>-->
-<!--      <b-button variant="primary" v-on:click="numberFieldsNumber&#45;&#45;">Remove</b-button>-->
-<!--    </div>-->
-<!--    <div class="parameters-wrapper">-->
-<!--      <div class="block-name" >Date parameters</div>-->
-<!--      <b-form-input v-for="n in dateFieldsNumber" class="date-field" placeholder="Parameter name"></b-form-input>-->
-<!--      <b-button variant="primary" v-on:click="dateFieldsNumber++">Add</b-button>-->
-<!--      <b-button variant="primary" v-on:click="dateFieldsNumber&#45;&#45;">Remove</b-button>-->
-<!--    </div>-->
+    <div class="parameters-wrapper">
+      <div class="block-name" >Text parameters</div>
+      <b-form-input v-for="n in collection.textFieldNames.length" class="text-field" v-model="collection.textFieldNames[n-1]" placeholder="Parameter name"></b-form-input>
+      <b-button variant="primary" v-on:click="collection.textFieldNames.push('')">Add</b-button>
+      <b-button variant="primary" v-on:click="collection.textFieldNames.pop()">Remove</b-button>
+    </div>
+    <div class="parameters-wrapper">
+      <div class="block-name" >Boolean parameters</div>
+      <b-form-input v-for="n in collection.booleanFieldNames.length" class="boolean-field" v-model="collection.booleanFieldNames[n-1]" placeholder="Parameter name"></b-form-input>
+      <b-button variant="primary" v-on:click="collection.booleanFieldNames.push('')">Add</b-button>
+      <b-button variant="primary" v-on:click="collection.booleanFieldNames.pop()">Remove</b-button>
+    </div>
+    <div class="parameters-wrapper">
+      <div class="block-name" >Number parameters</div>
+      <b-form-input v-for="n in collection.numberFieldNames.length" class="number-field" v-model="collection.numberFieldNames[n-1]" placeholder="Parameter name"></b-form-input>
+      <b-button variant="primary" v-on:click="collection.numberFieldNames.push('')">Add</b-button>
+      <b-button variant="primary" v-on:click="collection.numberFieldNames.pop()">Remove</b-button>
+    </div>
+    <div class="parameters-wrapper">
+      <div class="block-name" >Date parameters</div>
+      <b-form-input v-for="n in collection.dateFieldNames.length" class="date-field" v-model="collection.dateFieldNames[n-1]" placeholder="Parameter name"></b-form-input>
+      <b-button variant="primary" v-on:click="collection.dateFieldNames.push('')">Add</b-button>
+      <b-button variant="primary" v-on:click="collection.dateFieldNames.pop()">Remove</b-button>
+    </div>
 
     <b-button type="submit" variant="primary">Create collection</b-button>
   </b-form>
@@ -105,7 +104,12 @@
 
       },
       updateCollection() {
-
+        axios
+            .post("/api/update-collection")
+            .then((res) => {
+                this.collectionTypes = res.data;
+                this.editMode = true;
+            });
       }
     },
   };
