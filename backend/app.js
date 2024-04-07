@@ -367,7 +367,6 @@ router.get('/api/item/:id', async (req, res, next) => {
                 numberFieldValues: true,
                 dateFieldValues: true,
                 tags: true,
-                name: true,
             }});
         res.json(item);
     } catch (error) {
