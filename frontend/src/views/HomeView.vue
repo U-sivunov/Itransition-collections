@@ -36,6 +36,7 @@
     data() {
       return {
         resentItems: [],
+        biggestCollections: [],
         tagsForCloud:[['romance', 19], ['horror', 3], ['fantasy', 7], ['adventure', 3]],
       };
     },
@@ -59,7 +60,7 @@
         axios
           .get("/api/get-biggest-collections/")
           .then((res) => {
-              this.resentItems = res.data;
+              this.biggestCollections = res.data;
           })
           .catch( e => {
               console.log(e)

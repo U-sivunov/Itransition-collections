@@ -355,7 +355,7 @@ router.get('/api/get-resent-items', async (req, res, next) => {
 
 router.get('/api/get-biggest-collections', async (req, res, next) => {
     try {
-        const items = await prisma.collection.findMany({include: {orderBy: {_count: {select: {items: true}}}}});
+        const items = await prisma.collection.findMany({take: 5, orderBy: {items: {_count: 'desc'}}});
         res.json(items);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});

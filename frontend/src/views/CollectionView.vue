@@ -1,18 +1,18 @@
 <template>
-<!--  <b-form v-if="editMode" @submit="updateCollection()">-->
-<!--    <b-form-input v-model="collection.title" placeholder="Enter new collection name"></b-form-input>-->
-<!--    <b-form-select v-model="collection.type" :options="collectionTypes">-->
-<!--      <template #first>-->
-<!--        <b-form-select-option value="" disabled>Please select collection type</b-form-select-option>-->
-<!--      </template>-->
-<!--    </b-form-select>-->
-<!--    <VMarkdownEditor v-model="collection.description" placeholder="Enter new collection description"></VMarkdownEditor>-->
-<!--    <div class="parameters-wrapper">-->
-<!--      <div class="block-name" >String parameters</div>-->
-<!--      <b-form-input v-for="n in stringFieldsNumber" class="string-field" placeholder="Parameter name"></b-form-input>-->
-<!--      <b-button variant="primary" v-on:click="stringFieldsNumber++">Add</b-button>-->
-<!--      <b-button variant="primary" v-on:click="stringFieldsNumber&#45;&#45;">Remove</b-button>-->
-<!--    </div>-->
+  <b-form v-if="editMode" @submit="updateCollection()">
+    <b-form-input v-model="collection.title" placeholder="Enter new collection name"></b-form-input>
+    <b-form-select v-model="collection.type" :options="collectionTypes">
+      <template #first>
+        <b-form-select-option value="" disabled>Please select collection type</b-form-select-option>
+      </template>
+    </b-form-select>
+    <VMarkdownEditor v-model="collection.description" placeholder="Enter new collection description"></VMarkdownEditor>
+    <div class="parameters-wrapper">
+      <div class="block-name" >String parameters</div>
+      <b-form-input v-for="n in collection.stringFieldNames.length" class="string-field" v-model="collection.stringFieldNames[n-1]" placeholder="Parameter name"></b-form-input>
+      <b-button variant="primary" v-on:click="collection.stringFieldNames.push('')"></b-button>
+      <b-button variant="primary" v-on:click="collection.stringFieldNames.pull()"></b-button>
+    </div>
 <!--    <div class="parameters-wrapper">-->
 <!--      <div class="block-name" >Text parameters</div>-->
 <!--      <b-form-input v-for="n in textFieldsNumber" class="text-field" placeholder="Parameter name"></b-form-input>-->
@@ -39,8 +39,8 @@
 <!--      <b-button variant="primary" v-on:click="dateFieldsNumber&#45;&#45;">Remove</b-button>-->
 <!--    </div>-->
 
-<!--    <b-button type="submit" variant="primary">Create collection</b-button>-->
-<!--  </b-form>-->
+    <b-button type="submit" variant="primary">Create collection</b-button>
+  </b-form>
   <div v-if="!editMode" class="collection-page">
     <h3>Collection</h3>
     <h2>{{collection.title}}</h2>
