@@ -373,7 +373,7 @@ router.get('/api/tags', async (req, res, next) => {
 
 router.get('/api/tagsForCloud', async (req, res, next) => {
     try {
-        const tags = await prisma.itemTag.findMany({include: {items: true}});
+        const tags = await prisma.itemTag.findMany({include: {_count: {select: {items: true}}}});
         res.json(tags);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
