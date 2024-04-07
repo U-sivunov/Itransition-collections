@@ -96,8 +96,8 @@
         types.forEach((t) => {
           const fields = event.target.getElementsByClassName(t.tName + '-field');
           const fieldsArray = t.tName === 'date' ?
-              [...this.dates].map((f, i) => { return {value: ref(f)._value, name: this.collection[t.tName+'FieldNames'][i]}}) :
-              [...fields].map((f, i) => { return {value: f[t.val], name: this.collection[t.tName+'FieldNames'][i]}});
+              [...this.dates].map((f, i) => { return {value: ref(f)._value, name: {connect: { id: this.collection[t.tName+'FieldNames'][i].id}}}}) :
+              [...fields].map((f, i) => { return {value: f[t.val], name: {connect: { id: this.collection[t.tName+'FieldNames'][i]}}}});
           const fieldsArrayCreate = { create: [...fieldsArray] }
           newItem[t.tName + 'FieldValues'] = fieldsArrayCreate
         })
