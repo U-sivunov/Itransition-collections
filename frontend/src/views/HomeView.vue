@@ -54,7 +54,7 @@
         axios
           .get("/api/tagsForCloud")
           .then((res) => {
-              this.tagsForCloud = res.data.map(t => {return {name: t.name, value: 1}});
+              this.tagsForCloud = res.data.map(t => {return [t.name,  1]});
               this.tagsLoaded = true;
           });
       },
