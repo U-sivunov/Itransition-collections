@@ -6,9 +6,18 @@
     width: 100%;
   "
       :words="tagsForCloud"
-      :color="([, weight]) => weight > 10 ? 'DeepPink' : weight > 5 ? 'RoyalBlue' : 'Indigo'"
+      :rotation = "([, weight]) => Math.random()*180 - 90"
+      :rotation-unit = "'deg'"
+      :color="([, weight]) => weight > 1 ? 'DeepPink' : weight > 3 ? 'RoyalBlue' : 'Indigo'"
+      :spacing = "1"
       font-family="Roboto"
-    />
+    >
+      <template v-slot="{text, weight}">
+        <div :title="'search for ' + text" style="cursor: pointer;" @click="wordClickHandler(text)">
+          {{ text }}
+        </div>
+      </template>
+    </vue3-word-cloud>
     <div class="recent-items">
       <h3>Biggest Collections</h3>
       <collection-component v-for="collection in biggestCollections" :collection="collection">
@@ -74,9 +83,9 @@
               this.tagsLoaded = true;
           });
       },
-      wordClickHandler(name, value, vm) {
-        console.log('wordClickHandler', name, value, vm);
-      }
+      wordClickHandler(word) {
+          this.$router.push({ path: '/search/' + word});
+      },
     }
   }
 </script>
