@@ -353,6 +353,15 @@ router.get('/api/get-resent-items', async (req, res, next) => {
     }
 });
 
+router.get('/api/get-biggest-collections', async (req, res, next) => {
+    try {
+        const items = await prisma.collection.findMany({include: {orderBy: {_count: {select: {items: true}}}}});
+        res.json(items);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
+    }
+});
+
 router.get('/api/items-by-collection/:id', async (req, res, next) => {
     try {
         const items = await prisma.item.findMany({where: {collectionId: parseInt(req.params.id)}, include: {tags: true}});

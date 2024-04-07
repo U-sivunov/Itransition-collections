@@ -10,6 +10,11 @@
       font-family="Roboto"
     />
     <div class="recent-items">
+      <h3>Biggest Collections</h3>
+      <collection-component v-for="collection in biggestCollections" :collection="collection">
+
+      </collection-component>
+      <h3>Resent Items</h3>
       <item-component v-for="item in resentItems" :item="item">
 
       </item-component>
@@ -31,12 +36,12 @@
     data() {
       return {
         resentItems: [],
-        tagsForCloud:[],
-        defaultWords: [{name: 'fwgfewgew', value: 1},{name: 'fasfafaf', value: 4}]
+        tagsForCloud:[['romance', 19], ['horror', 3], ['fantasy', 7], ['adventure', 3]],
       };
     },
     mounted() {
       this.getResentItems();
+      this.getBiggestCollections();
       this.getTags();
     },
     methods: {
@@ -50,11 +55,21 @@
             console.log(e)
         });
       },
+      getBiggestCollections() {
+        axios
+          .get("/api/get-biggest-collections/")
+          .then((res) => {
+              this.resentItems = res.data;
+          })
+          .catch( e => {
+              console.log(e)
+          });
+      },
       getTags() {
         axios
           .get("/api/tagsForCloud")
           .then((res) => {
-              this.tagsForCloud = res.data.map(t => {return [t.name,  1]});
+              this.tagsForCloud = res.data.map(t => {return [t.name,  t._count.items + 1]});
               this.tagsLoaded = true;
           });
       },
