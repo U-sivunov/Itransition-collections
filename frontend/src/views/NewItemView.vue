@@ -31,7 +31,7 @@
           <label>{{n.name}}</label>
           <b-form-checkbox class="boolean-field"></b-form-checkbox>
         </div>
-        <div v-for="n in collection.dateFieldNames">
+        <div v-for="(n, i) in collection.dateFieldNames">
           <label>{{n.name}}</label>
           <Datepicker v-model="dates[i-1]"></Datepicker>
         </div>
@@ -97,7 +97,7 @@
           const fields = event.target.getElementsByClassName(t.tName + '-field');
           const fieldsArray = t.tName === 'date' ?
               [...this.dates].map((f, i) => { return {value: ref(f)._value, name: {connect: { id: this.collection[t.tName+'FieldNames'][i].id}}}}) :
-              [...fields].map((f, i) => { return {value: f[t.val], name: {connect: { id: this.collection[t.tName+'FieldNames'][i]}}}});
+              [...fields].map((f, i) => { return {value: f[t.val], name: {connect: { id: this.collection[t.tName+'FieldNames'][i].id}}}});
           const fieldsArrayCreate = { create: [...fieldsArray] }
           newItem[t.tName + 'FieldValues'] = fieldsArrayCreate
         })
