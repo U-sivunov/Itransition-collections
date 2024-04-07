@@ -50,6 +50,7 @@ model CollectionStringNames {
     Collection       Collection              @relation(fields: [CollectionId], references: [id])
     CollectionId     Int
     name        String
+    value ItemStringValues[]
 }
 
 model CollectionDateNames {
@@ -57,6 +58,7 @@ model CollectionDateNames {
     Collection       Collection   @relation(fields: [CollectionId], references: [id])
     CollectionId     Int
     name        String
+    value ItemDateValues[]
 }
 
 model CollectionTextNames {
@@ -64,6 +66,7 @@ model CollectionTextNames {
     Collection       Collection              @relation(fields: [CollectionId], references: [id])
     CollectionId     Int
     name        String
+    value ItemTextValues[]
 }
 
 model CollectionBooleanNames {
@@ -71,6 +74,7 @@ model CollectionBooleanNames {
     Collection       Collection              @relation(fields: [CollectionId], references: [id])
     CollectionId     Int
     name        String
+    value ItemBooleanValues[]
 }
 
 model CollectionNumberNames {
@@ -78,6 +82,7 @@ model CollectionNumberNames {
     Collection       Collection              @relation(fields: [CollectionId], references: [id])
     CollectionId     Int
     name        String
+    value ItemNumberValues[]
 }
 
 model Item {
@@ -103,7 +108,8 @@ model ItemStringValues {
     id                 Int        @id @default(autoincrement())
     item             Item       @relation(fields: [itemId], references: [id])
     itemId             Int
-    name        CollectionStringNames
+    name        CollectionStringNames @relation(fields: [nameId], references: [id])
+    nameId      Int
     value       String
 }
 
@@ -111,7 +117,8 @@ model ItemTextValues {
     id                 Int        @id @default(autoincrement())
     item             Item       @relation(fields: [itemId], references: [id])
     itemId             Int
-    name        CollectionTextNames
+    name        CollectionTextNames @relation(fields: [nameId], references: [id])
+    nameId      Int
     value       String
 }
 
@@ -119,7 +126,8 @@ model ItemBooleanValues {
     id                 Int        @id @default(autoincrement())
     item             Item       @relation(fields: [itemId], references: [id])
     itemId             Int
-    name        CollectionBooleanNames
+    name        CollectionBooleanNames @relation(fields: [nameId], references: [id])
+    nameId      Int
     value       Boolean
 }
 
@@ -127,7 +135,8 @@ model ItemNumberValues {
     id                 Int        @id @default(autoincrement())
     item             Item       @relation(fields: [itemId], references: [id])
     itemId             Int
-    name        CollectionBooleanNames
+    name        CollectionBooleanNames @relation(fields: [nameId], references: [id])
+    nameId      Int
     value       Int
 }
 
@@ -135,7 +144,8 @@ model ItemDateValues {
     id                 Int        @id @default(autoincrement())
     item             Item       @relation(fields: [itemId], references: [id])
     itemId             Int
-    name        CollectionBooleanNames
+    name        CollectionBooleanNames @relation(fields: [nameId], references: [id])
+    nameId      Int
     value       DateTime
 }
 
