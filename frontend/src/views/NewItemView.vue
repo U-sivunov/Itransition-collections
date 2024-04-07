@@ -33,7 +33,7 @@
         </div>
         <div v-for="(n, i) in collection.dateFieldNames">
           <label>{{n.name}}</label>
-          <Datepicker v-model="dates[i-1]"></Datepicker>
+          <Datepicker v-model="dates[i]"></Datepicker>
         </div>
       </div>
       <b-button type="submit" variant="primary">Create Item</b-button>

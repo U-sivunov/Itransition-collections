@@ -15,23 +15,23 @@
     </div>
       <div class="additional-fields">
         <div v-for="f in item.stringFieldValues">
-            <label>{{f.name}}</label>
+            <label>{{f.name.name}}</label>
             <b-form-input class="string-field" v-model="f.value"></b-form-input>
         </div>
         <div v-for="f in item.textFieldValues">
-          <label>{{f.name}}</label>
+          <label>{{f.name.name}}</label>
           <b-form-input class="text-field" v-model="f.value"></b-form-input>
         </div>
         <div v-for="f in item.numberFieldValues">
-          <label>{{f.name}}</label>
+          <label>{{f.name.name}}</label>
           <b-form-input type="number" class="number-field" v-model="f.value"></b-form-input>
         </div>
         <div v-for="f in item.booleanFieldValues">
-          <label>{{f.name}}</label>
+          <label>{{f.name.name}}</label>
           <b-form-checkbox class="boolean-field" v-model="f.value"></b-form-checkbox>
         </div>
         <div v-for="f in item.dateFieldValues">
-          <label>{{f.name}}</label>
+          <label>{{f.name.name}}</label>
           <Datepicker v-model="f.value"></Datepicker>
         </div>
       </div>
@@ -46,23 +46,23 @@
     </div>
     <div class="additional-fields">
       <div v-for="f in item.stringFieldValues">
-        <div>{{f.name}}:</div>
+        <div>{{f.name.name}}:</div>
         <div>{{f.value}}</div>
       </div>
       <div v-for="f in item.textFieldValues">
-        <div>{{f.name}}:</div>
+        <div>{{f.name.name}}:</div>
         <div>{{f.value}}</div>
       </div>
       <div v-for="f in item.numberFieldValues">
-        <div>{{f.name}}:</div>
+        <div>{{f.name.name}}:</div>
         <div>{{f.value}}</div>
       </div>
       <div v-for="f in item.booleanFieldValues">
-        <label>{{f.name}}</label>
+        <label>{{f.name.name}}</label>
         <b-form-checkbox class="boolean-field" v-model="f.value" disabled></b-form-checkbox>
       </div>
       <div v-for="f in item.dateFieldValues">
-        <div>{{f.name}}</div>
+        <div>{{f.name.name}}</div>
         <div>{{f.value}}</div>
       </div>
     </div>

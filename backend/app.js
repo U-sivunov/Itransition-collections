@@ -347,7 +347,7 @@ router.post('/api/delete-item', isAuthenticated, canDeleteItem, async (req, res,
         const delete4 = prisma.itemNumberValues.deleteMany({where: { itemId: data.id}});
         const delete5 = prisma.itemDateValues.deleteMany({where: { itemId: data.id}});
 
-        const deleteItem = prisma.user.delete({where: {id: data.id}});
+        const deleteItem = prisma.item.delete({where: {id: data.id}});
 
         const transaction = await prisma.$transaction([delete1, delete2, delete3, delete4, delete5, deleteItem])
         res.json(transaction);
@@ -367,6 +367,7 @@ router.get('/api/item/:id', async (req, res, next) => {
                 numberFieldValues: true,
                 dateFieldValues: true,
                 tags: true,
+                name: true,
             }});
         res.json(item);
     } catch (error) {
