@@ -247,8 +247,8 @@ router.post('/api/collection', isAuthenticated, async (req, res, next) => {
 
 router.post('/api/update-collection', isAuthenticated, canUpdateItem, async (req, res, next) => {
     try {
-        const updateRequest = req.body.data;
-        delete updateRequest.authorId;
+        const updateRequest = req.body;
+        delete updateRequest.data.authorId;
         console.log(updateRequest);
         const item = await prisma.collection.update(updateRequest);
         res.json(item);
