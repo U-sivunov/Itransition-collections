@@ -14,10 +14,16 @@ const router = express.Router();
 const prisma = new PrismaClient();
 const http = require('http');
 const server = http.createServer(app);
-const ws = new WebSocket.Server({ server });
+const webSocketServer = new WebSocket.Server({ server });
 
-server.listen(3003, () => {
-    console.log("WS listening on port 3003");
+webSocketServer.on('connection', ws => {
+    ws.on('message', m => {
+        webSocketServer.clients.forEach(client => client.send(m));
+    });
+
+    ws.on("error", e => ws.send(e));
+
+    ws.send('Hi there, I am a WebSocket server');
 });
 
 app.use(cors({
@@ -482,7 +488,7 @@ router.post('/api/add-comment', isAuthenticated, async (req, res, next) => {
     try {
         const comment = req.body;
         const resp = await prisma.item.update({where: {id: comment.itemId}, data: {comments: {create: {author: {connect: {id: comment.authorId}}, text: comment.comment}}}});
-        ws.emit('comment', resp)
+        webSocketServer.emit('comment', resp)
         res.json(resp);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
