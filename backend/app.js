@@ -6,6 +6,7 @@ const cors = require('cors');
 const { PrismaClient, Role, CollectionTypeEnum} = require('@prisma/client');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
 const socketIo = require('socket.io');
+const WebSocket = require( "ws");
 
 const session = require('express-session');
 const app = express();
@@ -13,7 +14,7 @@ const router = express.Router();
 const prisma = new PrismaClient();
 const http = require('http');
 const server = http.createServer(app);
-const ws = socketIo(server);
+const ws = new WebSocket.Server({ server });
 
 app.use(cors({
     origin: function (origin, callback) {
