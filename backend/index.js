@@ -163,7 +163,7 @@ router.post('/api/register', async (req, res) => {
         const email = req.body.email;
         const salt = await bcrypt.genSalt(10,);
         const hashedPassword = await bcrypt.hash(password, salt);
-        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email, role: Role.ADMIN}});
+        const user = await prisma.user.create({data: { username: username, password: hashedPassword, email: email}});
         res.json(user);
     } catch (error) {
         res.status(200).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
