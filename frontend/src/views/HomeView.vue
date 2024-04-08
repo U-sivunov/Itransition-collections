@@ -20,9 +20,9 @@
     </vue3-word-cloud>
     <div class="recent-items">
       <h3>Biggest Collections</h3>
-      <collection-component v-for="collection in biggestCollections" :collection="collection">
+      <CollectionComponent v-for="collection in biggestCollections" :collection="collection">
 
-      </collection-component>
+      </CollectionComponent>
       <h3>Resent Items</h3>
       <item-component v-for="item in resentItems" :item="item">
 
@@ -37,10 +37,12 @@
 <script>
   import axios from "axios";
   import ItemComponent from "@/components/ItemComponent";
+  import CollectionComponent from "@/components/CollectionComponent";
 
   export default {
     components: {
         ItemComponent,
+        CollectionComponent,
     },
     data() {
       return {
