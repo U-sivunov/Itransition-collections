@@ -88,7 +88,7 @@
   import ItemComponent from "@/components/ItemComponent";
   import {ref} from "vue";
 
-  const connection = new WebSocket('ws://itransition-collections-back2.vercel.app/');
+  const connection = new WebSocket('wss://itransition-collections-back2.vercel.app/');
 
   export default {
     components: {ItemComponent},
