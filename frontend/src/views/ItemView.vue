@@ -69,7 +69,7 @@
   </div>
   <b-button v-if="(user.id === item.authorId || user.role === 'ADMIN') && !editMode" variant="primary" v-on:click="editModeOn()">Edit item</b-button>
   <b-button v-if="(user.id === item.authorId || user.role === 'ADMIN') && !editMode" variant="danger" v-on:click="deleteItem()">Delete item</b-button>
-  <div v-if="!editMode && user.name">
+  <div v-if="!editMode && user.id">
     <h3>Comments</h3>
     <div class="add-comment-wrapper">
       <b-form @submit.prevent="addComment()">
@@ -174,7 +174,7 @@
       },
       addComment() {
         axios
-          .post("/api/add-comment",{comment: this.newComment, author: this.user.id, itemId: this.item.id})
+          .post("/api/add-comment",{comment: this.newComment, authorId: this.user.id, itemId: this.item.id})
           .then((res) => {
               this.$router.push({ path: '/collections/' + this.collection.id })
           })
