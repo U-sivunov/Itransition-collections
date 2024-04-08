@@ -1,6 +1,6 @@
 <template>
   <h3>All collections</h3>
-  <b-table hover :items="collections"></b-table>
+  <CollectionComponent v-for="collection in collections" :collection="collection"></CollectionComponent>
 </template>
 
 <script>

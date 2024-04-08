@@ -288,7 +288,7 @@ router.get('/api/my-collections', isAuthenticated, async (req, res, next) => {
     }
 });
 
-router.get('/api/all-collections', isAuthenticated, async (req, res, next) => {
+router.get('/api/all-collections', async (req, res, next) => {
     try {
         const collection = await prisma.collection.findMany({
             include: {
