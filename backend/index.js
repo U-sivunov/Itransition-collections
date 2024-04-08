@@ -14,7 +14,7 @@ const router = express.Router();
 const prisma = new PrismaClient();
 const http = require('http');
 const server = http.createServer(app);
-const webSocketServer = new WebSocket.Server({ server: server });
+const webSocketServer = new WebSocket.Server({ server: server, path: "/ws" });
 
 webSocketServer.on('connection', ws => {
     ws.on('message', m => {
