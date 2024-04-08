@@ -120,7 +120,7 @@
                 existingFields.push({where: {id: obj.id}, data: {name: obj.name}})
             }
           })
-          collection.data[n] = {updateMany: existingFields, createMany: newFields};
+          collection.data[n] = {updateMany: existingFields, createMany: { data: newFields }};
         })
 
         axios
