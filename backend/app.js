@@ -16,6 +16,10 @@ const http = require('http');
 const server = http.createServer(app);
 const ws = new WebSocket.Server({ server });
 
+server.listen(3000, () => {
+    console.log("WS listening on port 3000");
+});
+
 app.use(cors({
     origin: function (origin, callback) {
         if (/^https:\/\/itransition-collections-.*-u-sivunovs-projects\.vercel\.app$/.test(origin) || 'https://itransition-collections-one.vercel.app' === origin || !origin) {
