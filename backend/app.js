@@ -16,8 +16,8 @@ const http = require('http');
 const server = http.createServer(app);
 const ws = new WebSocket.Server({ server });
 
-server.listen(3000, () => {
-    console.log("WS listening on port 3000");
+server.listen(3003, () => {
+    console.log("WS listening on port 3003");
 });
 
 app.use(cors({

@@ -89,7 +89,7 @@
   import {ref} from "vue";
   import { io } from 'socket.io-client';
 
-  const socket = new WebSocket('wss://itransition-collections-back2.vercel.app/');
+  const socket = new WebSocket('wss://itransition-collections-back2.vercel.app/:3003');
 
   export default {
     components: {ItemComponent},
