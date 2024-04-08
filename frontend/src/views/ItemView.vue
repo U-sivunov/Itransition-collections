@@ -72,6 +72,7 @@
   <div v-if="!editMode && user.id">
     <h3>Comments</h3>
     <div class="add-comment-wrapper">
+      <h5>Add new:</h5>
       <b-form @submit.prevent="addComment()">
         <b-form-input class="text-field" v-model="newComment"></b-form-input>
       </b-form>

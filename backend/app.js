@@ -472,7 +472,8 @@ router.get('/api/search/:str', async (req, res, next) => {
 router.post('/api/add-comment', isAuthenticated, async (req, res, next) => {
     try {
         const comment = req.body;
-        const res = await prisma.item.update({where: {id: comment.itemId}, data: {comments: {create: {author: {id: comment.authorId}, text: comment.comment}}}});
+        const resp = await prisma.item.update({where: {id: comment.itemId}, data: {comments: {create: {author: {id: comment.authorId}, text: comment.comment}}}});
+        res.json(resp);
     } catch (res) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
