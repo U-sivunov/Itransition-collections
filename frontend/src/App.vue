@@ -128,7 +128,6 @@
           });
       },
       search() {
-          console.log(this.$route)
         this.$router.push({ path: '/search/' + this.searchText});
       },
       getAuthUser() {
