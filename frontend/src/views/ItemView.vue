@@ -98,7 +98,6 @@
             .get("/api/item/" + this.$route.params.id)
             .then((res) => {
                 this.item = res.data;
-                this.tagObjects = this.item.tags;
                 this.item.tags = this.item.tags.map(t => t.name);
                 this.collection = res.data.collection;
             });
@@ -148,6 +147,7 @@
           .get("/api/tags")
           .then((res) => {
               this.availableTags = res.data.map(t => t.name);
+              this.tagObjects = res.data;
               this.tagsLoaded = true;
               this.editMode = true;
           });
@@ -157,7 +157,8 @@
           .post("/api/delete-item",this.item)
           .then((res) => {
               this.$router.push({ path: '/collections/' + this.collection.id })
-          });
+          })
+          .catch(e => console.log(e));
       }
 
     },

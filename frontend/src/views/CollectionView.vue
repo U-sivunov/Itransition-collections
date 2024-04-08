@@ -2,40 +2,36 @@
   <b-form v-if="editMode" @submit="updateCollection()">
     <b-form-input v-model="collection.title" placeholder="Enter new collection name"></b-form-input>
     <b-form-select v-model="collection.type" :options="collectionTypes">
-      {{collection.type}}
-      <template #first>
-        <b-form-select-option value="" disabled>Please select collection type</b-form-select-option>
-      </template>
     </b-form-select>
     <VMarkdownEditor v-model="collection.description" placeholder="Enter new collection description"></VMarkdownEditor>
     <div class="parameters-wrapper">
       <div class="block-name" >String parameters</div>
       <b-form-input v-for="n in collection.stringFieldNames" class="string-field" v-model="n.name" placeholder="Parameter name"></b-form-input>
-      <b-button variant="primary" v-on:click="collection.stringFieldNames.push('')">Add</b-button>
+      <b-button variant="primary" v-on:click="collection.stringFieldNames.push({id: 0, name: ''})">Add</b-button>
       <b-button variant="primary" v-on:click="collection.stringFieldNames.pop()">Remove</b-button>
     </div>
     <div class="parameters-wrapper">
       <div class="block-name" >Text parameters</div>
       <b-form-input v-for="n in collection.textFieldNames" class="text-field" v-model="n.name" placeholder="Parameter name"></b-form-input>
-      <b-button variant="primary" v-on:click="collection.textFieldNames.push('')">Add</b-button>
+      <b-button variant="primary" v-on:click="collection.textFieldNames.push({id: 0, name: ''})">Add</b-button>
       <b-button variant="primary" v-on:click="collection.textFieldNames.pop()">Remove</b-button>
     </div>
     <div class="parameters-wrapper">
       <div class="block-name" >Boolean parameters</div>
       <b-form-input v-for="n in collection.booleanFieldNames" class="boolean-field" v-model="n.name" placeholder="Parameter name"></b-form-input>
-      <b-button variant="primary" v-on:click="collection.booleanFieldNames.push('')">Add</b-button>
+      <b-button variant="primary" v-on:click="collection.booleanFieldNames.push({id: 0, name: ''})">Add</b-button>
       <b-button variant="primary" v-on:click="collection.booleanFieldNames.pop()">Remove</b-button>
     </div>
     <div class="parameters-wrapper">
       <div class="block-name" >Number parameters</div>
       <b-form-input v-for="n in collection.numberFieldNames" class="number-field" v-model="n.name" placeholder="Parameter name"></b-form-input>
-      <b-button variant="primary" v-on:click="collection.numberFieldNames.push('')">Add</b-button>
+      <b-button variant="primary" v-on:click="collection.numberFieldNames.push({id: 0, name: ''})">Add</b-button>
       <b-button variant="primary" v-on:click="collection.numberFieldNames.pop()">Remove</b-button>
     </div>
     <div class="parameters-wrapper">
       <div class="block-name" >Date parameters</div>
       <b-form-input v-for="n in collection.dateFieldNames" class="date-field" v-model="n.name" placeholder="Parameter name"></b-form-input>
-      <b-button variant="primary" v-on:click="collection.dateFieldNames.push('')">Add</b-button>
+      <b-button variant="primary" v-on:click="collection.dateFieldNames.push({id: 0, name: ''})">Add</b-button>
       <b-button variant="primary" v-on:click="collection.dateFieldNames.pop()">Remove</b-button>
     </div>
 
@@ -61,6 +57,7 @@
 <script>
   import axios from "axios";
   import ItemComponent from "@/components/ItemComponent";
+  import {ref} from "vue";
 
   export default {
     components: {ItemComponent},
@@ -105,12 +102,33 @@
 
       },
       updateCollection() {
+        let collection = ref(this.collection)._rawValue;
+        collection = {where: {id: collection.id}, data: collection }
+        delete collection.data.id;
+        delete collection.data.createdAt;
+        delete collection.data.updatedAt;
+        delete collection.data._count;
+
+        const fieldsNames = ['stringFieldNames','textFieldNames','booleanFieldNames','numberFieldNames','dateFieldNames'];
+        fieldsNames.forEach(n => {
+          const existingFields = [];
+          const newFields = [];
+          this.collection[n].forEach(obj => {
+            if (obj.id === 0) {
+                newFields.push({data: {name: obj.name}});
+            } else {
+                existingFields.push({where: {id: obj.id}, data: {name: obj.name}})
+            }
+          })
+          collection.data[n] = {updateMany: existingFields, createMany: newFields};
+        })
+
         axios
-            .post("/api/update-collection")
-            .then((res) => {
-                this.collectionTypes = res.data;
-                this.editMode = true;
-            });
+          .post("/api/update-collection", collection)
+          .then((res) => {
+              this.$router.go(0);
+          })
+          .catch(e => console.log(e));
       }
     },
   };

@@ -29,6 +29,7 @@
     padding: 10px;
     border-radius: 8px;
     border: 1px solid black;
+    transition: all 0.2s;
   }
 
   .collection-wrapper:hover {
