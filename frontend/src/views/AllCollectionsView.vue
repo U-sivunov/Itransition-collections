@@ -6,9 +6,11 @@
 <script>
     import axios from "axios";
     import { useRouter } from 'vue-router'
+    import CollectionComponent from "@/components/CollectionComponent";
     const router = useRouter()
 
     export default {
+        components: {CollectionComponent},
         data() {
             return {
                 collections: [],
