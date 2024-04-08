@@ -494,6 +494,8 @@ router.post('/api/add-comment', isAuthenticated, async (req, res, next) => {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
 });
+server.listen(8999, () => console.log("Server started"))
+
 
 app.use(router)
 module.exports = app;

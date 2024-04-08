@@ -87,9 +87,8 @@
   import axios from "axios";
   import ItemComponent from "@/components/ItemComponent";
   import {ref} from "vue";
-  import { io } from 'socket.io-client';
 
-  const socket = new WebSocket('wss://itransition-collections-back2.vercel.app/');
+  const connection = new WebSocket('ws://itransition-collections-back2.vercel.app/');
 
   export default {
     components: {ItemComponent},
@@ -118,13 +117,13 @@
                 this.collection = res.data.collection;
             });
         // socket.connect();
-        socket.on('comment',  (comment) => {
-            console.log('!!!!!!!!!!!!!11')
-            console.log(comment)
-        });
+        // socket.on('comment',  (comment) => {
+        //     console.log('!!!!!!!!!!!!!11')
+        //     console.log(comment)
+        // });
     },
     onUnmounted() {
-      socket.disconnect();
+      // socket.disconnect();
     },
     methods: {
       updateItem() {
