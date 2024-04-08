@@ -35,7 +35,7 @@
       <b-button variant="primary" v-on:click="collection.dateFieldNames.pop()">Remove</b-button>
     </div>
 
-    <b-button type="submit" variant="primary">Create collection</b-button>
+    <b-button type="submit" variant="primary">Update collection</b-button>
   </b-form>
   <div v-if="!editMode" class="collection-page">
     <h3>Collection</h3>

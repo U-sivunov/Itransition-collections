@@ -66,9 +66,20 @@
         <div>{{f.value}}</div>
       </div>
     </div>
-</div>
+  </div>
   <b-button v-if="(user.id === item.authorId || user.role === 'ADMIN') && !editMode" variant="primary" v-on:click="editModeOn()">Edit item</b-button>
   <b-button v-if="(user.id === item.authorId || user.role === 'ADMIN') && !editMode" variant="danger" v-on:click="deleteItem()">Delete item</b-button>
+  <div v-if="!editMode && user.name">
+    <h3>Comments</h3>
+    <div class="add-comment-wrapper">
+      <b-form @submit.prevent="addComment()">
+        <b-form-input class="text-field" v-model="newComment"></b-form-input>
+      </b-form>
+    </div>
+    <div class="comment-wrapper" v-for="comment of item.comments">
+      {{comment}}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -91,6 +102,7 @@
           tagsLoaded: false,
           availableTags: [],
           tagObjects: [],
+          newComment: ''
         };
     },
     beforeCreate() {
@@ -155,6 +167,14 @@
       deleteItem() {
         axios
           .post("/api/delete-item",this.item)
+          .then((res) => {
+              this.$router.push({ path: '/collections/' + this.collection.id })
+          })
+          .catch(e => console.log(e));
+      },
+      addComment() {
+        axios
+          .post("/api/add-comment",{comment: this.newComment, author: this.user.id, itemId: this.item.id})
           .then((res) => {
               this.$router.push({ path: '/collections/' + this.collection.id })
           })
