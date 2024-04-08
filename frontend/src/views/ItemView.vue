@@ -87,6 +87,9 @@
   import axios from "axios";
   import ItemComponent from "@/components/ItemComponent";
   import {ref} from "vue";
+  import { io } from 'socket.io-client';
+
+  const socket = io('https://itransition-collections-back2.vercel.app/');
 
   export default {
     components: {ItemComponent},
@@ -114,6 +117,14 @@
                 this.item.tags = this.item.tags.map(t => t.name);
                 this.collection = res.data.collection;
             });
+        socket.connect();
+        socket.on('comment',  (comment) => {
+            console.log('!!!!!!!!!!!!!11')
+            console.log(comment)
+        });
+    },
+    onUnmounted() {
+      socket.disconnect();
     },
     methods: {
       updateItem() {
@@ -177,7 +188,7 @@
         axios
           .post("/api/add-comment",{comment: this.newComment, authorId: this.user.id, itemId: this.item.id})
           .then((res) => {
-              this.$router.push({ path: '/collections/' + this.collection.id })
+
           })
           .catch(e => console.log(e));
       }

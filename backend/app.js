@@ -5,11 +5,15 @@ const bcrypt = require('bcrypt');
 const cors = require('cors');
 const { PrismaClient, Role, CollectionTypeEnum} = require('@prisma/client');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
+const socketIo = require('socket.io');
 
 const session = require('express-session');
 const app = express();
 const router = express.Router();
 const prisma = new PrismaClient();
+const http = require('http');
+const server = http.createServer(app);
+const ws = socketIo(server);
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -473,8 +477,9 @@ router.post('/api/add-comment', isAuthenticated, async (req, res, next) => {
     try {
         const comment = req.body;
         const resp = await prisma.item.update({where: {id: comment.itemId}, data: {comments: {create: {author: {id: comment.authorId}, text: comment.comment}}}});
+        ws.emit('new-comment', resp)
         res.json(resp);
-    } catch (res) {
+    } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
     }
 });
