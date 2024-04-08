@@ -115,7 +115,7 @@
           const newFields = [];
           this.collection[n].forEach(obj => {
             if (obj.id === 0) {
-                newFields.push({data: {name: obj.name}});
+                newFields.push({name: obj.name});
             } else {
                 existingFields.push({where: {id: obj.id}, data: {name: obj.name}})
             }
