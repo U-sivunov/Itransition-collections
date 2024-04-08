@@ -12,8 +12,8 @@ const session = require('express-session');
 const app = express();
 const router = express.Router();
 const prisma = new PrismaClient();
-const https = require('https');
-const server = https.createServer(app);
+const http = require('http');
+const server = http.createServer(app);
 const webSocketServer = new WebSocket.Server({ server: server, path: "/ws" });
 
 webSocketServer.on('connection', ws => {
