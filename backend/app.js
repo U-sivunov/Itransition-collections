@@ -478,7 +478,7 @@ router.post('/api/add-comment', isAuthenticated, async (req, res, next) => {
     try {
         const comment = req.body;
         const resp = await prisma.item.update({where: {id: comment.itemId}, data: {comments: {create: {author: {connect: {id: comment.authorId}}, text: comment.comment}}}});
-        ws.emit('new-comment', resp)
+        ws.emit('comment', resp)
         res.json(resp);
     } catch (error) {
         res.status(500).json({ message: 'Internal Server Error - ' + error, code: error.code, meta: error.meta});
